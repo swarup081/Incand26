@@ -1,31 +1,28 @@
-// src/components/NoiseFilter.tsx
 export const NoiseFilter = () => (
   <svg style={{ position: "absolute", height: 0, width: 0 }}>
     <defs>
-      <filter id="textNoise" x="0" y="0" width="100%" height="100%">
+      <filter id="textNoise" x="-2%" y="-2%" width="104%" height="104%">
         <feTurbulence
           type="fractalNoise"
-          baseFrequency="0.65"
-          numOctaves="3"
-          stitchTiles="stitch"
-          result="noise"
+          baseFrequency="0.4"
+          numOctaves="6"
+          result="rawNoise"
         />
-
+        <feColorMatrix
+          in="rawNoise"
+          type="saturate"
+          values="0"
+          result="grayNoise"
+        />
         <feComposite
-          operator="in"
-          in="noise"
-          in2="SourceGraphic"
-          result="clippedNoise"
+          in="SourceGraphic"
+          in2="grayNoise"
+          operator="arithmetic"
+          k1="0.4"
+          k2="0.7"
+          result="texturedColor"
         />
-
-        <feComponentTransfer in="clippedNoise" result="subtleNoise">
-          <feFuncA type="linear" slope="0.8" />
-        </feComponentTransfer>
-
-        <feMerge>
-          <feMergeNode in="SourceGraphic" />
-          <feMergeNode in="subtleNoise" />
-        </feMerge>
+        <feComposite in="texturedColor" in2="SourceGraphic" operator="in" />
       </filter>
     </defs>
   </svg>

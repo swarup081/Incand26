@@ -2,7 +2,6 @@
 import { NoiseFilter } from "../components/NoiseFilter";
 import { useEffect, useState } from "react";
 
-
 export default function HomePage() {
   const [animate, setAnimate] = useState(false);
 
@@ -21,7 +20,11 @@ export default function HomePage() {
       <div
         className={`absolute inset-0 z-10 transition-transform duration-1200 ease-in-out ${animate ? "scale-100" : "scale-[1.5]"} `}
       >
-        <img src="https://res.cloudinary.com/dsaaxuphe/image/upload/v1766330345/Frame_48096196_bziwnx.webp" alt="Tapestry" className="h-full w-full" />
+        <img
+          src="https://res.cloudinary.com/dsaaxuphe/image/upload/v1766330345/Frame_48096196_bziwnx.webp"
+          alt="Tapestry"
+          className="h-full w-full"
+        />
       </div>
 
       {/* CENTER T-SHIRT */}
@@ -36,14 +39,16 @@ export default function HomePage() {
       <div
         className={`absolute inset-0 z-30 flex flex-col items-center justify-center text-center transition-all delay-300 duration-700 ease-in-out ${animate ? "visible scale-100 opacity-100" : "invisible scale-105 opacity-0"} `}
       >
-        <h1 className="font-hitchcut text-2xl font-bold text-[#A50001] lg:text-8xl"
-        style={{filter:"url(#textNoise)"}}
+        <h1
+          className="font-hitchcut text-2xl font-bold text-[#A50001] lg:text-8xl"
+          style={{ filter: "url(#textNoise)" }}
         >
           FEEL THE
         </h1>
 
-        <h1 className="font-hitchcut text-2xl font-bold text-[#008080] lg:text-8xl" 
-        style={{filter:"url(#textNoise)"}}
+        <h1
+          className="font-hitchcut text-2xl font-bold text-[#008080] lg:text-8xl"
+          style={{ filter: "url(#textNoise)" }}
         >
           TAPESTRY
         </h1>
@@ -56,7 +61,10 @@ export default function HomePage() {
           OFFICIAL MERCH
         </h2>
         <div>
-          <img src="https://res.cloudinary.com/dsaaxuphe/image/upload/v1766329702/Vector_lak8vr.webp" className="mb:2 mt-2 h-[50%] md:h-[60%]"></img>
+          <img
+            src="https://res.cloudinary.com/dsaaxuphe/image/upload/v1766329702/Vector_lak8vr.webp"
+            className="mb:2 mt-2 h-[50%] md:h-[60%]"
+          ></img>
         </div>
         <button className="relative top-[-20px] flex animate-[wiggle_2.5s_ease-in-out_infinite] items-center justify-center overflow-hidden rounded-full border-3 border-black bg-[#6b1f1f] px-4 py-2 text-[2px] tracking-widest text-[#fff2cc] shadow-lg hover:scale-105 lg:px-10 lg:py-4">
           {/* LEFT END DESIGN */}
