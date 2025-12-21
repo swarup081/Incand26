@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 };
 
 const hitchcut = localfont({
-  src: "/fonts/hitchcut-Regular.otf",
+  src: "../fonts/Hitchcut-Regular.otf",
   variable: "--font-hitchcut",
   display: "swap",
 });
