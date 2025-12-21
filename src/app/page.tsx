@@ -86,7 +86,7 @@ export default function HomePage() {
             <img
               src="https://res.cloudinary.com/dsaaxuphe/image/upload/v1766330315/Group_48096168_ufcdsb.webp"
               alt=""
-              className="absolute top-[2px] right-[-2px] h-full"
+              className="absolute top-[0.125rem] right-[-0.125rem] h-full"
             />
           </div>
         </button>
