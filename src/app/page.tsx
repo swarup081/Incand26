@@ -32,7 +32,7 @@ export default function HomePage() {
         <img
           src="https://res.cloudinary.com/dsaaxuphe/image/upload/v1766330329/36e3457304d265d12daff04034d952d55c27800a_gytzwf.webp"
           alt="T-shirt"
-          className={`w-[220px] transition-opacity duration-700 ease-in-out lg:w-[420px] ${animate ? "opacity-0" : "opacity-100"} `}
+          className={`w-[13.75rem] transition-opacity duration-700 ease-in-out lg:w-[26.25rem] ${animate ? "opacity-0" : "opacity-100"} `}
         />
       </div>
       {/* CENTER TEXT */}
@@ -66,13 +66,13 @@ export default function HomePage() {
             className="mb:2 mt-2 h-[50%] md:h-[60%]"
           ></img>
         </div>
-        <button className="relative top-[-20px] flex animate-[wiggle_2.5s_ease-in-out_infinite] items-center justify-center overflow-hidden rounded-full border-3 border-black bg-[#6b1f1f] px-4 py-2 text-[2px] tracking-widest text-[#fff2cc] shadow-lg hover:scale-105 lg:px-10 lg:py-4">
+        <button className="relative top-[-1.25rem] flex animate-[wiggle_2.5s_ease-in-out_infinite] items-center justify-center overflow-hidden rounded-full border-3 border-black bg-[#6b1f1f] px-4 py-2 text-[2px] tracking-widest text-[#fff2cc] shadow-lg hover:scale-105 lg:px-10 lg:py-4">
           {/* LEFT END DESIGN */}
           <div>
             <img
               src="https://res.cloudinary.com/dsaaxuphe/image/upload/v1766330315/Group_48096168_ufcdsb.webp"
               alt=""
-              className="absolute top-[-2px] left-[2px] h-full rotate-180 opacity-90"
+              className="absolute top-[-0.125rem] left-[0.125rem] h-full rotate-180 opacity-90"
             />
           </div>
 
