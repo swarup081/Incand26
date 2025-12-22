@@ -3,7 +3,7 @@
 import React from "react";
 import Image from "next/image";
 import { useRouter, usePathname } from "next/navigation";
-
+//just for see.. testing git
 interface NavItem {
   id: string;
   icon: string;
