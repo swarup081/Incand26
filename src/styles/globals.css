@@ -14,3 +14,6 @@
   --font-hitchcut: 'Hitchcut-Regular', sans-serif;
 }
 
+html {
+  scroll-behavior: smooth;
+}
