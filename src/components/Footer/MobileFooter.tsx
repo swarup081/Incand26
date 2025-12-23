@@ -3,10 +3,26 @@
 import { useEffect, useState } from "react";
 
 const socialIcons = [
-  { src: "/footer-assets/mobile/social-icons-3.svg", alt: "Instagram" },
-  { src: "/footer-assets/mobile/social-icons-2.svg", alt: "LinkedIn" },
-  { src: "/footer-assets/mobile/social-icons.svg", alt: "Facebook" },
-  { src: "/footer-assets/mobile/social-icons-1.svg", alt: "Twitter" },
+  {
+    src: "/footer-assets/mobile/social-icons-3.svg",
+    alt: "Instagram",
+    href: "https://www.instagram.com/incandescence_nits",
+  },
+  {
+    src: "/footer-assets/mobile/social-icons-2.svg",
+    alt: "LinkedIn",
+    href: "https://www.linkedin.com/company/incandescence23/",
+  },
+  {
+    src: "/footer-assets/mobile/social-icons.svg",
+    alt: "Facebook",
+    href: "https://www.facebook.com/incandescence.nits/",
+  },
+  {
+    src: "/footer-assets/mobile/social-icons-1.svg",
+    alt: "Twitter",
+    href: "https://x.com/Incandescence23",
+  },
 ];
 
 const decorativeImages = [
@@ -327,14 +343,14 @@ export const MobileFooter = (): React.JSX.Element => {
         {leftSideImages.map((img, index) => (
           <img
             key={`left-${index}`}
-            className={`absolute ${img.className}`}
+            className={`absolute ${img.className} pointer-events-none`}
             alt={img.alt}
             src={img.src}
           />
         ))}
 
         <img
-          className="absolute top-[821px] left-[182px] h-[216px] w-[238px]"
+          className="pointer-events-none absolute top-[821px] left-[182px] h-[216px] w-[238px]"
           alt="Vector"
           src="/footer-assets/mobile/vector-14-1.svg"
         />
@@ -342,7 +358,7 @@ export const MobileFooter = (): React.JSX.Element => {
         {bottomGroups.map((img, index) => (
           <img
             key={`bottom-${index}`}
-            className={`absolute ${img.className}`}
+            className={`absolute ${img.className} pointer-events-none`}
             alt={img.alt}
             src={img.src}
           />

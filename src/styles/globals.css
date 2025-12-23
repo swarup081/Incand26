@@ -177,7 +177,6 @@ body {
   }
 }
 
-<<<<<<< HEAD
 /* Footer animations */
 @keyframes float {
   0%,
@@ -256,5 +255,3 @@ body {
 .animate-float-horizontal {
   animation: float-horizontal 9s ease-in-out infinite;
 }
-=======
->>>>>>> 121cc50954becf90ae408d60b281b109caf2743a

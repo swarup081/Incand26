@@ -9,7 +9,9 @@ export const Footer = () => {
 
   useEffect(() => {
     const checkMobile = () => {
-      setIsMobile(window.innerWidth < 768);
+      setIsMobile(
+        window.innerWidth < 1024 || window.innerHeight > window.innerWidth,
+      );
     };
 
     checkMobile();

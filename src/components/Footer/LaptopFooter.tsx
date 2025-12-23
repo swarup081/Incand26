@@ -5,10 +5,26 @@ import { Brochure } from "./Brochure";
 
 // Social Icons
 const socialIcons = [
-  { src: "/footer-assets/laptop/images/social-icons-3.svg", alt: "Instagram" },
-  { src: "/footer-assets/laptop/images/social-icons.svg", alt: "LinkedIn" },
-  { src: "/footer-assets/laptop/images/social-icons-2.svg", alt: "Facebook" },
-  { src: "/footer-assets/laptop/images/social-icons-1.svg", alt: "Twitter" },
+  {
+    src: "/footer-assets/laptop/images/social-icons-3.svg",
+    alt: "Instagram",
+    href: "https://www.instagram.com/incandescence_nits",
+  },
+  {
+    src: "/footer-assets/laptop/images/social-icons.svg",
+    alt: "LinkedIn",
+    href: "https://www.linkedin.com/company/incandescence23/",
+  },
+  {
+    src: "/footer-assets/laptop/images/social-icons-2.svg",
+    alt: "Facebook",
+    href: "https://www.facebook.com/incandescence.nits/",
+  },
+  {
+    src: "/footer-assets/laptop/images/social-icons-1.svg",
+    alt: "Twitter",
+    href: "https://x.com/Incandescence23",
+  },
 ];
 
 const decorativeImages = [
@@ -237,12 +253,12 @@ const smallVectors = [
   },
   {
     src: "/footer-assets/laptop/images/vector.svg",
-    className: "absolute w-0 h-[3.81%] top-[19.35%] left-[27.81%]",
+    className: "absolute w-[1.98%] h-[3.81%] top-[19.35%] left-[27.81%]",
     alt: "Bird decoration",
   },
   {
     src: "/footer-assets/laptop/images/vector-4.svg",
-    className: "absolute w-0 h-0 top-[22.51%] left-[23.59%]",
+    className: "absolute w-[1.25%] h-[1.62%] top-[22.51%] left-[23.59%]",
     alt: "Bird decoration",
   },
   {
@@ -352,15 +368,12 @@ export const LaptopFooter = (): React.JSX.Element => {
           src="/footer-assets/laptop/images/vector-3.svg"
         />
 
-        <div
-          className="absolute top-[66.20%] left-[calc(50.00%_-_4.844%)] flex h-[3.52%] items-center justify-center text-right text-[2.96vh] leading-[normal] font-normal tracking-[0] whitespace-nowrap text-[#482727] select-none"
-          style={{ fontFamily: "'Russo One', sans-serif" }}
-        >
+        <div className="font-hitchcut absolute top-[66.20%] left-1/2 flex h-[3.52%] -translate-x-1/2 items-center justify-center text-center text-[2.96vh] leading-[normal] font-normal tracking-[0] whitespace-nowrap text-[#482727] select-none">
           Contact Us
         </div>
 
         <nav
-          className="absolute top-[72.04%] left-[calc(50.00%_-_10.417%)] flex h-[3.70%] w-[20.781%] gap-[4.17%]"
+          className="absolute top-[72.04%] left-1/2 z-50 flex h-[3.70%] -translate-x-1/2 items-center justify-center gap-[2vw]"
           aria-label="Social media links"
         >
           {socialIcons.map((icon, index) => (
