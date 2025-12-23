@@ -1,9 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
+  --font-sans:
+    var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif,
     "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
+
 
 @font-face {
   font-family: "Hitchcut";
@@ -17,6 +19,11 @@
 
 .glow-wrapper {
   transform: translate(-50%, -50%);
+}
+
+html,
+body {
+  background-color: black;
 }
 
 @media (min-width: 1201px) {
@@ -129,3 +136,32 @@
 
   100% { transform: scale(1.2); }
 }
+
+:root {
+  --font-hitchcut: "Hitchcut";
+}
+.font-hitchcut {
+  font-family: var(--font-hitchcut), sans-serif;
+}
+body {
+  font-family: var(--font-hitchcut), sans-serif;
+}
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+  20% {
+    transform: rotate(-2deg);
+  }
+  40% {
+    transform: rotate(2deg);
+  }
+  60% {
+    transform: rotate(-1deg);
+  }
+  80% {
+    transform: rotate(1deg);
+  }
+}
+

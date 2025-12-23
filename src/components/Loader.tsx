@@ -46,8 +46,9 @@ const ipadTileDirections: ("up" | "down")[] = [
 //--------------------------------------------------------------------
 interface LoaderProps {
   onComplete?: () => void;
+  onTilesStart?: () => void;
 }
-const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
+const Loader: React.FC<LoaderProps> = ({ onComplete,onTilesStart }) => {
   const [showCandle, setShowCandle] = useState(false);
   const [showGlow, setShowGlow] = useState(false);
   const [animateGlow, setAnimateGlow] = useState(false); // glow animation starts
@@ -85,33 +86,32 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
     const interval = setInterval(() => {
       value += 1;
       setProgress(value);
-    if (value === 100) {
-      clearInterval(interval);
-      // allow 100% to render once
-      setTimeout(() => {
-      setProgressDone(true);
-      }, 150);
-    }
-      }, 40); // 100 * 50ms = 5000ms (5s)
-      return () => clearInterval(interval);
-    },[showCandle]);
-
+      if (value === 100) {
+        clearInterval(interval);
+        // allow 100% to render once
+        setTimeout(() => {
+          setProgressDone(true);
+        }, 150);
+      }
+    }, 40); // 100 * 50ms = 5000ms (5s)
+    return () => clearInterval(interval);
+  }, [showCandle]);
 
   useEffect(() => {
     let tShow: NodeJS.Timeout | undefined;
 
-  if (!progressDone) {
-    tShow = setTimeout(() => {
-      setAnimateGlow(false);
-      setShowCandle(true);
-      setShowGlow(true);
-      setShowText(true);
-    }, 400);
+    if (!progressDone) {
+      tShow = setTimeout(() => {
+        setAnimateGlow(false);
+        setShowCandle(true);
+        setShowGlow(true);
+        setShowText(true);
+      }, 400);
 
-    return () => {
-      if (tShow) clearTimeout(tShow);
-    };
-  }
+      return () => {
+        if (tShow) clearTimeout(tShow);
+      };
+    }
     const tGlow = setTimeout(() => {
       setAnimateGlow(true);
     }, 300);
@@ -125,9 +125,9 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
     //   setFadeText(true);
     // }, 1400);
     const tTiles = setTimeout(() => {
-      
       setFadeText(true);
       setPhase("tiles");
+      onTilesStart?.();
     }, 1100);
     // const tRemoveText = setTimeout(() => {
     //   setShowText(false);
@@ -145,14 +145,23 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
       clearTimeout(tTiles);
       clearTimeout(tDone);
     };
-  }, [progressDone,onComplete]);
+  }, [progressDone, onComplete]);
   return (
     <>
       {/* ================= LAPTOP VIEW ================= */}
       {isLap && (
-        <div className="fixed inset-0 z-50 overflow-hidden bg-black">
+        <div
+          className={`fixed inset-0 overflow-hidden transition-all duration-200
+          ${
+            phase === "tiles"
+            ?"bg-transparent z-50 pointer-events-none"
+            : " z-50 pointer-events-auto"
+          }
+          `}
+        >
+
           <div
-            className="absolute inset-0 z-10 grid h-screen w-screen brightness-150"
+            className="absolute inset-0 z-10 grid h-screen w-screen brightness-150 "
             style={{
               gridTemplateColumns: "0.67fr repeat(8,1fr) 0.6fr",
             }}
@@ -164,12 +173,12 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
               return (
                 <div
                   key={i}
-                  className={`h-full w-full overflow-hidden transition-transform duration-2500 ease-in-out ${phase === "tiles" ? moveClass : "translate-y-0"} `}
+                  className={`h-full w-full overflow-hidden  transition-transform duration-2500 ease-in-out ${phase === "tiles" ? moveClass : "translate-y-0"} `}
                 >
                   <img
                     src={src}
                     alt={src[i]}
-                    className="h-full w-full object-cover"
+                    className="h-full w-full object-cover scale-x-[1.07]"
                     draggable={false}
                   />
                 </div>
@@ -183,20 +192,19 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
                 {showGlow && (
                   <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
                     <div
-                      className={`transition-all duration-500 ease-out 
-                        ${glowDrop ? "translate-y-[6vh] opacity-0" : "opacity-100"} `}
+                      className={`transition-all duration-500 ease-out ${glowDrop ? "translate-y-[6vh] opacity-0" : "opacity-100"} `}
                     >
-                      <div className='glow=wrapper'>
-                      <div
-                        className={`torch-brightness ${animateGlow ? "glow-lap" : ""}`}
-                      />
-                    </div>
+                      <div className="glow=wrapper">
+                        <div
+                          className={`torch-brightness ${animateGlow ? "glow-lap" : ""}`}
+                        />
+                      </div>
                     </div>
                   </div>
                 )}
 
                 {/* 🔥 CANDLE — stays in flex */}
-                {showCandle &&(
+                {showCandle && (
                   <div className="relative -top-[20vh] flex flex-col items-center transition-opacity duration-300">
                     <img
                       src="/fire.gif"
@@ -228,17 +236,21 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
               {progress}%
             </p>
           )}
-
-
         </div>
       )}
 
       {/* ================= IPAD VIEW ================= */}
       {isIpad && (
-        <div className="fixed inset-0 z-50 overflow-hidden bg-black">
-          {/* 🔲 MOBILE TILE GRID (SAME PATTERN AS DESKTOP) */}
+        <div className={`fixed inset-0 overflow-hidden transition-all duration-200
+        ${
+            phase === "tiles"
+            ?"bg-transparent z-50 pointer-events-none"
+            : "bg-black z-50 pointer-events-auto"
+        }
+      `}>
+          {/* MOBILE TILE GRID (SAME PATTERN AS DESKTOP) */}
           <div
-            className="absolute inset-0 z-10 grid h-screen w-screen"
+            className="absolute inset-0 z-10 grid h-screen w-screen brightness-125"
             style={{
               gridTemplateColumns: " 0.6fr repeat(4,1fr) 0.6fr",
             }}
@@ -273,11 +285,11 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
                     <div
                       className={`transition-all duration-500 ease-out ${glowDrop ? "translate-y-[6vh] opacity-0" : "opacity-100"} `}
                     >
-                      <div className='glow-wrapper'>
-                      <div
-                        className={`torch-brightness ${animateGlow ? "glow-lap" : ""}`}
-                      />
-                    </div>
+                      <div className="glow-wrapper">
+                        <div
+                          className={`torch-brightness ${animateGlow ? "glow-lap" : ""}`}
+                        />
+                      </div>
                     </div>
                   </div>
                 )}
@@ -319,10 +331,16 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
 
       {/* ================= MOBILE VIEW ================= */}
       {isPhone && (
-        <div className="fixed inset-0 z-50 overflow-hidden bg-black">
-          {/* 🔲 MOBILE TILE GRID (SAME PATTERN AS DESKTOP) */}
+        <div className={`fixed inset-0 overflow-hidden transition-all duration-200
+        ${
+            phase === "tiles"
+            ?"bg-transparent z-50 pointer-events-none"
+            : "bg-black z-50 pointer-events-auto"
+        }
+      `}>
+          {/*  MOBILE TILE GRID (SAME PATTERN AS DESKTOP) */}
           <div
-            className="absolute inset-0 z-10 grid h-screen w-screen"
+            className="absolute inset-0 z-10 grid h-screen w-screen brightness-125"
             style={{
               gridTemplateColumns: " 0.6fr repeat(2,1fr) 0.6fr",
             }}
@@ -358,11 +376,11 @@ const Loader: React.FC<LoaderProps> = ({ onComplete }) => {
                     <div
                       className={`transition-all duration-500 ease-out ${glowDrop ? "translate-y-[6vh] opacity-0" : "opacity-100"} `}
                     >
-                      <div className='glow-wrapper'>
-                      <div
-                        className={`torch-brightness ${animateGlow ? "glow-lap" : ""}`}
-                      />
-                    </div>
+                      <div className="glow-wrapper">
+                        <div
+                          className={`torch-brightness ${animateGlow ? "glow-lap" : ""}`}
+                        />
+                      </div>
                     </div>
                   </div>
                 )}
