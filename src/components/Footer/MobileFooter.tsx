@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const socialIcons = [
@@ -322,14 +323,17 @@ export const MobileFooter = (): React.JSX.Element => {
             className="absolute top-[589px] left-[calc(50.00%_-_89px)] flex h-[17px] w-[170px] items-center justify-between gap-[34.1px]"
             aria-label="Social media links"
           >
-            {socialIcons.map(({ src, alt }, index) => (
-              <button
+            {socialIcons.map(({ src, alt, href }, index) => (
+              <Link
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
                 key={`social-${index}`}
                 className="flex h-[17px] w-[17px] items-center justify-center transition-opacity hover:opacity-70"
                 aria-label={alt}
               >
                 <img src={src} alt={alt} className="h-full w-full" />
-              </button>
+              </Link>
             ))}
           </nav>
         </div>

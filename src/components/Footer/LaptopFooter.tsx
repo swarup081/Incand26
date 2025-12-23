@@ -2,6 +2,7 @@
 
 import { MountainVector } from "./MountainVector";
 import { Brochure } from "./Brochure";
+import Link from "next/link";
 
 // Social Icons
 const socialIcons = [
@@ -348,13 +349,6 @@ export const LaptopFooter = (): React.JSX.Element => {
         ))}
 
         <img
-          className="absolute top-[86.20%] left-[calc(50.00%_-_17.708%)] h-[8.52%] w-[35.417%] select-none"
-          alt="Bottom decoration"
-          draggable={false}
-          src="/footer-assets/laptop/images/frame-10.svg"
-        />
-
-        <img
           className="absolute top-[10.74%] left-[65.365%] h-[15.46%] w-[12.708%] select-none"
           alt="Top right decoration"
           draggable={false}
@@ -377,9 +371,11 @@ export const LaptopFooter = (): React.JSX.Element => {
           aria-label="Social media links"
         >
           {socialIcons.map((icon, index) => (
-            <a
+            <Link
               key={`social-${index}`}
-              href="#"
+              href={icon.href}
+              target="_blank"
+              rel="noopener noreferrer"
               className="h-[2.074vw] w-[2.074vw] transition-opacity hover:opacity-80"
               aria-label={icon.alt}
             >
@@ -389,7 +385,7 @@ export const LaptopFooter = (): React.JSX.Element => {
                 alt={icon.alt}
                 src={icon.src}
               />
-            </a>
+            </Link>
           ))}
         </nav>
 

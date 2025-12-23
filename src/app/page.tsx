@@ -28,6 +28,7 @@ import Loader from "~/components/Loader";
 import HomeMerch from "~/components/Home/Merch";
 import Sponsors from "~/components/Home/Sponsors";
 import TribalTrackbar from "~/components/TrivalNavbar";
+import { Footer } from "~/components/Footer";
 
 export default function HomePage() {
   const [loading, setLoading] = useState(true);
@@ -62,6 +63,10 @@ export default function HomePage() {
           <h1 className="font-hitchcut text-5xl font-black text-[#361E1E] drop-shadow-lg sm:text-6xl md:text-7xl lg:text-8xl">
             CONTACT
           </h1>
+        </section>
+        {/* Footer section */}
+        <section id="footer" className="w-full snap-start">
+        <Footer />
         </section>
 
         {!loading && <TribalTrackbar />}
