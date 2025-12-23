@@ -397,12 +397,18 @@ export const LaptopFooter = (): React.JSX.Element => {
           <Brochure className="origin-top-left scale-[0.8] 2xl:scale-100" />
         </div>
 
-        <div className="absolute top-[91.48%] left-[calc(50.00%_+_31.823%)] h-[11.02%] w-[17.5%]">
+        <div className="absolute top-[91.48%] left-[calc(50.00%_+_26%)] flex h-[11.02%] w-auto items-center justify-center gap-0 select-none">
+          <div className="flex flex-col items-center justify-center text-center [font-family:'Inter',Helvetica] text-[15px] leading-[15px] text-black">
+            <span className="font-semibold">MADE IN COLLABORATION</span>
+            <span className="font-semibold">
+              WITH <span className="font-extrabold">GDG NIT SILCHAR</span>
+            </span>
+          </div>
           <img
-            className="absolute top-0 left-0 h-[100%] w-[99.43%] select-none"
-            alt="Made in collaboration with GDG NIT Silchar"
+            src="/footer-assets/laptop/images/gdg-logo.gif"
+            alt="GDG Logo"
+            className="-ml-4 h-[75px] w-auto mix-blend-multiply"
             draggable={false}
-            src="/footer-assets/laptop/images/group-48096170.svg"
           />
         </div>
       </div>

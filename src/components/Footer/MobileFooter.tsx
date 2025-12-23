@@ -365,9 +365,11 @@ export const MobileFooter = (): React.JSX.Element => {
         ))}
 
         <footer className="absolute top-[864px] left-0 flex w-full items-center justify-center">
-          <div className="flex flex-col items-center justify-center text-center [font-family:'Inter',Helvetica] text-[10px] leading-[1.1] font-bold text-black">
-            <span>MADE IN COLLABORATION</span>
-            <span>WITH GDG NIT SILCHAR</span>
+          <div className="flex flex-col items-center justify-center text-center [font-family:'Inter',Helvetica] text-[10px] leading-[1.1] text-black">
+            <span className="font-semibold">MADE IN COLLABORATION</span>
+            <span className="font-semibold">
+              WITH <span className="font-extrabold">GDG NIT SILCHAR</span>
+            </span>
           </div>
         </footer>
       </div>
