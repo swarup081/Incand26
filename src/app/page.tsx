@@ -37,9 +37,8 @@ export default function HomePage() {
   return (
     <>
       <main
-        className={`h-screen w-full snap-y snap-mandatory overflow-y-scroll scroll-smooth bg-neutral-900 text-neutral-100 ${
-          revealHome ? "z-0 opacity-100" : "opacity-0"
-        }`}
+        className={`h-screen w-full snap-y snap-mandatory overflow-y-scroll scroll-smooth bg-neutral-900 text-neutral-100 ${revealHome ? "z-0 opacity-100" : "opacity-0"
+          }`}
       >
         {/* ---EVENTS --- */}
         <section
@@ -57,17 +56,9 @@ export default function HomePage() {
         </section>
 
         {/* --- CONTACT --- */}
-        <section
-          id="contact"
-          className="flex h-screen w-full snap-start flex-col items-center justify-center bg-[#d4c59a] px-4 text-center"
-        >
-          <h1 className="font-hitchcut text-5xl font-black text-[#361E1E] drop-shadow-lg sm:text-6xl md:text-7xl lg:text-8xl">
-            CONTACT
-          </h1>
-        </section>
         {/* Footer section */}
         <section id="footer" className="w-full snap-start">
-        <Footer />
+          <Footer />
         </section>
 
         {!loading && <TribalTrackbar />}

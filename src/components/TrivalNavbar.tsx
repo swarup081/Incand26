@@ -9,11 +9,6 @@ interface NavItem {
 
 const navItems: NavItem[] = [
   {
-    id: "contact",
-    icon: "https://res.cloudinary.com/dgechlqls/image/upload/v1766226912/Group_3_centwg.png",
-    label: "Contact",
-  },
-  {
     id: "events",
     icon: "https://res.cloudinary.com/dgechlqls/image/upload/v1766226895/Group_1_g5roxz.png",
     label: "Events",
@@ -27,6 +22,11 @@ const navItems: NavItem[] = [
     id: "merch",
     icon: "https://res.cloudinary.com/dgechlqls/image/upload/v1766226889/Group_qp18l8.png",
     label: "merch",
+  },
+   {
+    id: "footer",
+    icon: "https://res.cloudinary.com/dgechlqls/image/upload/v1766226912/Group_3_centwg.png",
+    label: "Footer",
   },
 ];
 
