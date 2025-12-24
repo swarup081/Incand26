@@ -190,14 +190,6 @@ export default function Landing() {
           />
         </div>
       </div>
-
-      <div className="absolute bottom-4 md:bottom-8 lg:bottom-12 z-40 w-full flex justify-center px-4">
-        <img
-          src={decoration}
-          alt="Decoration"
-          className="w-[280px] md:w-[530px] lg:w-[600px] opacity-90"
-        />
-      </div>
     </main>
   );
 }
