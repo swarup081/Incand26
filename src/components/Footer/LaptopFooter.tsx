@@ -389,8 +389,8 @@ export const LaptopFooter = (): React.JSX.Element => {
           ))}
         </nav>
 
-        <div className="absolute top-[8.98%] left-[calc(50.00%_-_45.729%)]">
-          <Brochure className="origin-top-left scale-[0.8] 2xl:scale-100" />
+        <div className="absolute top-[5.05vw] left-[4.27vw]">
+          <Brochure className="origin-top-left scale-[0.7] lg:scale-[0.8] xl:scale-[0.9] 2xl:scale-100" />
         </div>
 
         <div className="absolute right-2 bottom-2 flex h-[11.02%] w-auto items-center justify-center gap-0 select-none xl:right-3 xl:bottom-3">
