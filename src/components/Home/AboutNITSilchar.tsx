@@ -74,7 +74,7 @@ export default function AboutNITSilchar() {
           <span className="block">Silchar</span>
         </h1>
 
-        <p className="font-hitchcut max-w-md text-center text-lg leading-relaxed text-black sm:text-lg md:max-w-lg md:text-left md:text-xl lg:max-w-xl lg:text-2xl">
+        <p className="font-hitchcut max-w-md text-center text-xl leading-relaxed text-black sm:text-2xl md:max-w-lg md:text-left md:text-2xl lg:max-w-xl lg:text-3xl">
           NIT Silchar&apos;s cultural extravaganza invites you into a vibrant{" "}
           <span className="font-bold text-[#008080]">Tribal Tapestry</span>—a
           journey woven with ancient rhythms, timeless traditions, and stories
