@@ -1,171 +1,212 @@
-// src/components/AboutIncand.tsx
-import React, { useEffect, useRef } from "react";
-import { gsap } from "gsap";
-import "./AboutIncand.css";
+"use client";
 
-const AboutIncand: React.FC = () => {
-  const contentRef = useRef<HTMLDivElement>(null);
-  const iconRowRef = useRef<HTMLDivElement>(null);
-  const iconRef = useRef<HTMLDivElement>(null); //
-  const leftTriRef = useRef<HTMLImageElement>(null);
-  const rightTriRef = useRef<HTMLImageElement>(null);
-  const brochureRef = useRef<HTMLAnchorElement>(null);
-  const containerRef = useRef<HTMLElement>(null);
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+
+export default function AboutIncand() {
+  const [isLoaded, setIsLoaded] = useState(false);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const tl = gsap.timeline({ paused: true });
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setIsLoaded(true);
+          }
+        });
+      },
+      {
+        threshold: 0.2, // Trigger when 20% of the component is visible
+      },
+    );
 
-    /* =============================
-       INITIAL STATES (LOCKED)
-    ============================== */
-    gsap.set(contentRef.current, { opacity: 0, x: -140 });
-    gsap.set(iconRowRef.current, { opacity: 1, y: 0 });
-    gsap.set(iconRef.current, { opacity: 0, y: 40 });
-    gsap.set(brochureRef.current, { x: 0, y: 0 });
+    if (containerRef.current) {
+      observer.observe(containerRef.current);
+    }
 
-    tl
-      /* TRIANGLES OPEN */
-      .to(
-        leftTriRef.current,
-        {
-          x: "-18vw",
-          duration: 1.2,
-          ease: "power4.out",
-        },
-        0,
-      )
-      .to(
-        rightTriRef.current,
-        {
-          x: "18vw",
-          duration: 1.2,
-          ease: "power4.out",
-        },
-        0,
-      )
-
-      /* TOP ICONS FLY AWAY */
-      .to(
-        iconRowRef.current,
-        {
-          y: -80,
-          opacity: 0,
-          duration: 0.6,
-          ease: "power2.in",
-        },
-        0.3,
-      )
-
-      /* BROCHURE → TOP RIGHT */
-      .to(
-        brochureRef.current,
-        {
-          x: 1000,
-          y: -50,
-          duration: 0.9,
-          ease: "power3.out",
-        },
-        0.5,
-      )
-
-      /* CONTENT IN */
-      .to(
-        contentRef.current,
-        {
-          opacity: 1,
-          x: 0,
-          duration: 1,
-          ease: "power3.out",
-        },
-        0.6,
-      )
-
-      /* BOTTOM ICON STRIP IN */
-      .to(
-        iconRef.current,
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          ease: "power2.out",
-        },
-        0.9,
-      );
-
-    const trigger = () => {
-      tl.play();
-      containerRef.current?.classList.add("is-active");
-      window.removeEventListener("pointerdown", trigger);
+    return () => {
+      if (containerRef.current) {
+        observer.unobserve(containerRef.current);
+      }
     };
-
-    window.addEventListener("pointerdown", trigger);
-    return () => window.removeEventListener("pointerdown", trigger);
   }, []);
 
   return (
-    <section ref={containerRef} className="about-container">
-      <div className="bg-pattern" />
+    <div
+      ref={containerRef}
+      className="relative min-h-screen w-full overflow-hidden bg-[#FFF7DE]"
+    >
+      {/* Background Pattern */}
+      <div className="absolute inset-0">
+        <Image
+          src="/about/background.webp"
+          alt="Background pattern"
+          fill
+          className="object-cover"
+          priority
+        />
+      </div>
+      {/* Side Decorative Elements */}
+      <div
+        className={`absolute left-0 z-30 h-screen w-[80vw] transition-transform duration-1500 ease-out ${
+          isLoaded
+            ? "translate-x-[-15vw] translate-y-[15vh]"
+            : "translate-x-0 translate-y-0"
+        }`}
+      >
+        <div className="h-full w-full overflow-visible">
+          <Image
+            src="/about/left-triangle.webp"
+            alt="Left design"
+            fill
+            className="ml-[-10vw] object-fill object-bottom"
+          />
+        </div>
+      </div>
+      <div
+        className={`absolute right-0 z-20 h-screen w-[80vw] transition-transform duration-1500 ease-out ${
+          isLoaded
+            ? "translate-x-[15vw] translate-y-[15vh]"
+            : "translate-x-0 translate-y-0"
+        }`}
+      >
+        <div className="h-full w-full">
+          <Image
+            src="/about/right-triangle.webp"
+            alt="Right design"
+            fill
+            className="ml-[10vw] object-fill object-bottom"
+          />
+        </div>
+      </div>
 
-      <div className="color-overlay" />
+      {/* Main Content Container */}
+      <div className="flex min-h-screen flex-col justify-between">
+        {/* Brochure Button - Top Right */}
+        <div className="my-[18vh] flex flex-col items-center gap-[4vh]">
+          <div
+            className={`flex gap-[2vw] transition-transform duration-1500 ease-out ${isLoaded ? "translate-y-[-30vh]" : "translate-y-0"}`}
+          >
+            <div className="relative h-[5vw] w-[5vw]">
+              <Image
+                src="/about/design-1.webp"
+                alt="Top Left Decoration"
+                fill
+              />
+            </div>
+            <div className="relative h-[5vw] w-[5vw]">
+              <Image
+                src="/about/design-2.webp"
+                alt="Top Left Decoration"
+                fill
+              />
+            </div>
+            <div className="relative h-[5vw] w-[5vw]">
+              <Image
+                src="/about/design-3.webp"
+                alt="Top Left Decoration"
+                fill
+              />
+            </div>
+          </div>
+          <div
+            className={`z-20 transition-transform duration-1500 ease-out ${isLoaded ? "translate-x-[30vw] translate-y-[-20vh]" : "translate-x-0 translate-y-0"}`}
+          >
+            <button
+              className={`relative my-[1.5vh] flex items-center gap-0 overflow-hidden rounded-full border-[0.2vw] bg-[#751313] shadow-black transition-all duration-500 ease-out hover:scale-[1.3] hover:-rotate-6`}
+              style={{
+                boxShadow: "none",
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.boxShadow =
+                  "0 1.3vh 0 0 rgba(162, 93, 93), 0 1.25vh 0 0.2vw rgba(0, 0, 0)";
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.boxShadow = "none";
+              }}
+            >
+              {/* Left Decorative Element */}
+              <div className="relative mr-[-0.5vw] h-[3.5vw] w-[3.5vw]">
+                <Image
+                  src="/about/brochure.webp"
+                  alt="Decoration"
+                  fill
+                  className="object-fill"
+                />
+              </div>
 
-      {/* TOP CONTROLS */}
-      <div className="top-controls">
-        <div ref={iconRowRef} className="top-icons">
-          <img src="/about/icon-1.svg" />
-          <img src="/about/icon-2.svg" />
-          <img src="/about/icon-3.svg" />
+              {/* Button Text Background */}
+              <div className="my-[1.5vh] flex items-center justify-center">
+                <span
+                  className="text-[1.75vw] font-bold tracking-wider text-[#f5e6c8]"
+                  style={{ fontFamily: "Hitchcut-Regular, sans-serif" }}
+                >
+                  BROCHURE
+                </span>
+              </div>
+
+              {/* Right Decorative Element (Rotated 180deg) */}
+              <div className="relative ml-[-0.5vw] h-[3.5vw] w-[3.5vw] rotate-180">
+                <Image
+                  src="/about/brochure.webp"
+                  alt="Decoration"
+                  fill
+                  className="object-fill"
+                />
+              </div>
+            </button>
+          </div>
         </div>
 
-        <a
-          ref={brochureRef}
-          href="/about/INCAND_Brochure.pdf"
-          target="_blank"
-          className="brochure-btn"
-        >
-          <img src="/about/brochure.svg" className="brochure-svg" />
-        </a>
-      </div>
-
-      {/* TRIANGLES */}
-      <div className="triangles">
-        <img
-          ref={leftTriRef}
-          src="/about/left-triangle.svg"
-          className="triangle left-triangle"
-        />
-        <img
-          ref={rightTriRef}
-          src="/about/right-triangle.svg"
-          className="triangle right-triangle"
-        />
-      </div>
-
-      {/* CONTENT */}
-      <div className="content-wrapper">
-        <div ref={contentRef} className="content-inner">
-          <h2 className="main-title">
-            About <br />
-            <span className="us-highlight">
-              Us
-              <br />
-            </span>
-          </h2>
-
-          <p className="description">
-            NIT Silchar’s cultural extravaganza invites you into a vibrant{" "}
-            <span className="highlight">Tribal Tapestry</span> — a journey woven
-            with ancient rhythms, timeless traditions, and stories passed
-            through generations.
-          </p>
-
-          {/* BOTTOM ICON STRIP */}
-          <div ref={iconRef} className="icon-strip">
-            <img src="/about/icon.svg" />
+        {/* Middle Section - Content with Side Designs */}
+        <div className="absolute flex h-screen w-full items-center px-[22vw]">
+          {/* Main Content - About Us */}
+          <div className={`flex max-w-full flex-col transition-transform duration-1500 ease-out 
+          ${
+            isLoaded
+            ? "translate-y-0"
+            : "translate-y-[45vh]"
+        }`}>
+            {/* About Us Title */}
+            <div className="">
+              <h1
+                className="font-hitchcut text-[8vw] leading-[8vw] font-bold text-[#880303]"
+                style={{
+                  WebkitTextStroke: "2px black",
+                  paintOrder: "stroke fill",
+                  textShadow: "3px 3px 2px rgba(0, 0, 0, 0.25)",
+                }}
+              >
+                About
+              </h1>
+            </div>
+            <div className="flex max-w-full items-start gap-4">
+              <h1
+                className="font-hitchcut shrink-0 text-[8vw] leading-[4vw] font-bold text-[#4e0202]"
+                style={{
+                  WebkitTextStroke: "2px black",
+                  paintOrder: "stroke fill",
+                  textShadow: "3px 3px 2px rgba(0, 0, 0, 0.25)",
+                }}
+              >
+                us
+              </h1>
+              {/* Description Text */}
+              <p className="font-hitchcut mt-[3.5vh] min-w-0 flex-1 text-[1.75vw] text-black">
+                NIT Silchar&apos;s cultural extravaganza invites you into a
+                vibrant{" "}
+                <span className="font-bold text-[#D45800]">
+                  Tribal Tapestry
+                </span>
+                —a journey woven with ancient rhythms, timeless traditions, and
+                stories passed through generations, where heritage comes alive
+                and brilliance shines from the roots.
+              </p>
+            </div>
           </div>
         </div>
       </div>
-    </section>
+    </div>
   );
-};
-
-export default AboutIncand;
+}

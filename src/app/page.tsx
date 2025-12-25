@@ -30,8 +30,7 @@ import Sponsors from "~/components/Home/Sponsors";
 import TribalTrackbar from "~/components/TrivalNavbar";
 import { Footer } from "~/components/Footer";
 import Landing from "~/components/Home/Landing";
-import AboutIncand from "~/components/About/AboutIncand";
-import AboutNits from "~/components/About/AboutNits";
+import AboutIncandResponsive from "~/components/About/AboutIncandResponsive";
 
 export default function HomePage() {
   const [loading, setLoading] = useState(true);
@@ -50,15 +49,15 @@ export default function HomePage() {
 
         {/* --- ABOUT INCAND --- */}
         <section id="about" className="h-screen w-full snap-start">
-          <AboutIncand />
+          <AboutIncandResponsive />
         </section>
 
-        {/* --- ABOUT NIT SILCHAR --- */}
-        <section id="about-nit" className="h-screen w-full snap-start">
+        {/* --- ABOUT NIT SILCHAR ---
+        <section id="about" className="h-screen w-full snap-start">
           <AboutNits />
-        </section>
+        </section> */}
 
-        {/* ---EVENTS --- */}
+        {/* ---EVENTS ---
         <section
           id="events"
           className="flex h-screen w-full snap-start flex-col items-center justify-center bg-[#e8dfc5] px-4 text-center"
@@ -66,7 +65,7 @@ export default function HomePage() {
           <h1 className="font-hitchcut text-5xl font-black text-[#520000] drop-shadow-lg sm:text-6xl md:text-7xl lg:text-8xl">
             EVENTS
           </h1>
-        </section>
+        </section> */}
         <Sponsors />
         {/* --- HOME --- */}
         <section id="merch" className="h-screen w-full snap-start">
