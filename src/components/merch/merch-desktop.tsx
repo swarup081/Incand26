@@ -15,8 +15,8 @@ interface MerchProps {
   theme: Theme;
   isLight: boolean;
   handleThemeSwitch: (t: "light" | "dark") => void;
-  springTransition: Record<string, unknown>;
-  popVariants: Variants; // FIX: Changed from Record<string, unknown> to Variants
+  springTransition: object;
+  popVariants: Variants;
 }
 
 export function MerchDesktop({
@@ -101,7 +101,7 @@ export function MerchDesktop({
           {/* --- TOP LEFT ARROW (Desktop Position) - ANIMATED --- */}
           <div className="absolute top-0 left-12 z-[60] min-[2200px]:top-24 min-[2200px]:left-24 min-[2200px]:scale-[3.8] lg:left-16 xl:left-24 2xl:scale-[2.36]">
             <AnimatePresence mode="wait">
-              <motion.div
+                <motion.div
                 key={`arrow-${theme.id}`}
                 variants={popVariants}
                 initial="hidden"
@@ -289,8 +289,8 @@ export function MerchDesktop({
 interface SubComponentProps {
   theme?: Theme;
   isLight?: boolean;
-  springTransition?: Record<string, unknown>;
-  popVariants?: Variants; // FIX: Changed from Record<string, unknown> to Variants
+  springTransition?: object;
+  popVariants?: Variants;
 }
 
 function PriceElement({ theme, isLight, springTransition }: SubComponentProps) {
@@ -347,7 +347,7 @@ function HeadingElement({ theme, popVariants }: SubComponentProps) {
         className="text-7xl leading-[0.85] uppercase min-[2200px]:text-[11rem] xl:text-7xl"
         style={{ color: theme.textPrimary, fontWeight: 400 }}
       >
-        {theme.heading.split(" ").map((word: string, i: number) => (
+        {theme.heading.split(" ").map((word, i) => (
           <span key={i} className="block">
             {word}
           </span>

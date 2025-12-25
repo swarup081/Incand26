@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { useEffect, useState, useLayoutEffect } from "react";
@@ -207,10 +209,12 @@ const Loader: React.FC<LoaderProps> = ({ onComplete, onTilesStart }) => {
                   <div className="relative -top-[20vh] flex flex-col items-center transition-opacity duration-300">
                     <img
                       src="/fire.gif"
+                      alt="Fire animation"
                       className="absolute -top-[18vh] h-[33vh]"
                     />
                     <img
                       src="/stick.webp"
+                      alt="Stick"
                       className="relative top-[15vh] h-[35vh]"
                     />
                   </div>
@@ -296,10 +300,12 @@ const Loader: React.FC<LoaderProps> = ({ onComplete, onTilesStart }) => {
                   <div className="relative -top-[20vh] flex flex-col items-center transition-opacity duration-300">
                     <img
                       src="/fire.gif"
+                      alt="Fire animation"
                       className="absolute -top-[14vh] h-[28vh]"
                     />
                     <img
                       src="/stick.webp"
+                      alt="Stick"
                       className="relative top-[15vh] h-[28vh]"
                     />
                   </div>
@@ -388,10 +394,12 @@ const Loader: React.FC<LoaderProps> = ({ onComplete, onTilesStart }) => {
                   <div className="relative -top-[20vh] flex flex-col items-center transition-opacity duration-300">
                     <img
                       src="/fire.gif"
+                      alt="Fire animation"
                       className="absolute -top-[13vh] h-[25vh]"
                     />
                     <img
                       src="/stick.webp"
+                      alt="Stick"
                       className="relative top-[12vh] h-[26vh]"
                     />
                   </div>

@@ -63,9 +63,12 @@ const THEMES: Record<"light" | "dark", Theme> = {
   },
 };
 
-const springTransition = { type: "spring", stiffness: 70, damping: 25 };
+const springTransition = {
+  type: "spring",
+  stiffness: 70,
+  damping: 25,
+} as const;
 
-// FIX: Explicitly typed as Variants to satisfy Framer Motion strict types
 const popVariants: Variants = {
   hidden: { scale: 0.8, opacity: 0 },
   visible: {

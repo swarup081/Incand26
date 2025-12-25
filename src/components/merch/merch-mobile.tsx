@@ -10,8 +10,8 @@ interface MerchProps {
   theme: Theme;
   isLight: boolean;
   handleThemeSwitch: (t: "light" | "dark") => void;
-  springTransition: Record<string, unknown>;
-  popVariants: Variants; // FIX: Changed from Record<string, unknown> to Variants
+  springTransition: object;
+  popVariants: Variants;
 }
 
 export function MerchMobile({
@@ -136,7 +136,7 @@ export function MerchMobile({
                 className="mb-2 text-4xl leading-[0.85] tracking-wide uppercase md:text-5xl"
                 style={{ color: theme.textPrimary }}
               >
-                {theme.heading.split("\n").map((word: string, i: number) => (
+                {theme.heading.split("\n").map((word, i) => (
                   <span key={i} className="block">
                     {word}
                   </span>
