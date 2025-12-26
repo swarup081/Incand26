@@ -49,7 +49,7 @@ export default function AboutIncand() {
       </div>
       {/* Side Decorative Elements */}
       <div
-        className={`absolute left-0 z-30 h-screen w-[80vw] transition-transform duration-1500 ease-out ${
+        className={`absolute left-0 z-30 h-screen w-[80vw] transition-transform delay-300 duration-1500 ease-out ${
           isLoaded
             ? "translate-x-[-15vw] translate-y-[15vh]"
             : "translate-x-0 translate-y-0"
@@ -57,6 +57,7 @@ export default function AboutIncand() {
       >
         <div className="h-full w-full overflow-visible">
           <Image
+            draggable="false"
             src="/about/left-triangle.webp"
             alt="Left design"
             fill
@@ -65,7 +66,7 @@ export default function AboutIncand() {
         </div>
       </div>
       <div
-        className={`absolute right-0 z-20 h-screen w-[80vw] transition-transform duration-1500 ease-out ${
+        className={`absolute right-0 z-20 h-screen w-[80vw] transition-transform delay-300 duration-1500 ease-out ${
           isLoaded
             ? "translate-x-[15vw] translate-y-[15vh]"
             : "translate-x-0 translate-y-0"
@@ -73,6 +74,7 @@ export default function AboutIncand() {
       >
         <div className="h-full w-full">
           <Image
+            draggable="false"
             src="/about/right-triangle.webp"
             alt="Right design"
             fill
@@ -86,7 +88,7 @@ export default function AboutIncand() {
         {/* Brochure Button - Top Right */}
         <div className="my-[18vh] flex flex-col items-center gap-[4vh]">
           <div
-            className={`flex gap-[2vw] transition-transform duration-1500 ease-out ${isLoaded ? "translate-y-[-30vh]" : "translate-y-0"}`}
+            className={`flex gap-[2vw] transition-transform delay-150 duration-1500 ease-out ${isLoaded ? "translate-y-[-30vh]" : "translate-y-0"}`}
           >
             <div className="relative h-[5vw] w-[5vw]">
               <Image
@@ -111,9 +113,12 @@ export default function AboutIncand() {
             </div>
           </div>
           <div
-            className={`z-20 transition-transform duration-1500 ease-out ${isLoaded ? "translate-x-[30vw] translate-y-[-20vh]" : "translate-x-0 translate-y-0"}`}
+            className={`z-20 transition-transform delay-150 duration-1500 ease-out ${isLoaded ? "translate-x-[30vw] translate-y-[-20vh]" : "translate-x-0 translate-y-0"}`}
           >
-            <button
+            <a
+              href="https://drive.google.com/file/d/1_YyluMmgFQFs9SShdlpAEvIHRfD1Nnx_/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
               className={`relative my-[1.5vh] flex items-center gap-0 overflow-hidden rounded-full border-[0.2vw] bg-[#751313] shadow-black transition-all duration-500 ease-out hover:scale-[1.3] hover:-rotate-6`}
               style={{
                 boxShadow: "none",
@@ -155,19 +160,18 @@ export default function AboutIncand() {
                   className="object-fill"
                 />
               </div>
-            </button>
+            </a>
           </div>
         </div>
 
         {/* Middle Section - Content with Side Designs */}
-        <div className="absolute flex h-screen w-full items-center px-[22vw]">
+        <div className="absolute flex h-screen w-full items-center px-[22vw] min-[1800px]:px-[24vw]">
           {/* Main Content - About Us */}
-          <div className={`flex max-w-full flex-col transition-transform duration-1500 ease-out 
-          ${
-            isLoaded
-            ? "translate-y-0"
-            : "translate-y-[45vh]"
-        }`}>
+          <div
+            className={`flex max-w-full flex-col transition-transform delay-200 duration-1500 ease-out ${
+              isLoaded ? "translate-y-0" : "translate-y-[45vh]"
+            }`}
+          >
             {/* About Us Title */}
             <div className="">
               <h1

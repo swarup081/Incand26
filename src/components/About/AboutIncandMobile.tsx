@@ -49,17 +49,17 @@ export default function AboutIncandMobile() {
       </div>
 
       {/* Main Content Container */}
-      <div className="relative z-10 flex min-h-screen flex-col items-center justify-between">
+      <div className="relative flex min-h-screen flex-col items-center justify-between">
         {/* About Us Section */}
         <div
-          className={`my-[9vh] flex w-full flex-col items-center px-[18vw] transition-opacity duration-1000 ease-out ${
+          className={`my-[8vh] flex w-full flex-col items-center px-[18vw] transition-opacity duration-1000 ease-out ${
             isLoaded ? "opacity-100" : "opacity-0"
           }`}
         >
           {/* About Us Title */}
           <div className="text-center">
             <h1
-              className="font-hitchcut text-[8vh] leading-[8vw] font-bold text-[#880303]"
+              className="font-hitchcut text-[8vh] leading-[7vw] font-bold text-[#880303]"
               style={{
                 WebkitTextStroke: "2px black",
                 paintOrder: "stroke fill",
@@ -83,13 +83,56 @@ export default function AboutIncandMobile() {
           </div>
 
           {/* Description Text */}
-          <p className="font-hitchcut mt-6 text-center text-[2.8vh] leading-[6vw] text-black">
+          <p className="font-hitchcut mt-4 text-center text-[2.8vh] leading-[6vw] text-black">
             NIT Silchar&apos;s cultural extravaganza invites you into a vibrant{" "}
             <span className="font-bold text-[#D45800]">Tribal Tapestry</span>—a
             journey woven with ancient rhythms, timeless traditions, and stories
             passed through generations, where heritage comes alive and
             brilliance shines from the roots.
           </p>
+
+          {/* Brochure Button */}
+          <div className="mt-4">
+              <a
+              href="https://drive.google.com/file/d/1_YyluMmgFQFs9SShdlpAEvIHRfD1Nnx_/view?usp=sharing"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="relative z-10 flex items-center gap-0 overflow-hidden rounded-full border-[0.2vw] bg-[#751313] shadow-black transition-all duration-500 ease-out"
+              style={{
+                boxShadow: "none",
+              }}
+            >
+              {/* Left Decorative Element */}
+              <div className="relative mr-[-0.5vw] h-[5vh] w-[5vh]">
+                <Image
+                  src="/about/brochure.webp"
+                  alt="Decoration"
+                  fill
+                  className="object-fill"
+                />
+              </div>
+
+              {/* Button Text Background */}
+              <div className="flex items-center justify-center px-1 py-2">
+                <span
+                  className="text-[2.5vh] font-bold tracking-wider text-[#f5e6c8]"
+                  style={{ fontFamily: "Hitchcut-Regular, sans-serif" }}
+                >
+                  BROCHURE
+                </span>
+              </div>
+
+              {/* Right Decorative Element (Rotated 180deg) */}
+              <div className="relative ml-[-0.5vw] h-[5vh] w-[5vh] rotate-180">
+                <Image
+                  src="/about/brochure.webp"
+                  alt="Decoration"
+                  fill
+                  className="object-fill"
+                />
+              </div>
+            </a>
+          </div>
         </div>
 
         {/* Bottom Decorative Triangles */}
@@ -100,7 +143,7 @@ export default function AboutIncandMobile() {
             }`}
           >
             {/* Left Triangle */}
-            <div className="absolute z-10 bottom-0 left-[-13vw] h-[50vh] w-[80vw]">
+            <div className="absolute bottom-0 left-[-13vw] z-10 h-[50vh] w-[80vw]">
               <Image
                 src="/about/left-triangle.webp"
                 alt="Left design"
