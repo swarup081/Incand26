@@ -323,14 +323,13 @@ export const MobileFooter = (): React.JSX.Element => {
             />
           ))}
 
-          <img
-            className="absolute top-[543px] left-[calc(50.00%_-_44px)] h-[11px] w-[88px]"
-            alt="Contact Us"
-            src="/footer-assets/mobile/contact-us.webp"
-          />
+          <div
+            className="absolute top-[28rem] w-[100vw] translate-x-4 text-black text-center text-xl font-hitchcut" >
+              Contact US
+          </div>
 
           <nav
-            className="absolute top-[589px] left-[calc(50.00%_-_89px)] z-10 flex h-[17px] w-[170px] items-center justify-between gap-[34.1px]"
+            className="absolute top-[32rem] z-10 flex h-[17px] w-[100vw] translate-x-4 items-center justify-center gap-[34.1px]"
             aria-label="Social media links"
           >
             {socialIcons.map(({ src, alt, href }, index) => (
@@ -378,8 +377,8 @@ export const MobileFooter = (): React.JSX.Element => {
           />
         ))}
 
-        <footer className="absolute top-[864px] left-0 flex w-full items-center justify-center">
-          <div className="flex flex-col items-center justify-center text-center [font-family:'Inter',Helvetica] text-[10px] leading-[1.1] text-black">
+        <footer className="absolute top-[94%] left-0 flex w-full items-center justify-center">
+          <div className="flex flex-col items-center justify-center text-center font-sans  text-[.6rem] leading-[1.1] text-black">
             <span className="font-semibold">MADE IN COLLABORATION</span>
             <span className="font-semibold">
               WITH <span className="font-extrabold">GDG NIT SILCHAR</span>

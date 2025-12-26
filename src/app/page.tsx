@@ -1,29 +1,6 @@
-// "use client";
-
-// import { useState } from "react";
-// import Link from "next/link";
-// import Loader from "~/components/Loader";
-
-// import HomeMerch from "~/components/Home/Merch";
-
-// export default function HomePage() {
-//   const [isLoading, setIsLoading] = useState(true);
-
-//   if (isLoading) {
-//     return <Loader onComplete={() => setIsLoading(false)} />;
-//   }
-
-//   return (
-//     <main>
-//       <HomeMerch />
-//     </main>
-//   );
-// }
-
 "use client";
 
 import { useState } from "react";
-import Link from "next/link";
 import Loader from "~/components/Loader";
 import HomeMerch from "~/components/Home/Merch";
 import Sponsors from "~/components/Home/Sponsors";
@@ -59,25 +36,13 @@ export default function HomePage() {
         </section>
 
         {/* --- SPONSORS --- */}
-        <div id="sponsors" className="h-screen w-full snap-start">
+        <div id="sponsors" className="min-h-screen w-full snap-start">
           <Sponsors />
         </div>
-
-        {/* ---EVENTS ---
-        <section
-          id="events"
-          className="flex h-screen w-full snap-start flex-col items-center justify-center bg-[#e8dfc5] px-4 text-center"
-        >
-          <h1 className="font-hitchcut text-5xl font-black text-[#520000] drop-shadow-lg sm:text-6xl md:text-7xl lg:text-8xl">
-            EVENTS
-          </h1>
-        </section> */}
         {/* --- HOME --- */}
         <section id="merch" className="h-screen w-full snap-start">
           <HomeMerch />
         </section>
-
-        {/* --- CONTACT --- */}
         {/* Footer section */}
         <section id="footer" className="w-full snap-start">
           <Footer />
