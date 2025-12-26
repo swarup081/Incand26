@@ -64,26 +64,14 @@ const popVariants: Variants = {
   exit: { scale: 0.8, opacity: 0, transition: { duration: 0.3 } },
 };
 
-// --- PRELOAD HELPER (FIXED: Removed unused reject) ---
-const preloadImages = async (srcArray: string[], onProgress: (pct: number) => void) => {
-  let loadedCount = 0;
-  const total = srcArray.length;
-
+// --- PRELOAD HELPER ---
+const preloadImages = async (srcArray: string[]) => {
   const promises = srcArray.map((src) => {
-    // FIX: Removed 'reject' param to avoid linting error since we resolve on error anyway
     return new Promise<void>((resolve) => {
       const img = new Image();
       img.src = src;
-      img.onload = () => {
-        loadedCount++;
-        onProgress(Math.floor((loadedCount / total) * 100)); 
-        resolve();
-      };
-      img.onerror = () => {
-        loadedCount++; // Count errors as loaded so we don't get stuck
-        onProgress(Math.floor((loadedCount / total) * 100));
-        resolve(); // Resolve anyway to continue
-      };
+      img.onload = () => resolve();
+      img.onerror = () => resolve(); // Resolve even on error to avoid sticking
     });
   });
   await Promise.all(promises);
@@ -96,7 +84,6 @@ export function MerchSection() {
   const [mounted, setMounted] = useState(false);
   
   const [isLoading, setIsLoading] = useState(true);
-  const [loadingProgress, setLoadingProgress] = useState(0); 
 
   const theme = THEMES[activeTheme];
   const isLight = activeTheme === "light";
@@ -129,19 +116,17 @@ export function MerchSection() {
           THEMES.light.shirtImage,
           THEMES.dark.shirtImage,
           THEMES.light.japiImage,
-        ], (pct) => {
-            setLoadingProgress(pct); 
-        });
+        ]);
         
-        // Wait just a moment at 100% to let animation finish
-        setTimeout(() => setIsLoading(false), 1200); 
+        // Wait minimum time for smoothness
+        setTimeout(() => setIsLoading(false), 2000); 
       } catch (error) {
         console.error("Failed to preload merch images", error);
         setIsLoading(false); 
       }
     };
 
-    // FIX: Added 'void' to explicitly ignore the floating promise
+    // Explicitly ignore the promise to satisfy linter
     void loadAssets();
 
     return () => window.removeEventListener("resize", checkScreenSize);
@@ -180,7 +165,8 @@ export function MerchSection() {
             exit={{ opacity: 0, transition: { duration: 0.5 } }}
             className="absolute inset-0 z-[60] flex items-center justify-center bg-black"
           >
-            <Loader loadingPercentage={loadingProgress} /> 
+            {/* FIX: Removed loadingPercentage prop */}
+            <Loader /> 
           </motion.div>
         ) : (
           // --- MAIN CONTENT ---
