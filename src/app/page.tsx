@@ -60,7 +60,7 @@ export default function HomePage() {
 
         {/* --- SPONSORS --- */}
         <div id="sponsors" className="h-screen w-full snap-start">
-        <Sponsors />
+          <Sponsors />
         </div>
 
         {/* ---EVENTS ---

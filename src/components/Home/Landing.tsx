@@ -123,7 +123,11 @@ export default function Landing() {
         <source src={ripple} type="video/mp4" />
       </video>
       <div>
-        <img src = "/incandlogo.png" alt = "Incandescence Logo" className="pointer-events-none absolute top-16 lg:top-8 left-1/2 -translate-x-1/2 w-40 h-40 xl:w-44 xl:h-44" />
+        <img
+          src="/incandlogo.png"
+          alt="Incandescence Logo"
+          className="pointer-events-none absolute top-16 left-1/2 z-50 h-40 w-40 -translate-x-1/2 lg:top-8 xl:h-44 xl:w-44"
+        />
       </div>
 
       {/* Render Trail Segments */}

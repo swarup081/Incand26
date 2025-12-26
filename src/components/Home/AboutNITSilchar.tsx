@@ -75,11 +75,11 @@ export default function AboutNITSilchar() {
         </h1>
 
         <p className="font-hitchcut max-w-md text-center text-xl leading-relaxed text-black sm:text-2xl md:max-w-lg md:text-left md:text-2xl lg:max-w-xl lg:text-3xl">
-          <span className="font-bold text-[#008080]">
-            NIT Silchar
-          </span>, a hub of innovation in Northeast India, ranks 9th among NITs and 50th overall in NIRF 2025. With consistent growth, it stands in the <span className="font-bold text-[#008080]">
-            801-1000
-          </span> band of the 2025 THE World University Rankings.
+          <span className="font-bold text-[#008080]">NIT Silchar</span>, a hub
+          of innovation in Northeast India, ranks 9th among NITs and 50th
+          overall in NIRF 2025. With consistent growth, it stands in the{" "}
+          <span className="font-bold text-[#008080]">801-1000</span> band of the
+          2025 THE World University Rankings.
         </p>
       </div>
     </section>

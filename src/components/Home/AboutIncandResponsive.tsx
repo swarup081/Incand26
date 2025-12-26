@@ -18,12 +18,12 @@ export default function AboutIncandResponsive() {
       // Show mobile view if:
       // 1. Width is less than or equal to 1024px, OR
       // 2. Height is greater than width (portrait orientation/tablet)
-      if(width <= 1024) {
-        if(width > height) {
+      if (width <= 1024) {
+        if (width > height) {
           setIsMobileView(false);
         }
         setIsMobileView(true);
-      }else {
+      } else {
         setIsMobileView(false);
       }
     };

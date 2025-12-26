@@ -28,7 +28,10 @@ export default function Sponsors() {
                 PREVIOUS SPONSORS
               </h1>
               <p className="text-3xl leading-relaxed font-medium text-[#000000]">
-                We are proud to have been supported by renowned brands and organizations that have helped us scale new heights. Their partnership has been instrumental in making Incandescence a grand success year after year.
+                We are proud to have been supported by renowned brands and
+                organizations that have helped us scale new heights. Their
+                partnership has been instrumental in making Incandescence a
+                grand success year after year.
               </p>
             </div>
 
@@ -49,7 +52,10 @@ export default function Sponsors() {
               PREVIOUS SPONSORS
             </h1>
             <p className="px-4 text-center text-xl text-[#000000]">
-              We are proud to have been supported by renowned brands and organizations that have helped us scale new heights. Their partnership has been instrumental in making Incandescence a grand success year after year.
+              We are proud to have been supported by renowned brands and
+              organizations that have helped us scale new heights. Their
+              partnership has been instrumental in making Incandescence a grand
+              success year after year.
             </p>
             <div className="flex flex-col gap-6">
               <InfiniteScroller direction="left" sponsors={data.column1} />

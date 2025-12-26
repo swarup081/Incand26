@@ -370,7 +370,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete, onTilesStart }) => {
           </div>
 
           {/* ================= CENTER OVERLAY (MATCH DESKTOP) ================= */}
-          <div className="absolute inset-0 z-40 flex flex-col items-center justify-center gap-[30vh">
+          <div className="gap-[30vh absolute inset-0 z-40 flex flex-col items-center justify-center">
             <div className="relative top-[12vh] flex flex-col items-center">
               <div className="relative flex flex-col items-center">
                 {/* 🔥 PROCEDURAL GLOW */}
