@@ -323,13 +323,12 @@ export const MobileFooter = (): React.JSX.Element => {
             />
           ))}
 
-          <div
-            className="absolute top-[28rem] w-[100vw] translate-x-4 text-black text-center text-xl font-hitchcut" >
-              Contact US
+          <div className="font-hitchcut absolute top-[28rem] w-[100vw] translate-x-4 text-center text-xl text-black md:-translate-x-48 lg:-translate-x-[18rem]">
+            Contact US
           </div>
 
           <nav
-            className="absolute top-[32rem] z-10 flex w-screen translate-x-4 items-center justify-center gap-8"
+            className="absolute top-[32rem] z-10 flex w-[100vw] translate-x-4 items-center justify-center gap-8 md:-translate-x-48 lg:-translate-x-[18rem]"
             aria-label="Social media links"
           >
             {socialIcons.map(({ src, alt, href }, index) => (
@@ -338,7 +337,7 @@ export const MobileFooter = (): React.JSX.Element => {
                 target="_blank"
                 rel="noopener noreferrer"
                 key={`social-${index}`}
-                className="flex translate-x-2 h-[1.8rem] w-[1.8rem] items-center justify-center transition-opacity hover:opacity-70"
+                className="flex h-[1.8rem] w-[1.8rem] translate-x-2 items-center justify-center transition-opacity hover:opacity-70"
                 aria-label={alt}
               >
                 <img src={src} alt={alt} className="h-full w-full" />
@@ -378,7 +377,7 @@ export const MobileFooter = (): React.JSX.Element => {
         ))}
 
         <footer className="absolute top-[94%] left-0 flex w-full items-center justify-center">
-          <div className="flex flex-col items-center justify-center text-center font-sans  text-[.6rem] leading-[1.1] text-black">
+          <div className="flex flex-col items-center justify-center text-center font-sans text-[.6rem] leading-[1.1] text-black">
             <span className="font-semibold">MADE IN COLLABORATION</span>
             <span className="font-semibold">
               WITH <span className="font-extrabold">GDG NIT SILCHAR</span>

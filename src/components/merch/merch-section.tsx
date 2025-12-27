@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from "react";
 import { type Variants, AnimatePresence, motion } from "framer-motion";
 import { MerchMobile } from "./merch-mobile";
 import { MerchDesktop } from "./merch-desktop";
-import Loader from "../Loader"; 
+import Loader from "../Loader";
 
 // --- TYPES ---
 export interface Theme {
@@ -82,7 +82,7 @@ export function MerchSection() {
   const [isAnimating, setIsAnimating] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
   const [mounted, setMounted] = useState(false);
-  
+
   const [isLoading, setIsLoading] = useState(true);
 
   const theme = THEMES[activeTheme];
@@ -100,7 +100,7 @@ export function MerchSection() {
 
   useEffect(() => {
     setMounted(true);
-    
+
     const checkScreenSize = () => {
       setIsDesktop(window.innerWidth >= 1024);
     };
@@ -117,12 +117,12 @@ export function MerchSection() {
           THEMES.dark.shirtImage,
           THEMES.light.japiImage,
         ]);
-        
+
         // Wait minimum time for smoothness
-        setTimeout(() => setIsLoading(false), 2000); 
+        setTimeout(() => setIsLoading(false), 2000);
       } catch (error) {
         console.error("Failed to preload merch images", error);
-        setIsLoading(false); 
+        setIsLoading(false);
       }
     };
 
@@ -135,7 +135,7 @@ export function MerchSection() {
   // Handle Scroll Logic
   useEffect(() => {
     const handleWheel = (e: WheelEvent) => {
-      if (isAnimating || isLoading) return; 
+      if (isAnimating || isLoading) return;
       if (e.deltaY > 50 && activeTheme === "light") handleThemeSwitch("dark");
       else if (e.deltaY < -50 && activeTheme === "dark")
         handleThemeSwitch("light");
@@ -151,7 +151,7 @@ export function MerchSection() {
       className={`font-hitchcut fixed inset-0 z-50 h-full w-full overflow-hidden transition-colors duration-700 ease-in-out`}
       style={{
         backgroundColor: theme.bg,
-        backgroundImage: isLoading ? undefined : theme.bgTexture, 
+        backgroundImage: isLoading ? undefined : theme.bgTexture,
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -166,7 +166,7 @@ export function MerchSection() {
             className="absolute inset-0 z-[60] flex items-center justify-center bg-black"
           >
             {/* FIX: Removed loadingPercentage prop */}
-            <Loader /> 
+            <Loader />
           </motion.div>
         ) : (
           // --- MAIN CONTENT ---

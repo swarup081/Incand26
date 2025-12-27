@@ -37,7 +37,7 @@ export function MerchDesktop({
           >
             INCAND
           </span>
-          <span className="text-[14vw] xl:text-[15vw] text-[#d16d1b]">20</span>
+          <span className="text-[14vw] text-[#d16d1b] xl:text-[15vw]">20</span>
         </div>
         <div className="flex items-center gap-4">
           <span
@@ -46,7 +46,7 @@ export function MerchDesktop({
           >
             ESCENCE
           </span>
-          <span className="text-[12vw] xl:text-[13vw] text-[#d16d1b]">26</span>
+          <span className="text-[12vw] text-[#d16d1b] xl:text-[13vw]">26</span>
         </div>
       </div>
 
@@ -99,9 +99,8 @@ export function MerchDesktop({
       <LayoutGroup>
         {/* Main Grid */}
         <div className="font-hitchcut relative z-10 grid h-full max-h-[85vh] w-full max-w-[1920px] grid-cols-12 items-center gap-2 px-8 pb-20 lg:gap-4 lg:px-16 xl:gap-8 xl:px-24 2xl:max-w-full 2xl:gap-12">
-          
           {/* --- TOP LEFT ARROW --- */}
-          <div className="absolute top-6 left-8 z-[60] lg:top-10 xl:top-0 2xl:-top:10 lg:left-16 xl:left-24">
+          <div className="2xl:-top:10 absolute top-6 left-8 z-[60] lg:top-10 lg:left-16 xl:top-0 xl:left-24">
             <AnimatePresence mode="wait">
               <motion.div
                 key={`arrow-${theme.id}`}
@@ -328,7 +327,7 @@ function DescElement({ theme, springTransition }: SubComponentProps) {
   return (
     <motion.div
       layoutId="desc-box"
-      className="font-hitchcut max-w-[260px] text-lg tracking-widest uppercase lg:max-w-[350px] lg:text-xl xl:max-w-[400px] xl:text-xl 2xl:text-3xl 2xl:max-w-[600px]"
+      className="font-hitchcut max-w-[260px] text-lg tracking-widest uppercase lg:max-w-[350px] lg:text-xl xl:max-w-[400px] xl:text-xl 2xl:max-w-[600px] 2xl:text-3xl"
       style={{ color: theme.textSecondary }}
       transition={springTransition}
     >

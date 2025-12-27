@@ -319,7 +319,7 @@ export function MerchMobile({
               className={`flex h-14 w-14 items-center justify-center rounded-full transition-all duration-300 ${
                 isLight
                   ? "scale-110 border-[2px] border-black bg-white shadow-xl"
-                  : "scale-100 border-[2px] border-[#C39044] bg-black "
+                  : "scale-100 border-[2px] border-[#C39044] bg-black"
               }`}
             >
               <img
@@ -333,7 +333,7 @@ export function MerchMobile({
               className={`flex h-14 w-14 items-center justify-center rounded-full transition-all duration-300 ${
                 !isLight
                   ? "scale-110 border-[2px] border-black bg-white shadow-xl"
-                  : "scale-100 border-[2px] border-[#DCA54E] bg-black "
+                  : "scale-100 border-[2px] border-[#DCA54E] bg-black"
               }`}
             >
               <img
