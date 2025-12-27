@@ -2,6 +2,7 @@ import "~/styles/globals.css";
 import "~/styles/landing.css";
 import { type Metadata } from "next";
 import localfont from "next/font/local";
+import MusicButton from "~/components/MusicButton";
 
 export const metadata: Metadata = {
   title: {
@@ -56,7 +57,10 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={hitchcut.variable}>
-      <body className="relative">{children}</body>
+      <body className="relative">
+        <MusicButton className="fixed right-8 bottom-4 z-[100]" />
+        {children}
+      </body>
     </html>
   );
 }

@@ -328,3 +328,19 @@ body {
 .animate-cloud-infinite-right {
   animation: cloud-infinite-right 40s linear infinite;
 }
+
+/* Music Button Glow Animation */
+@keyframes music-glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+    transform: scale(1.05);
+  }
+}
+
+.animate-music-glow {
+  animation: music-glow-pulse 3s infinite ease-in-out;
+}
