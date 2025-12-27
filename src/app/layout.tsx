@@ -37,7 +37,7 @@ export const metadata: Metadata = {
     ],
   },
 
-  icons: [{ rel: "icon", url: "/favicon.ico" }],
+  icons: [{ rel: "icon", url: "https://res.cloudinary.com/dm74yd2j9/image/upload/v1766838091/colour_light_qjmcwd.svg" }],
 };
 
 const hitchcut = localfont({
