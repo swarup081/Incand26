@@ -64,7 +64,7 @@ const TopNavbar: React.FC = () => {
   };
 
   return (
-    <div className="fixed top-6 left-1/2 z-50 flex w-full -translate-x-1/2 justify-center">
+    <div className="fixed top-6 left-1/2 z-50 hidden md:flex w-full -translate-x-1/2 justify-center">
       <div className="relative flex w-full max-w-lg items-center justify-between px-4">
         {/* Background Line */}
         <div className="absolute top-1/2 right-0 left-0 z-0 -mx-6 h-4 -translate-y-1/2 rounded-full border-3 border-[#df972b] bg-[#361E1E] shadow-inner" />
