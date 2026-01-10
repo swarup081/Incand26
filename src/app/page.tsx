@@ -4,7 +4,7 @@ import { useState } from "react";
 import Loader from "~/components/Loader";
 import HomeMerch from "~/components/Home/Merch";
 import Sponsors from "~/components/Home/Sponsors";
-import TribalTrackbar from "~/components/TrivalNavbar";
+import TopNavbar from "~/components/Home/TopNavbar";
 import { Footer } from "~/components/Home/Footer";
 import NewLanding from "~/components/Home/newLanding";
 import AboutIncandResponsive from "~/components/Home/AboutIncandResponsive";
@@ -48,7 +48,7 @@ export default function HomePage() {
           <Footer />
         </section>
 
-        {!loading && <TribalTrackbar />}
+        {!loading && <TopNavbar />}
       </main>
 
       {loading && (
