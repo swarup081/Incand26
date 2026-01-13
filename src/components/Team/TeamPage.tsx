@@ -119,7 +119,7 @@ export const TeamPage = () => {
     >
       <div className="relative w-full min-h-full">
         {/* Content Layer */}
-        <div className="relative z-10 flex flex-col items-center w-full max-w-[1920px] mx-auto pb-[10vw]">
+        <div className="relative z-10 flex flex-col items-center w-full max-w-[2400px] mx-auto pb-[10vw]">
 
           {/* Hero Banner Section */}
           <section className="relative w-full flex justify-center mt-8 lg:mt-[5vw]">
@@ -180,7 +180,7 @@ export const TeamPage = () => {
           </div>
 
           {/* Heads Grid */}
-          <div className="flex flex-wrap justify-center gap-y-[15vw] md:gap-x-[5vw] lg:gap-x-[2vw] lg:gap-y-[8vw] mb-[20vw] lg:mb-[10vw] px-[4vw] w-full max-w-[1600px]">
+          <div className="flex flex-wrap justify-center gap-y-[15vw] md:gap-x-[5vw] lg:gap-x-[2vw] 2xl:gap-x-[3vw] lg:gap-y-[8vw] 2xl:gap-y-[6vw] mb-[20vw] lg:mb-[10vw] px-[4vw] w-full max-w-[2000px]">
             {coreMembers.map((member, index) => (
               <div
                 key={`member-${index}`}
@@ -200,14 +200,14 @@ export const TeamPage = () => {
 
           {/* Junior Members Grid */}
           <section className="w-full relative py-8 md:py-12">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-12 lg:gap-x-[5vw] lg:gap-y-[8vw] justify-items-center max-w-[1563px] mx-auto px-[4vw]">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-8 md:gap-12 lg:gap-x-[5vw] lg:gap-y-[8vw] 2xl:gap-x-[6vw] 2xl:gap-y-[8vw] justify-items-center max-w-[2200px] mx-auto px-[4vw]">
               {juniorMembers.map((member) => (
                 <div
                   key={member.id}
                   className="w-full bg-transparent border-none shadow-none"
                 >
-                  <div className="flex flex-col items-center gap-[4vw] lg:gap-[1.2vw] p-0">
-                    <div className="relative w-[50vw] sm:w-[40vw] md:w-[30vw] lg:w-[18vw] aspect-[279/364] flex justify-center items-center group overflow-hidden">
+                  <div className="flex flex-col items-center gap-[4vw] lg:gap-[1.2vw] 2xl:gap-[0.8vw] p-0">
+                    <div className="relative w-[50vw] sm:w-[40vw] md:w-[30vw] lg:w-[18vw] 2xl:w-[16vw] aspect-[279/364] flex justify-center items-center group overflow-hidden">
                       {/* Frame Layer - Top */}
                       <img
                         className="absolute inset-0 w-full h-full z-10 object-contain pointer-events-none"
@@ -223,29 +223,29 @@ export const TeamPage = () => {
                       />
 
                       {/* Social Links Slide-up */}
-                      <div className="absolute bottom-[8%] left-0 w-full flex justify-center gap-[4vw] md:gap-[2vw] lg:gap-[1.5vw] z-20 transition-transform duration-300 translate-y-0 lg:translate-y-[300%] lg:group-hover:translate-y-0">
+                      <div className="absolute bottom-[8%] left-0 w-full flex justify-center gap-[4vw] md:gap-[2vw] lg:gap-[1.5vw] 2xl:gap-[1.2vw] z-20 transition-transform duration-300 translate-y-0 lg:translate-y-[300%] lg:group-hover:translate-y-0 2xl:translate-y-0">
                         {member.linkedin && member.linkedin !== "#" && (
-                          <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="w-[8vw] h-[8vw] md:w-[4vw] md:h-[4vw] lg:w-[2.5vw] lg:h-[2.5vw] bg-black rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                          <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="w-[8vw] h-[8vw] md:w-[4vw] md:h-[4vw] lg:w-[2.5vw] lg:h-[2.5vw] 2xl:w-[2.2vw] 2xl:h-[2.2vw] bg-black rounded-full flex items-center justify-center hover:scale-110 transition-transform">
                             <img src="/team/linkedin.webp" alt="LinkedIn" className="w-[60%] h-[60%] object-contain" />
                           </a>
                         )}
                         {member.github && member.github !== "#" && (
-                          <a href={member.github} target="_blank" rel="noopener noreferrer" className="w-[8vw] h-[8vw] md:w-[4vw] md:h-[4vw] lg:w-[2.5vw] lg:h-[2.5vw] bg-black rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                          <a href={member.github} target="_blank" rel="noopener noreferrer" className="w-[8vw] h-[8vw] md:w-[4vw] md:h-[4vw] lg:w-[2.5vw] lg:h-[2.5vw] 2xl:w-[2.2vw] 2xl:h-[2.2vw] bg-black rounded-full flex items-center justify-center hover:scale-110 transition-transform">
                             <img src="/team/github.webp" alt="Github" className="w-[60%] h-[60%] object-contain" />
                           </a>
                         )}
                         {member.instagram && member.instagram !== "#" && (
-                          <a href={member.instagram} target="_blank" rel="noopener noreferrer" className="w-[8vw] h-[8vw] md:w-[4vw] md:h-[4vw] lg:w-[2.5vw] lg:h-[2.5vw] bg-black rounded-full flex items-center justify-center hover:scale-110 transition-transform">
+                          <a href={member.instagram} target="_blank" rel="noopener noreferrer" className="w-[8vw] h-[8vw] md:w-[4vw] md:h-[4vw] lg:w-[2.5vw] lg:h-[2.5vw] 2xl:w-[2.2vw] 2xl:h-[2.2vw] bg-black rounded-full flex items-center justify-center hover:scale-110 transition-transform">
                             <img src="/team/insta.svg" alt="Instagram" className="w-[60%] h-[60%] object-contain" />
                           </a>
                         )}
                       </div>
                     </div>
-                    <div className="flex flex-col w-full items-center gap-[2vw] lg:gap-[0.5vw]">
-                      <h3 className="w-full font-hitchcut font-normal text-white text-[5vw] md:text-[2.5vw] lg:text-[1.45vw] text-center tracking-[0] leading-normal whitespace-nowrap">
+                    <div className="flex flex-col w-full items-center gap-[2vw] lg:gap-[0.5vw] 2xl:gap-[0.3vw]">
+                      <h3 className="w-full font-hitchcut font-normal text-white text-[5vw] md:text-[2.5vw] lg:text-[1.45vw] 2xl:text-[1.1vw] text-center tracking-[0] leading-normal whitespace-nowrap">
                         {member.name}
                       </h3>
-                      <p className="w-full font-hitchcut font-normal text-white text-[3.5vw] md:text-[1.8vw] lg:text-[1vw] text-center tracking-[0] leading-normal whitespace-nowrap">
+                      <p className="w-full font-hitchcut font-normal text-white text-[3.5vw] md:text-[1.8vw] lg:text-[1vw] 2xl:text-[0.75vw] text-center tracking-[0] leading-normal whitespace-nowrap">
                         {member.role}
                       </p>
                     </div>
