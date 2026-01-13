@@ -50,7 +50,7 @@ export const MemberCard = ({
 
             {/* Social Icons */}
             <div className="inline-flex items-center gap-[12vw] md:gap-[5vw] lg:gap-[3.5vw] absolute top-[79.5%] left-1/2 -translate-x-1/2 z-20 transition-transform duration-300 group-hover:translate-y-[2vw] group-hover:scale-110">
-                {socialIcons.map((icon, iconIndex) => (
+                {socialIcons.filter(icon => icon.link && icon.link !== "#").map((icon, iconIndex) => (
                     <a
                         key={`social-${iconIndex}`}
                         href={icon.link}
