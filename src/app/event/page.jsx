@@ -33,7 +33,7 @@ export default function EventPoster() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="grid h-[400px] min-h-screen w-full max-w-[700px] min-w-screen grid-cols-9 grid-rows-16 divide-x divide-y divide-black border border-black bg-[#fffffe] sm:h-[400px] sm:grid-cols-21 sm:grid-rows-11 ">
+      <div className="grid h-[400px] min-h-screen w-full max-w-[700px] min-w-screen grid-cols-9 grid-rows-16 divide-x divide-y divide-black border border-black bg-[#fffffe] sm:h-[400px] sm:grid-cols-21 sm:grid-rows-11">
         {Array.from({ length: 21 * 16 }).map((_, i) => {
           const src = images[i % images.length];
 
@@ -107,7 +107,7 @@ export default function EventPoster() {
         </div>
 
         <div
-          className={`col-span-7 col-start-2 row-span-1 row-start-11 flex items-center justify-center text-[15px] font-bold transition-colors duration-300 sm:col-span-7  sm:col-start-11 sm:row-start-4 sm:text-xl  md:text-3xl md:leading-normal md:col-span-8 md:col-start-11 lg:col-span-6 lg:col-start-11 lg:text-3xl lg:leading-relaxed  ${
+          className={`col-span-7 col-start-2 row-span-1 row-start-11 flex items-center justify-center text-[15px] font-bold transition-colors duration-300 sm:col-span-7 sm:col-start-11 sm:row-start-4 sm:text-xl md:col-span-8 md:col-start-11 md:text-3xl md:leading-normal lg:col-span-6 lg:col-start-11 lg:text-3xl lg:leading-relaxed ${
             isAlternateTheme
               ? "bg-[#1E0C0C] text-white"
               : "bg-[#FFF8EC] text-black"
