@@ -17,7 +17,7 @@ export default function Page() {
           <h2 className="font-hitchcut text-outline text-shadow hidden text-white sm:block sm:text-3xl md:text-4xl lg:text-5xl">
             Of InCaNd 2026
           </h2>
-          <h3 className="font-hitchcut text-shadow mt-30 text-3xl tracking-widest text-white sm:mt-0 sm:text-2xl">
+          <h3 className="font-hitchcut text-shadow mt-10 text-3xl tracking-widest text-white sm:mt-0 sm:text-2xl">
             SCROLL DOWN
           </h3>
         </div>
