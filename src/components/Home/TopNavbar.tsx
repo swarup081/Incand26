@@ -63,7 +63,7 @@ const TopNavbar: React.FC = () => {
       {
         rootMargin: "-50% 0px -50% 0px",
         threshold: 0,
-      }
+      },
     );
 
     navItems.forEach((item) => {
@@ -72,7 +72,7 @@ const TopNavbar: React.FC = () => {
     });
 
     return () => observer.disconnect();
-  }, []); 
+  }, []);
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -107,13 +107,13 @@ const TopNavbar: React.FC = () => {
               key={item.id}
               onClick={() => scrollToSection(item.id)}
               aria-label={item.label}
-              className="group relative z-10 flex  flex-col items-center justify-center focus:outline-none"
+              className="group relative z-10 flex flex-col items-center justify-center focus:outline-none"
             >
               {/* Icon Circle */}
               <div
-                className={`relative scale-90 z-20 flex h-20 w-20 items-center justify-center rounded-full border-[3px] shadow-2xl transition-all duration-300 ease-out ${
+                className={`relative z-20 flex h-20 w-20 scale-90 items-center justify-center rounded-full border-[3px] shadow-2xl transition-all duration-300 ease-out ${
                   isActive
-                    ? "border-[#FBB752] bg-white scale-90"
+                    ? "scale-90 border-[#FBB752] bg-white"
                     : "border-[#FBB752] bg-black hover:scale-95"
                 }`}
               >
@@ -123,15 +123,13 @@ const TopNavbar: React.FC = () => {
                     alt={item.label}
                     fill
                     unoptimized
-                    className="object-contain transition-all duration-300 opacity-100"
+                    className="object-contain opacity-100 transition-all duration-300"
                   />
                 </div>
               </div>
 
               {/* Hover Label */}
-              <span
-                className="absolute z-10 -translate-y-2 whitespace-nowrap text-sm font-bold tracking-wider text-[#361E1E] opacity-0 transition-all duration-500 ease-out group-hover:translate-y-12 group-hover:opacity-100"
-              >
+              <span className="absolute z-10 -translate-y-2 text-sm font-bold tracking-wider whitespace-nowrap text-[#361E1E] opacity-0 transition-all duration-500 ease-out group-hover:translate-y-12 group-hover:opacity-100">
                 {item.label}
               </span>
             </button>
