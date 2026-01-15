@@ -344,3 +344,29 @@ body {
 .animate-music-glow {
   animation: music-glow-pulse 3s infinite ease-in-out;
 }
+
+.text-outline {
+  color: white;
+  text-shadow:
+    -2px -2px 0 black,
+     2px -2px 0 black,
+    -2px  2px 0 black,
+     2px  2px 0 black,
+     0px  2px 0 black,
+     2px  0px 0 black,
+    -2px  0px 0 black,
+     0px -2px 0 black;
+}
+
+.text-outline-thick {
+  color: white;
+  text-shadow:
+    -3px -3px 0 black,
+     3px -3px 0 black,
+    -3px  3px 0 black,
+     3px  3px 0 black,
+     0px  3px 0 black,
+     3px  0px 0 black,
+    -3px  0px 0 black,
+     0px -3px 0 black;
+}
