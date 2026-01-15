@@ -6,47 +6,56 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 interface NavItem {
-  route: string; // Renamed from id to route for clarity
+  route: string;
   icon: string;
   label: string;
 }
 
 const navItems: NavItem[] = [
   {
-    route: "/", // Changed to root path
+    route: "/",
     icon: "https://res.cloudinary.com/dgechlqls/image/upload/v1766226889/Group_qp18l8.png",
     label: "Home",
   },
-
   {
-    route: "/events", // Route to Events page
+    route: "/events",
     icon: "https://res.cloudinary.com/dgechlqls/image/upload/v1766226904/Group_2_ur19lj.png",
     label: "Events",
   },
   {
-    route: "/gallery", // Route to Gallery page
+    route: "/gallery",
     icon: "https://res.cloudinary.com/dgechlqls/image/upload/v1766226912/Group_3_centwg.png",
     label: "Photo Gallery",
   },
   {
-    route: "/team", // Route to Team page
+    route: "/team",
     icon: "newLanding/Group.png",
     label: "Team",
   },
-
 ];
 
-const TopNavbar: React.FC = () => {
-  const pathname = usePathname(); // Gets the current URL path
+// 1. Add this interface
+interface TopNavbarProps {
+  fromLayout?: boolean;
+}
+
+// 2. Add the prop to the component
+const TopNavbar: React.FC<TopNavbarProps> = ({ fromLayout = false }) => {
+  const pathname = usePathname();
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    // Only handles the initial entry animation now
     setIsLoaded(true);
   }, []);
 
+  // 3. THE FIX: 
+  // If this navbar is living in the RootLayout, AND we are on the homepage,
+  // hide it immediately. This allows the HomePage's own loading logic to take over.
+  if (fromLayout && pathname === "/") {
+    return null;
+  }
+
   return (
-    /* Hidden below xl */
     <div
       className={`fixed top-6 left-1/2 z-50 hidden w-full -translate-x-1/2 justify-center transition-opacity duration-700 xl:flex ${
         isLoaded ? "opacity-100" : "opacity-0"
@@ -61,7 +70,6 @@ const TopNavbar: React.FC = () => {
         />
 
         {navItems.map((item) => {
-          // Check if current path matches the item route
           const isActive = pathname === item.route;
 
           return (
@@ -71,7 +79,6 @@ const TopNavbar: React.FC = () => {
               aria-label={item.label}
               className="group relative z-10 flex flex-col items-center justify-center focus:outline-none"
             >
-              {/* Icon Circle */}
               <div
                 className={`relative z-20 flex h-20 w-20 scale-90 items-center justify-center rounded-full border-[3px] shadow-2xl transition-all duration-300 ease-out ${
                   isActive
@@ -90,12 +97,11 @@ const TopNavbar: React.FC = () => {
                 </div>
               </div>
 
-              {/* Label - Logic updated to show always if active, otherwise on hover */}
               <span
                 className={`absolute z-10 -translate-y-2 text-sm font-bold tracking-wider whitespace-nowrap text-[#361E1E] transition-all duration-500 ease-out ${
                   isActive
-                    ? "translate-y-12 opacity-100" // Always visible if active
-                    : "opacity-0 group-hover:translate-y-12 group-hover:opacity-100" // Hover effect if inactive
+                    ? "translate-y-12 opacity-100"
+                    : "opacity-0 group-hover:translate-y-12 group-hover:opacity-100"
                 }`}
               >
                 {item.label}
