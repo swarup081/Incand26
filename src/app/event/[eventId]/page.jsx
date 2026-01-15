@@ -1,4 +1,3 @@
-
 "use client";
 
 import Image from "next/image";
@@ -19,49 +18,42 @@ const images = [
 export const runtime = 'edge';
 
 export default function EventPoster() {
- const params = useParams();
-const router = useRouter();
+  const params = useParams();
+  const router = useRouter();
 
-const eventId = Number(params.eventId);
+  const eventId = Number(params.eventId);
 
-const event = events.find(e => e.id === eventId);
+  const event = events.find((e) => e.id === eventId);
 
-if (!event) {
-  return <div>Event not found</div>;
-}
+  if (!event) {
+    return <div>Event not found</div>;
+  }
 
-const currentIndex = events.findIndex(e => e.id === eventId);
+  const currentIndex = events.findIndex((e) => e.id === eventId);
 
-if (currentIndex === -1) {
-  return <div>Invalid event</div>;
-}
+  if (currentIndex === -1) {
+    return <div>Invalid event</div>;
+  }
 
+  const dateObj = new Date(event.date);
 
+  const day = String(dateObj.getDate()).padStart(2, "0");
+  const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+  const year = String(dateObj.getFullYear()).slice(-2);
 
- const dateObj = new Date(event.date);
-
-const day = String(dateObj.getDate()).padStart(2, "0");
-const month = String(dateObj.getMonth() + 1).padStart(2, "0");
-const year = String(dateObj.getFullYear()).slice(-2);
-
-  
-
-const isAlternateTheme = event.id % 2 === 1;
-
+  const isAlternateTheme = event.id % 2 === 1;
 
   const goNext = () => {
-  const nextIndex = (currentIndex + 1) % events.length;
-  const nextId = events[nextIndex].id;
-  router.push(`/event/${nextId}`);
-};
-
+    const nextIndex = (currentIndex + 1) % events.length;
+    const nextId = events[nextIndex].id;
+    router.push(`/event/${nextId}`);
+  };
 
   const goPrev = () => {
-  const prevIndex = (currentIndex - 1 + events.length) % events.length;
-  const prevId = events[prevIndex].id;
-  router.push(`/event/${prevId}`);
-};
-
+    const prevIndex = (currentIndex - 1 + events.length) % events.length;
+    const prevId = events[prevIndex].id;
+    router.push(`/event/${prevId}`);
+  };
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
@@ -139,7 +131,7 @@ const isAlternateTheme = event.id % 2 === 1;
         </div>
 
         <div
-          className={`col-span-7 col-start-2 row-span-1 row-start-11 flex items-center justify-center text-[15px] font-bold transition-colors duration-300 sm:col-span-7 sm:col-start-11 sm:row-start-4 sm:text-xl md:col-span-8 md:col-start-11 md:text-3xl md:leading-normal lg:col-span-6 lg:col-start-11 lg:text-3xl lg:leading-relaxed ${
+          className={`col-span-7 col-start-2 row-span-1 row-start-11 flex items-center justify-center text-[0.9375rem] font-bold transition-colors duration-300 sm:col-span-7 sm:col-start-11 sm:row-start-4 sm:text-xl md:col-span-8 md:col-start-11 md:text-xl md:leading-normal lg:col-span-6 lg:col-start-11 lg:text-2xl lg:leading-relaxed ${
             isAlternateTheme
               ? "bg-[#1E0C0C] text-white"
               : "bg-[#FFF8EC] text-black"
@@ -174,7 +166,7 @@ const isAlternateTheme = event.id % 2 === 1;
         <div className="col-span-2 col-start-7 row-start-16 flex items-center justify-center sm:col-span-3 sm:col-start-18 sm:row-start-11">
           <button
             onClick={goNext}
-            className={`h-10 w-24 rounded text-[10px] font-bold ring-2 ring-amber-950 sm:h-10 sm:w-24 sm:text-xs ${
+            className={`h-10 w-24 rounded text-[0.625rem] font-bold ring-2 ring-amber-950 sm:h-10 sm:w-24 sm:text-xs ${
               isAlternateTheme
                 ? "bg-amber-950 text-white"
                 : "bg-amber-600 text-white"
