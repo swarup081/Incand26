@@ -2,87 +2,48 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 interface NavItem {
-  id: string;
+  route: string; // Renamed from id to route for clarity
   icon: string;
   label: string;
 }
-//write the id for your page here
+
 const navItems: NavItem[] = [
   {
-    id: "home",
+    route: "/", // Changed to root path
     icon: "https://res.cloudinary.com/dgechlqls/image/upload/v1766226889/Group_qp18l8.png",
     label: "Home",
   },
+
   {
-    id: "about",
-    icon: "https://res.cloudinary.com/dgechlqls/image/upload/v1766226895/Group_1_g5roxz.png",
-    label: "About",
-  },
-  {
-    id: "events",
+    route: "/events", // Route to Events page
     icon: "https://res.cloudinary.com/dgechlqls/image/upload/v1766226904/Group_2_ur19lj.png",
     label: "Events",
   },
   {
-    id: "sponsors",
-    icon: "newLanding/Group.png",
-    label: "Team",
-  },
-  {
-    id: "merch",
+    route: "/gallery", // Route to Gallery page
     icon: "https://res.cloudinary.com/dgechlqls/image/upload/v1766226912/Group_3_centwg.png",
     label: "Photo Gallery",
   },
+  {
+    route: "/team", // Route to Team page
+    icon: "newLanding/Group.png",
+    label: "Team",
+  },
+
 ];
 
 const TopNavbar: React.FC = () => {
-  const [activeSection, setActiveSection] = useState("home");
+  const pathname = usePathname(); // Gets the current URL path
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    // Only handles the initial entry animation now
     setIsLoaded(true);
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        let anyIntersecting = false;
-
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            anyIntersecting = true;
-            setActiveSection(entry.target.id);
-          }
-        });
-
-        // If nothing is intersecting, user is on the first (landing) full-screen section
-        if (!anyIntersecting) {
-          setActiveSection("home");
-        }
-      },
-      {
-        rootMargin: "-50% 0px -50% 0px",
-        threshold: 0,
-      },
-    );
-
-    navItems.forEach((item) => {
-      const element = document.getElementById(item.id);
-      if (element) observer.observe(element);
-    });
-
-    return () => observer.disconnect();
   }, []);
-
-  const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-    }
-  };
 
   return (
     /* Hidden below xl */
@@ -94,18 +55,19 @@ const TopNavbar: React.FC = () => {
       <div className="relative flex w-full max-w-2xl items-center justify-center gap-10 px-4">
         {/* Background Line */}
         <div
-          className={`absolute top-[40px] right-0 left-0 z-0 mx-6 h-3 -translate-y-1/2 rounded-full border-2 border-[#df972b] bg-[#361E1E] shadow-inner transition-all duration-1000 ease-out ${
+          className={`absolute top-[40px] right-0 left-0 z-0 mx-14 h-3 -translate-y-1/2 rounded-full border-2 border-[#df972b] bg-[#361E1E] shadow-inner transition-all duration-1000 ease-out ${
             isLoaded ? "w-auto opacity-100" : "w-0 opacity-0"
           }`}
         />
 
         {navItems.map((item) => {
-          const isActive = activeSection === item.id;
+          // Check if current path matches the item route
+          const isActive = pathname === item.route;
 
           return (
-            <button
-              key={item.id}
-              onClick={() => scrollToSection(item.id)}
+            <Link
+              key={item.route}
+              href={item.route}
               aria-label={item.label}
               className="group relative z-10 flex flex-col items-center justify-center focus:outline-none"
             >
@@ -128,11 +90,17 @@ const TopNavbar: React.FC = () => {
                 </div>
               </div>
 
-              {/* Hover Label */}
-              <span className="absolute z-10 -translate-y-2 text-sm font-bold tracking-wider whitespace-nowrap text-[#361E1E] opacity-0 transition-all duration-500 ease-out group-hover:translate-y-12 group-hover:opacity-100">
+              {/* Label - Logic updated to show always if active, otherwise on hover */}
+              <span
+                className={`absolute z-10 -translate-y-2 text-sm font-bold tracking-wider whitespace-nowrap text-[#361E1E] transition-all duration-500 ease-out ${
+                  isActive
+                    ? "translate-y-12 opacity-100" // Always visible if active
+                    : "opacity-0 group-hover:translate-y-12 group-hover:opacity-100" // Hover effect if inactive
+                }`}
+              >
                 {item.label}
               </span>
-            </button>
+            </Link>
           );
         })}
       </div>
