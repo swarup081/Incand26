@@ -1,6 +1,7 @@
+
 "use client";
+
 import Image from "next/image";
-import { useState } from "react";
 import events from "../../../data/event.json";
 import { useParams, useRouter } from "next/navigation";
 
@@ -16,34 +17,53 @@ const images = [
 ];
 
 export default function EventPoster() {
-  const params = useParams();
-  const router = useRouter();
+ const params = useParams();
+const router = useRouter();
 
-  const currentIndex = Number(params.eventId) || 0;
-  const event = events[currentIndex];
+const eventId = Number(params.eventId);
 
-  if (!event) {
-    return <div className="p-10">Event not found</div>;
-  }
+const event = events.find(e => e.id === eventId);
 
-  const dateParts = event.date ? event.date.split(" • ") : ["00", "00", "00"];
-  const [day, month, year] = dateParts;
+if (!event) {
+  return <div>Event not found</div>;
+}
 
-  const isAlternateTheme = currentIndex % 2 === 1;
+const currentIndex = events.findIndex(e => e.id === eventId);
+
+if (currentIndex === -1) {
+  return <div>Invalid event</div>;
+}
+
+
+
+ const dateObj = new Date(event.date);
+
+const day = String(dateObj.getDate()).padStart(2, "0");
+const month = String(dateObj.getMonth() + 1).padStart(2, "0");
+const year = String(dateObj.getFullYear()).slice(-2);
+
+  
+
+const isAlternateTheme = event.id % 2 === 1;
+
 
   const goNext = () => {
-    const next = (currentIndex + 1) % events.length;
-    router.push(`/event/${next}`);
-  };
+  const nextIndex = (currentIndex + 1) % events.length;
+  const nextId = events[nextIndex].id;
+  router.push(`/event/${nextId}`);
+};
+
 
   const goPrev = () => {
-    const prev = (currentIndex - 1 + events.length) % events.length;
-    router.push(`/event/${prev}`);
-  };
+  const prevIndex = (currentIndex - 1 + events.length) % events.length;
+  const prevId = events[prevIndex].id;
+  router.push(`/event/${prevId}`);
+};
+
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
-      <div className="grid h-[400px] min-h-screen w-full max-w-[700px] min-w-screen grid-cols-9 grid-rows-16 divide-x divide-y divide-black border border-black bg-[#fffffe] sm:h-[400px] sm:grid-cols-21 sm:grid-rows-11">
+      <div className="grid h-[25rem] min-h-screen w-full max-w-[43.75rem] min-w-screen grid-cols-9 grid-rows-16 divide-x divide-y divide-black border border-black bg-[#fffffe] sm:h-[25rem] sm:grid-cols-21 sm:grid-rows-11">
         {Array.from({ length: 21 * 16 }).map((_, i) => {
           const src = images[i % images.length];
 
@@ -83,7 +103,7 @@ export default function EventPoster() {
               : "bg-[#FFF8EC] text-black"
           } `}
         >
-          {event.number}
+          {event.id}
         </div>
 
         <div
