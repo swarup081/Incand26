@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-img-element */
+/* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
 import { useEffect, useState, useLayoutEffect } from "react";
@@ -182,7 +184,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete, onTilesStart }) => {
               );
             })}
           </div>
-          <div className="absolute inset-0 z-40 flex flex-col items-center justify-center gap-[30vh] bg-black/30">
+          <div className="absolute inset-0 z-40 flex flex-col items-center justify-center gap-[30vh]">
             <div className="relative top-[15vh] flex flex-col items-center">
               <div className="relative flex flex-col items-center">
                 {/* 🔥 GLOW — removed from layout */}
@@ -205,10 +207,12 @@ const Loader: React.FC<LoaderProps> = ({ onComplete, onTilesStart }) => {
                   <div className="relative -top-[20vh] flex flex-col items-center transition-opacity duration-300">
                     <img
                       src="/fire.gif"
+                      alt="Fire animation"
                       className="absolute -top-[18vh] h-[33vh]"
                     />
                     <img
                       src="/stick.webp"
+                      alt="Stick"
                       className="relative top-[15vh] h-[35vh]"
                     />
                   </div>
@@ -219,7 +223,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete, onTilesStart }) => {
 
           {showText && (
             <p
-              style={{ fontFamily: "Hitchcut" }}
+              style={{ fontFamily: "var(--font-hitchcut)" }}
               className={`relative top-[80vh] left-[40vw] z-50 text-[3vw] tracking-[0.1vw] text-white transition-opacity duration-3000 ease-out ${fadeText ? "opacity-0" : "opacity-100"} `}
             >
               LOADING <span className="tracking-[1vw]">...</span>
@@ -227,7 +231,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete, onTilesStart }) => {
           )}
           {showCandle && !progressDone && phase !== "tiles" && (
             <p
-              style={{ fontFamily: "Hitchcut" }}
+              style={{ fontFamily: "var(--font-hitchcut)" }}
               className="relative top-[78vh] left-[48vw] z-50 text-[2vw] tracking-[0.1vw] text-white"
             >
               {progress}%
@@ -274,7 +278,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete, onTilesStart }) => {
           </div>
 
           {/* ================= CENTER OVERLAY (MATCH DESKTOP) ================= */}
-          <div className="absolute inset-0 z-40 flex flex-col items-center justify-center gap-[30vh] bg-black/30">
+          <div className="absolute inset-0 z-40 flex flex-col items-center justify-center gap-[30vh]">
             <div className="relative top-[12vh] flex flex-col items-center">
               <div className="relative flex flex-col items-center">
                 {showGlow && (
@@ -294,10 +298,12 @@ const Loader: React.FC<LoaderProps> = ({ onComplete, onTilesStart }) => {
                   <div className="relative -top-[20vh] flex flex-col items-center transition-opacity duration-300">
                     <img
                       src="/fire.gif"
+                      alt="Fire animation"
                       className="absolute -top-[14vh] h-[28vh]"
                     />
                     <img
                       src="/stick.webp"
+                      alt="Stick"
                       className="relative top-[15vh] h-[28vh]"
                     />
                   </div>
@@ -309,7 +315,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete, onTilesStart }) => {
           {/* /* ================= LOADING TEXT (MATCH DESKTOP POSITIONING) ================= */}
           {showText && (
             <p
-              style={{ fontFamily: "Hitchcut" }}
+              style={{ fontFamily: "var(--font-hitchcut)" }}
               className={`relative top-[78vh] left-[20vw] z-50 text-[9.5vw] tracking-[0.4vw] text-white transition-opacity duration-3000 ease-out ${fadeText ? "opacity-0" : "opacity-100"} `}
             >
               LOADING <span className="tracking-[1vw]">...</span>
@@ -317,7 +323,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete, onTilesStart }) => {
           )}
           {showCandle && !progressDone && phase !== "tiles" && (
             <p
-              style={{ fontFamily: "Hitchcut" }}
+              style={{ fontFamily: "var(--font-hitchcut)" }}
               className="relative top-[77vh] left-[44vw] z-50 text-[6vw] tracking-[0.1vw] text-white"
             >
               {progress}%
@@ -364,7 +370,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete, onTilesStart }) => {
           </div>
 
           {/* ================= CENTER OVERLAY (MATCH DESKTOP) ================= */}
-          <div className="absolute inset-0 z-40 flex flex-col items-center justify-center gap-[30vh] bg-black/30">
+          <div className="gap-[30vh absolute inset-0 z-40 flex flex-col items-center justify-center">
             <div className="relative top-[12vh] flex flex-col items-center">
               <div className="relative flex flex-col items-center">
                 {/* 🔥 PROCEDURAL GLOW */}
@@ -386,10 +392,12 @@ const Loader: React.FC<LoaderProps> = ({ onComplete, onTilesStart }) => {
                   <div className="relative -top-[20vh] flex flex-col items-center transition-opacity duration-300">
                     <img
                       src="/fire.gif"
+                      alt="Fire animation"
                       className="absolute -top-[13vh] h-[25vh]"
                     />
                     <img
                       src="/stick.webp"
+                      alt="Stick"
                       className="relative top-[12vh] h-[26vh]"
                     />
                   </div>
@@ -401,7 +409,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete, onTilesStart }) => {
           {/* ================= LOADING TEXT (MATCH DESKTOP POSITIONING) ================= */}
           {showText && (
             <p
-              style={{ fontFamily: "Hitchcut" }}
+              style={{ fontFamily: "var(--font-hitchcut)" }}
               className={`relative top-[78vh] left-[20vw] z-50 text-[9.5vw] tracking-[0.4vw] text-white transition-opacity duration-3000 ease-out ${fadeText ? "opacity-0" : "opacity-100"} `}
             >
               LOADING <span className="tracking-[1vw]">...</span>
@@ -409,7 +417,7 @@ const Loader: React.FC<LoaderProps> = ({ onComplete, onTilesStart }) => {
           )}
           {showCandle && !progressDone && phase !== "tiles" && (
             <p
-              style={{ fontFamily: "Hitchcut" }}
+              style={{ fontFamily: "var(--font-hitchcut)" }}
               className="relative top-[77vh] left-[44vw] z-50 text-[7vw] tracking-[0.1vw] text-white"
             >
               {progress}%
