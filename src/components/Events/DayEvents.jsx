@@ -1,36 +1,27 @@
 "use client";
 import React from "react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import CardHover from "./CardHover";
+import eventsData from "../../data/event.json";
 
 const UPPER_CARD_IMAGE =
-  "https://res.cloudinary.com/dig1vxljf/image/upload/v1768216195/Component_96_fjlycb.png";
+  "https://res.cloudinary.com/dig1vxljf/image/upload/v1768216195/Component_96_fjlycb.webp";
 
 const LOWER_CARD_IMAGE =
-  "https://res.cloudinary.com/dig1vxljf/image/upload/v1768216273/Component_96_1_uapuri.png";
-
-const eventsDay1 = [
-  { id: 1, title: "COSTOPIA" },
-  { id: 2, title: "COSTOPIA" },
-  { id: 3, title: "COSTOPIA" },
-  { id: 4, title: "COSTOPIA" },
-];
-
-const eventsDay2 = [
-  { id: 5, title: "COSTOPIA" },
-  { id: 6, title: "COSTOPIA" },
-  { id: 7, title: "COSTOPIA" },
-  { id: 8, title: "COSTOPIA" },
-];
-
-const eventsDay3 = [
-  { id: 9, title: "COSTOPIA" },
-  { id: 10, title: "COSTOPIA" },
-  { id: 11, title: "COSTOPIA" },
-  { id: 12, title: "COSTOPIA" },
-];
+  "https://res.cloudinary.com/dig1vxljf/image/upload/v1768216273/Component_96_1_uapuri.webp";
 
 const DayEvents = () => {
+  const router = useRouter();
+
+  // Group events by day (assuming 4 events per day based on original structure)
+  const eventsDay1 = eventsData.slice(0, 4);
+  const eventsDay2 = eventsData.slice(4, 8);
+  const eventsDay3 = eventsData.slice(8, 12);
+
+  const handleEventClick = (eventId) => {
+    router.push(`/event/${eventId}`);
+  };
   return (
     <section className="relative z-30 -mt-24 w-full overflow-hidden sm:-mt-60">
       <div className="absolute inset-0 z-0 sm:hidden">
@@ -62,6 +53,7 @@ const DayEvents = () => {
                     upperImage={UPPER_CARD_IMAGE}
                     lowerImage={LOWER_CARD_IMAGE}
                     eventName={event.title}
+                    onClick={() => handleEventClick(event.id)}
                   />
                 </div>
               ))}
@@ -88,6 +80,7 @@ const DayEvents = () => {
                     upperImage={UPPER_CARD_IMAGE}
                     lowerImage={LOWER_CARD_IMAGE}
                     eventName={event.title}
+                    onClick={() => handleEventClick(event.id)}
                   />
                 </div>
               ))}
@@ -114,6 +107,7 @@ const DayEvents = () => {
                     upperImage={UPPER_CARD_IMAGE}
                     lowerImage={LOWER_CARD_IMAGE}
                     eventName={event.title}
+                    onClick={() => handleEventClick(event.id)}
                   />
                 </div>
               ))}

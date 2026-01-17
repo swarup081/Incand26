@@ -4,8 +4,8 @@ import Mask from "~/components/Events/Mask";
 import DayEvents from "~/components/Events/DayEvents";
 export default function Page() {
   return (
-    <main className="relative block min-h-screen w-full overflow-x-hidden bg-[url('https://res.cloudinary.com/dig1vxljf/image/upload/v1768227886/test_2_bsqq4s.png')] bg-cover bg-center">
-      <section className="relative z-10 flex min-h-screen w-full scale-102 items-center justify-center bg-[url('https://res.cloudinary.com/dig1vxljf/image/upload/v1768136260/48d59871a50ab21d20693571408aa20b_1_1_yvzfga.png')] bg-cover bg-center px-4 text-center sm:bg-[url('https://res.cloudinary.com/dig1vxljf/image/upload/v1768026543/events-main_hdqtxj.png')]">
+    <main className="relative block min-h-screen w-full overflow-x-hidden bg-[url('https://res.cloudinary.com/dig1vxljf/image/upload/v1768227886/test_2_bsqq4s.webp')] bg-cover bg-center">
+      <section className="relative z-10 flex min-h-screen w-full scale-102 items-center justify-center bg-[url('https://res.cloudinary.com/dig1vxljf/image/upload/v1768136260/48d59871a50ab21d20693571408aa20b_1_1_yvzfga.webp')] bg-cover bg-center px-4 text-center sm:bg-[url('https://res.cloudinary.com/dig1vxljf/image/upload/v1768026543/events-main_hdqtxj.webp')]">
         <div className="z-10 mt-40 flex flex-col items-center gap-4 sm:mt-0">
           <h1 className="font-hitchcut text-outline-thick text-shadow text-7xl text-white sm:text-7xl md:text-8xl lg:text-9xl">
             EVENTS

@@ -5,11 +5,12 @@ interface CardHoverProps {
   upperImage: string;
   lowerImage: string;
   eventName: string;
+  onClick?: () => void;
 }
 
-const CardHover = ({ upperImage, lowerImage, eventName }: CardHoverProps) => {
+const CardHover = ({ upperImage, lowerImage, eventName, onClick }: CardHoverProps) => {
   return (
-    <div className="group relative h-72 w-full cursor-pointer overflow-hidden rounded-3xl border-6 border-[#000000] bg-white">
+    <div onClick={onClick} className="group relative h-72 w-full cursor-pointer overflow-hidden rounded-3xl border-6 border-[#000000] bg-white">
       <div className="absolute inset-0 z-0 flex flex-col items-center justify-center text-center">
         {/* Event Name */}
         <h3 className="font-hitchcut transform text-3xl font-black tracking-widest text-black uppercase transition-all duration-500 ease-out group-hover:-translate-y-4">

@@ -20,7 +20,6 @@ export const runtime = 'edge';
 export default function EventPoster() {
   const params = useParams();
   const router = useRouter();
-
   const eventId = Number(params.eventId);
 
   const event = events.find((e) => e.id === eventId);
@@ -45,13 +44,13 @@ export default function EventPoster() {
 
   const goNext = () => {
     const nextIndex = (currentIndex + 1) % events.length;
-    const nextId = events[nextIndex].id;
+    const nextId = events[nextIndex]!.id;
     router.push(`/event/${nextId}`);
   };
 
   const goPrev = () => {
     const prevIndex = (currentIndex - 1 + events.length) % events.length;
-    const prevId = events[prevIndex].id;
+    const prevId = events[prevIndex]!.id;
     router.push(`/event/${prevId}`);
   };
 
@@ -59,7 +58,7 @@ export default function EventPoster() {
     <div className="flex min-h-screen items-center justify-center bg-gray-100">
       <div className="grid h-[25rem] min-h-screen w-full max-w-[43.75rem] min-w-screen grid-cols-9 grid-rows-16 divide-x divide-y divide-black border border-black bg-[#fffffe] sm:h-[25rem] sm:grid-cols-21 sm:grid-rows-11">
         {Array.from({ length: 21 * 16 }).map((_, i) => {
-          const src = images[i % images.length];
+          const src = images[i % images.length]!;
 
           return (
             <div
