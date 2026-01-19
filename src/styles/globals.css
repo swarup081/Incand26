@@ -346,3 +346,268 @@ body {
   animation: music-glow-pulse 3s infinite ease-in-out;
 }
 
+
+.text-outline {
+  color: white;
+  text-shadow:
+    -2px -2px 0 black,
+     2px -2px 0 black,
+    -2px  2px 0 black,
+     2px  2px 0 black,
+     0px  2px 0 black,
+     2px  0px 0 black,
+    -2px  0px 0 black,
+     0px -2px 0 black;
+}
+
+.text-outline-thick {
+  color: white;
+  text-shadow:
+    -3px -3px 0 black,
+     3px -3px 0 black,
+    -3px  3px 0 black,
+     3px  3px 0 black,
+     0px  3px 0 black,
+     3px  0px 0 black,
+    -3px  0px 0 black,
+     0px -3px 0 black;
+}
+
+
+/* ================= RIVER FLOW CORE ================= */
+
+
+/* Ribbon image */
+.ribbon-img {
+  height: 100%;
+  width: auto;
+  flex-shrink: 0;
+}
+
+/* Continuous rightward flow */
+.ribbon-flow-right {
+  display: flex;
+  width: max-content;
+  height: 100%;
+  animation: flowRight 35s linear infinite;
+}
+
+@keyframes flowRight {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes ribbonFlowBottom {
+  from {
+    background-position-x: 0;
+  }
+  to {
+    background-position-x: -800px;
+  }
+}
+
+.ribbon-flow-bottom {
+  animation: ribbonFlowBottom 30s linear infinite;
+}
+
+
+
+@keyframes floatOnce {
+  0% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-40px); /* 👈 zyada upar */
+  }
+  70% {
+    transform: translateY(20px);  /* 👈 thoda neeche */
+  }
+  100% {
+    transform: translateY(0);     /* 👈 final position pe stop */
+  }
+}
+
+.float-once {
+  animation: floatOnce 5s ease-in-out forwards;
+}
+
+@keyframes bannerFloatOnce {
+  0% {
+    transform: translateY(0);
+  }
+  35% {
+    transform: translateY(-45px); /* 👈 strong up */
+  }
+  65% {
+    transform: translateY(25px);  /* 👈 soft down */
+  }
+  100% {
+    transform: translateY(0);     /* 👈 final stop */
+  }
+}
+
+.banner-float-once {
+  animation: bannerFloatOnce 3s ease-in-out forwards;
+}
+.banner-float-once {
+  animation-delay: 0.4s;
+}
+@keyframes bannerFloatAndExit {
+  /* ===== FLOAT PHASE (0s–5s) ===== */
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  20% {
+    transform: translateY(-25px) scale(1);
+  }
+  40% {
+    transform: translateY(20px) scale(1);
+  }
+  60% {
+    transform: translateY(-30px) scale(1);
+  }
+  80% {
+    transform: translateY(15px) scale(1);
+  }
+
+  /* ===== EXIT PHASE (5s–7s) ===== */
+  90% {
+    transform: translateY(-90px) scale(0.85);
+  }
+
+  /* ===== FINAL STOP ===== */
+  100% {
+    transform: translateY(-120px) scale(0.78);
+  }
+}
+
+.banner-float-exit {
+  animation: bannerFloatAndExit 7s ease-in-out forwards;
+  transform-origin: center center;
+}
+
+@keyframes bannerPathMove {
+  /* ===== FLOAT PHASE ===== */
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  15% {
+    transform: translate(0, -25px) scale(1);
+  }
+  30% {
+    transform: translate(0, 20px) scale(1);
+  }
+  45% {
+    transform: translate(0, -30px) scale(1);
+  }
+  60% {
+    transform: translate(0, 15px) scale(1);
+  }
+
+  /* ===== MOVE TO TARGET (blue box) ===== */
+  80% {
+    transform: translate(140px, -120px) scale(0.6);
+  }
+
+  /* ===== FINAL STOP ===== */
+  100% {
+    transform: translate(180px, -160px) scale(0.45);
+  }
+}
+
+.banner-path {
+  animation: bannerPathMove 7s ease-in-out forwards;
+  transform-origin: center center;
+}
+
+
+
+@keyframes boardSmoothTwoPhase {
+  /* ===== PHASE 1: FLOAT (0–3s) ===== */
+  0% {
+    transform: translate(0, 0) scale(1);
+  }
+  20% {
+    transform: translate(0, -30px) scale(1);
+  }
+  40% {
+    transform: translate(0, 25px) scale(1);
+  }
+  60% {
+    transform: translate(0, -20px) scale(1);
+  }
+
+  /* ===== PHASE 2: SMOOTH EXIT (3–5s) ===== */
+  100% {
+    transform: translate(-150px, -170px) scale(0.65);
+  }
+}
+
+.board-two-phase {
+  animation: boardSmoothTwoPhase 5s ease-in-out forwards;
+  transform-origin: center center;
+}
+
+
+@keyframes bannerTwoPhaseVertical {
+  /* ===== PHASE 1: ALTERNATING UP-DOWN (0–3s) ===== */
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  20% {
+    transform: translateY(-30px) scale(1);
+  }
+  40% {
+    transform: translateY(25px) scale(1);
+  }
+  60% {
+    transform: translateY(-35px) scale(1);
+  }
+
+  /* ===== PHASE 2: SMOOTH UP + SCALE (3–5s) ===== */
+  100% {
+    transform: translateY(-110px) scale(0.7);
+  }
+}
+
+.banner-two-phase-vertical {
+  animation: bannerTwoPhaseVertical 5s ease-in-out forwards;
+  transform-origin: center center;
+}
+
+
+.white-board {
+
+  transform: translateY(40px);  /* start slightly BELOW ribbon */
+
+  animation: whiteBoardRise 2s ease-out forwards;
+  animation-delay: 3s;     /* sync with top banners */
+}
+.white-left {
+  
+  animation-delay: 3.1s;
+}
+
+.white-middle {
+ 
+  animation-delay: 3.3s;
+}
+
+.white-right {
+  
+  animation-delay: 3.5s;
+}
+@keyframes whiteBoardRise {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(-78vh); /* 👈 MOVE UP */
+    opacity: 1;
+  }
+}
