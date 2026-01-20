@@ -26,7 +26,7 @@ export const env = createEnv({
    */
   runtimeEnv: {
     NODE_ENV: process.env.NODE_ENV,
-    NEXT_PUBLIC_API_URL:process.env.NEXT_PUBLIC_API_URL
+    NEXT_PUBLIC_API_URL:"https://incad26-api.onrender.com"
     // NEXT_PUBLIC_CLIENTVAR: process.env.NEXT_PUBLIC_CLIENTVAR,
   },
   /**
