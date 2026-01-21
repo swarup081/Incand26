@@ -130,23 +130,23 @@ export default function Landing() {
           </div>
         </div>
         <div
-          className={`z-20 translate-x-[30vw] translate-y-[-20vh] transition-transform delay-150 duration-1500 ease-out`}
+          className={`z-20 translate-x-[15vw] translate-y-[-14vh] sm:translate-x-[20vw] sm:translate-y-[-18vh] md:translate-x-[25vw] md:translate-y-[-12vh] lg:translate-x-[30vw] lg:translate-y-[-12vh]`}
         >
           <div
-            className={`relative my-[1.5vh] flex items-center gap-0 overflow-hidden rounded-full border-[0.2vw] border-black bg-[#751313] shadow-black transition-all duration-500 ease-out hover:scale-[1.3] hover:-rotate-6`}
+            className={`relative my-[1vh] sm:my-[1.2vh] md:my-[1.5vh] flex items-center gap-0 overflow-hidden rounded-full border-[0.3vw] sm:border-[0.25vw] md:border-[0.2vw] border-black bg-[#751313] shadow-black transition-all duration-500 ease-out hover:scale-[1.15] sm:hover:scale-[1.2] md:hover:scale-[1.3] hover:-rotate-6`}
             style={{
               boxShadow: "none",
             }}
             onMouseEnter={(e) => {
               e.currentTarget.style.boxShadow =
-                "0 1.3vh 0 0 rgba(162, 93, 93), 0 1.25vh 0 0.2vw rgba(0, 0, 0)";
+                "0 1vh 0 0 rgba(162, 93, 93), 0 0.95vh 0 0.15vw rgba(0, 0, 0)";
             }}
             onMouseLeave={(e) => {
               e.currentTarget.style.boxShadow = "none";
             }}
           >
             {/* Left Decorative Element */}
-            <div className="relative mr-[-0.5vw] h-[3.5vw] w-[3.5vw]">
+            <div className="relative mr-[-1vw] sm:mr-[-0.7vw] md:mr-[-0.5vw] h-[8vw] w-[8vw] sm:h-[5vw] sm:w-[5vw] md:h-[4vw] md:w-[4vw] lg:h-[3.5vw] lg:w-[3.5vw]">
               <Image
                 src="/about/brochure.webp"
                 alt="Decoration"
@@ -156,14 +156,14 @@ export default function Landing() {
             </div>
 
             {/* Button Text Background */}
-            <div className="my-[1.5vh] flex items-center justify-center">
-              <span className="font-hitchcut text-[1.25vw] px-3 font-bold tracking-wider text-[#f5e6c8]">
+            <div className="my-[1vh] sm:my-[1.2vh] md:my-[1.5vh] flex items-center justify-center">
+              <span className="font-hitchcut text-[3.5vw] sm:text-[2vw] md:text-[1.5vw] lg:text-[1.25vw] px-2 sm:px-2.5 md:px-3 font-bold tracking-wider text-[#f5e6c8]">
                 <Login/>
               </span>
             </div>
 
             {/* Right Decorative Element (Rotated 180deg) */}
-            <div className="relative ml-[-0.5vw] h-[3.5vw] w-[3.5vw] rotate-180">
+            <div className="relative ml-[-1vw] sm:ml-[-0.7vw] md:ml-[-0.5vw] h-[8vw] w-[8vw] sm:h-[5vw] sm:w-[5vw] md:h-[4vw] md:w-[4vw] lg:h-[3.5vw] lg:w-[3.5vw] rotate-180">
               <Image
                 src="/about/brochure.webp"
                 alt="Decoration"

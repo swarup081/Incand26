@@ -30,8 +30,107 @@ export function MerchDesktop({
   springTransition,
   popVariants,
 }: MerchProps) {
+  const [user] = useAuthState(auth);
+  const router = useRouter();
+  const [showConfirm, setShowConfirm] = useState(false);
+
+  const handleOptOutClick = () => {
+    if (!user) {
+      toast.error("You need to log in to opt out");
+      return;
+    }
+    if (!user.email?.endsWith("nits.ac.in")) {
+      toast.error("Opt out option only for NIT students");
+      return;
+    }
+    setShowConfirm(true);
+  };
+
+  const handleConfirmOptOut = async () => {
+    setShowConfirm(false);
+    if (!user) return;
+
+    toast.promise(
+      (async () => {
+        try {
+          await OptOut(user, router);
+          router.refresh();
+        } catch (err) {
+          throw err;
+        }
+      })(),
+      {
+        loading: "Processing your request...",
+        success: "Successfully opted out!",
+        error: (err) => {
+          interface ApiErrorResponse {
+            msg: string;
+          }
+          if (axios.isAxiosError(err)) {
+            const data = err.response?.data as ApiErrorResponse | undefined;
+            return data?.msg ?? "Server error occurred";
+          }
+          return err instanceof Error
+            ? err.message
+            : "Could not complete opt-out";
+        },
+      },
+    );
+  };
+
   return (
     <>
+      {/* CONFIRMATION MODAL */}
+      <AnimatePresence>
+        {showConfirm && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="relative w-full max-w-sm overflow-hidden rounded-2xl border-2 p-6 text-center shadow-2xl"
+              style={{
+                backgroundColor: isLight ? "#fff" : "#1a1a1a",
+                borderColor: theme.textPrimary,
+              }}
+            >
+              <h3
+                className="font-hitchcut mb-4 text-2xl tracking-widest uppercase"
+                style={{ color: theme.textPrimary }}
+              >
+                Confirm Action
+              </h3>
+              <p
+                className="font-hitchcut mb-8 text-sm tracking-wider"
+                style={{ color: theme.textSecondary }}
+              >
+                Are you sure you want to opt out?
+              </p>
+
+              <div className="flex justify-center gap-4">
+                <button
+                  onClick={() => setShowConfirm(false)}
+                  className="font-hitchcut hover:bg-opacity-10 rounded-full border px-6 py-2 text-sm tracking-widest uppercase transition-colors"
+                  style={{
+                    borderColor: theme.textSecondary,
+                    color: theme.textSecondary,
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleConfirmOptOut}
+                  className="font-hitchcut rounded-full px-6 py-2 text-sm tracking-widest text-white uppercase transition-transform active:scale-95"
+                  style={{ backgroundColor: "#d00000" }}
+                >
+                  Opt Out
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
       {/* --- GHOST BACKGROUND TEXT --- */}
       <div className="pointer-events-none absolute inset-0 z-0 flex flex-col items-center justify-center leading-[0.85] opacity-[0.08] select-none">
         <div className="flex items-center gap-4">
@@ -135,7 +234,10 @@ export function MerchDesktop({
                   springTransition={springTransition}
                 />
                 <AnimatePresence mode="wait">
-                  <ButtonsElement popVariants={popVariants} />
+                  <ButtonsElement
+                    popVariants={popVariants}
+                    onOptOutClick={handleOptOutClick}
+                  />
                 </AnimatePresence>
               </>
             ) : (
@@ -247,7 +349,10 @@ export function MerchDesktop({
                   springTransition={springTransition}
                 />
                 <AnimatePresence mode="wait">
-                  <ButtonsElement popVariants={popVariants} />
+                  <ButtonsElement
+                    popVariants={popVariants}
+                    onOptOutClick={handleOptOutClick}
+                  />
                 </AnimatePresence>
               </>
             )}
@@ -300,6 +405,7 @@ interface SubComponentProps {
   isLight?: boolean;
   springTransition?: object;
   popVariants?: Variants;
+  onOptOutClick?: () => void;
 }
 
 function PriceElement({ theme, isLight, springTransition }: SubComponentProps) {
@@ -366,10 +472,8 @@ function HeadingElement({ theme, popVariants }: SubComponentProps) {
   );
 }
 
-function ButtonsElement({ popVariants }: SubComponentProps) {
+function ButtonsElement({ popVariants, onOptOutClick }: SubComponentProps) {
   const [optOutHover, setOptOutHover] = useState(false);
-  const router = useRouter();
-  const [user, loading] = useAuthState(auth);
 
   //const [buyNowHover, setBuyNowHover] = useState(false);
 
@@ -385,39 +489,7 @@ function ButtonsElement({ popVariants }: SubComponentProps) {
       <button
         onMouseEnter={() => setOptOutHover(true)}
         onMouseLeave={() => setOptOutHover(false)}
-        onClick={() => {
-          toast.promise(
-            (async () => {
-              try {
-                if (!user) {
-                  throw new Error("You need to log in to opt out");
-                }
-                await OptOut(user, router);
-                router.refresh();
-              } catch (err) {
-                throw err;
-              }
-            })(),
-            {
-              loading: "Processing your request...",
-              success: "Successfully opted out!",
-              error: (err) => {
-                interface ApiErrorResponse {
-                  msg: string;
-                }
-                if (axios.isAxiosError(err)) {
-                  const data = err.response?.data as
-                    | ApiErrorResponse
-                    | undefined;
-                  return data?.msg ?? "Server error occurred";
-                }
-                return err instanceof Error
-                  ? err.message
-                  : "Could not complete opt-out";
-              },
-            },
-          );
-        }}
+        onClick={onOptOutClick}
         className="group relative flex h-[60px] w-full items-center justify-center overflow-hidden rounded-full shadow-lg transition-all duration-200 hover:scale-105 lg:h-[70px] xl:h-[80px]"
         style={{
           backgroundImage: "url('/merch/button_texture2.png')",
