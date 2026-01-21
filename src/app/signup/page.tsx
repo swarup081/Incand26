@@ -102,7 +102,7 @@ const CompleteProfile = () => {
               window.sessionStorage.removeItem("userSignupReferrer");
               router.replace(prevUrl);
             } else {
-              router.replace("/home");
+              router.replace("/merch");
             }
           }
         } catch (err) {
@@ -142,7 +142,9 @@ const CompleteProfile = () => {
               return responseData.msg;
             }
           }
-          return err instanceof Error? err.message :"An error occurred while creating the user.";
+          return err instanceof Error
+            ? err.message
+            : "An error occurred while creating the user.";
         },
       },
     );
@@ -172,19 +174,22 @@ const CompleteProfile = () => {
 
   return (
     <div
-      className="clip-angled animate-glowMove bg-red-grid flex min-h-screen w-screen flex-col items-center justify-center"
+      className="clip-angled animate-glowMove bg-red-grid flex h-screen w-full flex-col items-center overflow-x-hidden overflow-y-auto px-[4vw] py-[6vh] sm:px-[6vw] sm:py-[8vh] md:px-[8vw] md:py-[10vh] lg:px-[10vw] lg:py-[12vh]"
       style={{
         backgroundImage:
           "url('https://res.cloudinary.com/dgechlqls/image/upload/v1766212699/BACKUP_SPONSORS_osnbmg.png')",
       }}
     >
-      <div className="mb-5 text-center text-2xl font-normal tracking-widest text-[#8B4513] lg:text-5xl">
+      <div className="mb-[3vh] text-center text-2xl font-normal tracking-widest text-[#8B4513] sm:mb-[4vh] sm:text-3xl md:mb-[5vh] md:text-4xl lg:text-5xl">
         USER REGISTRATION
       </div>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-15">
-        <div className="flex min-w-[90vw] flex-col items-center justify-center gap-7 lg:min-w-[60vw]">
+      <form
+        onSubmit={handleSubmit}
+        className="flex w-full max-w-[90vw] flex-col lg:gap-15 md:gap-10 sm:gap-8 gap-6 sm:max-w-[80vw] md:max-w-[70vw] lg:max-w-[60vw]"
+      >
+        <div className="flex w-full flex-col items-center justify-center gap-[2vh] sm:gap-[2.5vh] md:gap-[3vh] lg:gap-[3.5vh]">
           {/* ...existing code for form fields... */}
-          <div className="inline-flex w-full items-center justify-between lg:gap-7">
+          <div className="inline-flex w-full items-center justify-between gap-[2vw] sm:gap-[3vw] md:gap-[4vw] lg:gap-[5vw]">
             <label
               htmlFor="firstName"
               className="font-bankGothik w-3/10 text-sm font-normal text-wrap text-[#520000] md:text-xl lg:text-2xl lg:text-nowrap"
@@ -202,7 +207,7 @@ const CompleteProfile = () => {
             />
           </div>
           {/* ...existing code for other fields... */}
-          <div className="inline-flex w-full items-center justify-between lg:gap-7">
+          <div className="inline-flex w-full items-center justify-between gap-[2vw] sm:gap-[3vw] md:gap-[4vw] lg:gap-[5vw]">
             <label
               htmlFor="middleName"
               className="font-bankGothik w-3/10 text-sm font-normal text-wrap text-[#520000] md:text-xl lg:text-2xl lg:text-nowrap"
@@ -219,7 +224,7 @@ const CompleteProfile = () => {
             />
           </div>
           {/* ...existing code for other fields... */}
-          <div className="inline-flex w-full items-center justify-between lg:gap-7">
+          <div className="inline-flex w-full items-center justify-between gap-[2vw] sm:gap-[3vw] md:gap-[4vw] lg:gap-[5vw]">
             <label
               htmlFor="lastName"
               className="font-bankGothik w-3/10 text-sm font-normal text-wrap text-[#520000] md:text-xl lg:text-2xl lg:text-nowrap"
@@ -237,7 +242,7 @@ const CompleteProfile = () => {
             />
           </div>
           {/* ...existing code for other fields... */}
-          <div className="inline-flex w-full justify-between lg:gap-7">
+          <div className="inline-flex w-full justify-between gap-[2vw] sm:gap-[3vw] md:gap-[4vw] lg:gap-[5vw]">
             <label
               htmlFor="phoneNumber"
               className="font-bankGothik w-3/10 text-sm font-normal text-wrap text-[#520000] md:text-xl lg:text-2xl lg:text-nowrap"
@@ -255,7 +260,7 @@ const CompleteProfile = () => {
             />
           </div>
           {/* ...existing code for other fields... */}
-          <div className="inline-flex w-full justify-between lg:gap-7">
+          <div className="inline-flex w-full justify-between gap-[2vw] sm:gap-[3vw] md:gap-[4vw] lg:gap-[5vw]">
             <label
               htmlFor="username"
               className="font-bankGothik w-3/10 text-sm font-normal text-wrap text-[#520000] md:text-xl lg:text-2xl lg:text-nowrap"
@@ -273,7 +278,7 @@ const CompleteProfile = () => {
             />
           </div>
           {/* ...existing code for other fields... */}
-          <div className="inline-flex w-full justify-between lg:gap-7">
+          <div className="inline-flex w-full justify-between gap-[2vw] sm:gap-[3vw] md:gap-[4vw] lg:gap-[5vw]">
             <label
               htmlFor="collegeName"
               className="font-bankGothik w-3/10 text-sm font-normal text-wrap text-[#520000] md:text-xl lg:text-2xl lg:text-nowrap"
@@ -291,7 +296,7 @@ const CompleteProfile = () => {
             />
           </div>
           {/* ...existing code for other fields... */}
-          <div className="inline-flex w-full justify-between lg:gap-7">
+          <div className="inline-flex w-full justify-between gap-[2vw] sm:gap-[3vw] md:gap-[4vw] lg:gap-[5vw]">
             <label
               htmlFor="registrationId"
               className="font-bankGothik w-3/10 text-sm font-normal text-wrap text-[#520000] md:text-xl lg:text-2xl lg:text-nowrap"
@@ -312,11 +317,14 @@ const CompleteProfile = () => {
         {/* Error Messages */}
         {error && <div className="mt-4 text-center text-red-500">{error}</div>}
         {Object.entries(formErrors).map(([field, errorMessage]) => (
-          <div key={field} className="mt-2 text-center text-red-500">
+          <div
+            key={field}
+            className="mt-[1vh] text-center text-red-500 sm:mt-[1.5vh] md:mt-[2vh]"
+          >
             {errorMessage}
           </div>
         ))}
-        <div className="flex w-full items-center justify-around">
+        <div className="mt-[3vh] flex w-full items-center justify-around sm:mt-[4vh] md:mt-[5vh]">
           <button
             type="submit"
             className="flex h-14 cursor-pointer items-center justify-between overflow-hidden rounded-full border-3 border-black bg-[#6b1f1f] text-[0.125rem] tracking-widest text-[#fff2cc] shadow-lg hover:scale-105"

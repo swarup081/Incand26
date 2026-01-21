@@ -25,8 +25,107 @@ export function MerchMobile({
   springTransition,
   popVariants,
 }: MerchProps) {
+  const [user] = useAuthState(auth);
+  const router = useRouter();
+  const [showConfirm, setShowConfirm] = useState(false);
+
+  const handleOptOutClick = () => {
+    if (!user) {
+      toast.error("You need to log in to opt out");
+      return;
+    }
+    if (!user.email?.endsWith("nits.ac.in")) {
+      toast.error("Opt out option only for NIT students");
+      return;
+    }
+    setShowConfirm(true);
+  };
+
+  const handleConfirmOptOut = async () => {
+    setShowConfirm(false);
+    if (!user) return;
+
+    toast.promise(
+      (async () => {
+        try {
+          await OptOut(user, router);
+          router.refresh();
+        } catch (err) {
+          throw err;
+        }
+      })(),
+      {
+        loading: "Processing your request...",
+        success: "Successfully opted out!",
+        error: (err) => {
+          interface ApiErrorResponse {
+            msg: string;
+          }
+          if (axios.isAxiosError(err)) {
+            const data = err.response?.data as ApiErrorResponse | undefined;
+            return data?.msg ?? "Server error occurred";
+          }
+          return err instanceof Error
+            ? err.message
+            : "Could not complete opt-out";
+        },
+      },
+    );
+  };
+
   return (
     <div className="font-hitchcut fixed inset-0 z-20 flex h-full w-full flex-col justify-between overflow-hidden bg-transparent px-5 py-4">
+      {/* CONFIRMATION MODAL */}
+      <AnimatePresence>
+        {showConfirm && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-sm">
+            <motion.div
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="relative w-full max-w-sm overflow-hidden rounded-2xl border-2 p-6 text-center shadow-2xl"
+              style={{
+                backgroundColor: isLight ? "#fff" : "#1a1a1a",
+                borderColor: theme.textPrimary,
+              }}
+            >
+              <h3
+                className="font-hitchcut mb-4 text-2xl tracking-widest uppercase"
+                style={{ color: theme.textPrimary }}
+              >
+                Confirm Action
+              </h3>
+              <p
+                className="font-hitchcut mb-8 text-sm tracking-wider"
+                style={{ color: theme.textSecondary }}
+              >
+                Are you sure you want to opt out?
+              </p>
+
+              <div className="flex justify-center gap-4">
+                <button
+                  onClick={() => setShowConfirm(false)}
+                  className="font-hitchcut hover:bg-opacity-10 rounded-full border px-6 py-2 text-sm tracking-widest uppercase transition-colors"
+                  style={{
+                    borderColor: theme.textSecondary,
+                    color: theme.textSecondary,
+                  }}
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleConfirmOptOut}
+                  className="font-hitchcut rounded-full px-6 py-2 text-sm tracking-widest text-white uppercase transition-transform active:scale-95"
+                  style={{ backgroundColor: "#d00000" }}
+                >
+                  Opt Out
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
       {/* =========================================
           BACKGROUND LAYER 
          ========================================= */}
@@ -312,6 +411,7 @@ export function MerchMobile({
                 bg="/merch/button_texture2.png"
                 iconDefault="/merch/svg1.svg"
                 iconHover="/merch/svg2.svg"
+                onClick={handleOptOutClick}
               />
             </motion.div>
           </AnimatePresence>
@@ -363,6 +463,7 @@ interface MobileButtonProps {
   bg: string;
   iconDefault: string;
   iconHover: string;
+  onClick?: () => void;
 }
 
 function MobileButton({
@@ -371,46 +472,15 @@ function MobileButton({
   bg,
   iconDefault,
   iconHover,
+  onClick,
 }: MobileButtonProps) {
   const [hover, setHover] = useState(false);
-  const [user, loading] = useAuthState(auth);
-  const router = useRouter();
 
   return (
     <button
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
-      onClick={() => {
-        toast.promise(
-          (async () => {
-            try {
-              if (!user) {
-                throw new Error("You need to log in to opt out");
-              }
-              await OptOut(user, router);
-              router.refresh();
-            } catch (err) {
-              throw err;
-            }
-          })(),
-          {
-            loading: "Processing your request...",
-            success: "Successfully opted out!",
-            error: (err) => {
-              interface ApiErrorResponse {
-                msg: string;
-              }
-              if (axios.isAxiosError(err)) {
-                const data = err.response?.data as ApiErrorResponse | undefined;
-                return data?.msg ?? "Server error occurred";
-              }
-              return err instanceof Error
-                ? err.message
-                : "Could not complete opt-out";
-            },
-          },
-        );
-      }}
+      onClick={onClick}
       className="relative flex h-[50px] w-[260px] items-center justify-center overflow-hidden rounded-full shadow-lg transition-transform active:scale-95 md:w-[200px]"
       style={{
         backgroundImage: `url('${bg}')`,
