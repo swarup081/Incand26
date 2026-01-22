@@ -2,12 +2,34 @@
 
 import { useLayoutEffect, useState } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion, type Variants } from "framer-motion";
+import { motion, type Variants } from "framer-motion";
 
 const GALLERY_ITEMS = [
-  { id: 1, content: "Board 1" },
-  { id: 2, content: "Board 2" },
-  { id: 3, content: "Board 3" },
+  {
+    id: 0,
+    mobileSrc: "/Gallery/whitebannermobiletop.svg",
+    content: "/tiles/tile1.webp",
+  },
+  {
+    id: 1,
+    mobileSrc: "/Gallery/whitebannermobilemiddle.svg",
+    content: "/tiles/tile2.webp",
+  },
+  {
+    id: 2,
+    mobileSrc: "/Gallery/whitebannermobilebottom.svg",
+    content: "/tiles/tile3.webp",
+  },
+  {
+    id: 3,
+    mobileSrc: "/Gallery/whitebannermobiletop.svg",
+    content: "/tiles/tile4.webp",
+  },
+  {
+    id: 4,
+    mobileSrc: "/Gallery/whitebannermobilemiddle.svg",
+    content: "/tiles/tile5.webp",
+  },
 ];
 
 export function Gallery() {
@@ -18,7 +40,6 @@ export function Gallery() {
 
   // Carousel State
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
 
   const handleScreenClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const screenWidth = window.innerWidth;
@@ -26,45 +47,144 @@ export function Gallery() {
     const centerX = screenWidth / 2;
 
     if (clickX > centerX) {
-      // Clicked Right -> Push from Right -> Exits Left -> Next Slide
-      setDirection(1);
+      // Next (Right Click)
       setCurrentIndex((prev) => (prev + 1) % GALLERY_ITEMS.length);
     } else {
-      // Clicked Left -> Push from Left -> Exits Right -> Prev Slide
-      setDirection(-1);
+      // Prev (Left Click)
       setCurrentIndex(
         (prev) => (prev - 1 + GALLERY_ITEMS.length) % GALLERY_ITEMS.length,
       );
     }
   };
 
-  const variants: Variants = {
-    enter: (direction: number) => ({
-      x: direction > 0 ? "100%" : "-100%",
-      rotate: direction > 0 ? 45 : -45, // Start with steep angle
-      opacity: 0,
-    }),
+  const laptopVariants: Variants = {
     center: {
-      x: 0,
-      rotate: 0,
+      left: "37vw",
+      top: "-5vh",
+      width: "35vw",
+      zIndex: 20,
       opacity: 1,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 20,
-        mass: 1.2, // Heavy feel
-      },
     },
-    exit: (direction: number) => ({
-      x: direction > 0 ? "-100%" : "100%",
-      rotate: direction > 0 ? -45 : 45, // Swing out
+    right: {
+      left: "68vw",
+      top: "-1vw",
+      width: "29vw",
+      zIndex: 10,
+      opacity: 1,
+    },
+    left: {
+      left: "9vw",
+      top: "-1vw",
+      width: "29vw",
+      zIndex: 10,
+      opacity: 1,
+    },
+    hiddenLeft: {
+      left: "-50vw",
+      top: "10vh",
+      width: "20vw",
+      zIndex: 0,
       opacity: 0,
-      transition: {
-        type: "spring",
-        stiffness: 300,
-        damping: 20,
-      },
-    }),
+    },
+    hiddenRight: {
+      left: "120vw",
+      top: "10vh",
+      width: "20vw",
+      zIndex: 0,
+      opacity: 0,
+    },
+  };
+
+  const ipadVariants: Variants = {
+    middle: {
+      top: "15vh",
+      left: "30vw",
+      width: "55vw",
+      zIndex: 20,
+      opacity: 1,
+    },
+    bottom: {
+      top: "37vh",
+      left: "37vw",
+      width: "48vw",
+      zIndex: 10,
+      opacity: 1,
+    },
+    top: {
+      top: "0vh",
+      left: "35vw",
+      width: "50vw",
+      zIndex: 10,
+      opacity: 1,
+    },
+    hiddenTop: {
+      top: "-50vh",
+      left: "35vw",
+      width: "50vw",
+      zIndex: 0,
+      opacity: 0,
+    },
+    hiddenBottom: {
+      top: "100vh",
+      left: "37vw",
+      width: "48vw",
+      zIndex: 0,
+      opacity: 0,
+    },
+  };
+
+  const mobileVariants: Variants = {
+    middle: {
+      top: "15vh",
+      left: "12vw",
+      width: "80vw",
+      zIndex: 20,
+      opacity: 1,
+    },
+    bottom: {
+      top: "38vh",
+      left: "24vw",
+      width: "68vw",
+      zIndex: 10,
+      opacity: 1,
+    },
+    top: {
+      top: "0vh",
+      left: "21vw",
+      width: "71vw",
+      zIndex: 10,
+      opacity: 1,
+    },
+    hiddenTop: {
+      top: "-50vh",
+      left: "21vw",
+      width: "71vw",
+      zIndex: 0,
+      opacity: 0,
+    },
+    hiddenBottom: {
+      top: "100vh",
+      left: "24vw",
+      width: "68vw",
+      zIndex: 0,
+      opacity: 0,
+    },
+  };
+
+  const getPosition = (index: number, currentIndex: number) => {
+    const len = GALLERY_ITEMS.length;
+    // Calculate distance from current index in the circular buffer
+    // 0 = Center/Middle, 1 = Right/Bottom, -1 = Left/Top
+    let diff = (index - currentIndex + len) % len;
+
+    // Normalize diff to be closest distance (e.g., if len=5, diff=4 should be -1)
+    if (diff > len / 2) diff -= len;
+
+    if (diff === 0) return "center"; // middle
+    if (diff === 1) return "right"; // bottom
+    if (diff === -1) return "left"; // top
+    if (diff > 1) return "hiddenRight"; // hiddenBottom
+    return "hiddenLeft"; // hiddenTop
   };
 
   useLayoutEffect(() => {
@@ -85,7 +205,7 @@ export function Gallery() {
   if (!mounted) return null;
 
   return (
-    <>
+    <div className="relative h-screen w-full overflow-hidden">
       {/* Click Listener Overlay (High Z-Index) */}
       <div
         className="absolute inset-0 z-[100] cursor-pointer"
@@ -147,41 +267,31 @@ export function Gallery() {
 
           {/* ================= CENTER BANNERS (BELOW RIBBON) ================= */}
           <div className="pointer-events-none relative z-30 flex h-screen items-center justify-center">
-            <AnimatePresence initial={false} custom={direction}>
-              <motion.div
-                key={currentIndex}
-                custom={direction}
-                variants={variants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                className="banner-group banner-two-phase-vertical absolute bottom-[38vh] left-[20vw] aspect-[3/2] w-[55vw] max-w-[900px]"
-              >
-                {/* STICK / HOLDER */}
-                <div className="absolute inset-0 z-20">
-                  <Image
-                    src="/Gallery/board2part1.svg"
-                    alt="Stick"
-                    width={600}
-                    height={200}
-                    className="absolute top-[33%] left-[3%] h-auto w-[90%]"
-                    priority
-                  />
-                </div>
+            <div className="banner-group banner-two-phase-vertical relative bottom-[38vh] left-[20vw] aspect-[3/2] w-[55vw] max-w-[900px]">
+              {/* STICK / HOLDER */}
+              <div className="absolute inset-0 z-20">
+                <Image
+                  src="/Gallery/board2part1.svg"
+                  alt="Stick"
+                  width={600}
+                  height={200}
+                  className="absolute top-[33%] left-[3%] h-auto w-[90%]"
+                  priority
+                />
+              </div>
 
-                {/* BANNER PART (FLOATING ABOVE RIBBON) */}
-                <div className="banner-z-jump absolute inset-0 z-30">
-                  <Image
-                    src="/Gallery/board2part2.svg"
-                    alt="Banner"
-                    width={600}
-                    height={200}
-                    className="absolute bottom-[0%] left-[20%] h-auto w-[60%]"
-                    priority
-                  />
-                </div>
-              </motion.div>
-            </AnimatePresence>
+              {/* BANNER PART (FLOATING ABOVE RIBBON) */}
+              <div className="banner-z-jump absolute inset-0 z-30">
+                <Image
+                  src="/Gallery/board2part2.svg"
+                  alt="Banner"
+                  width={600}
+                  height={200}
+                  className="absolute bottom-[0%] left-[20%] h-auto w-[60%]"
+                  priority
+                />
+              </div>
+            </div>
           </div>
 
           {/* ================= BOTTOM DECORATIONS ================= */}
@@ -192,35 +302,37 @@ export function Gallery() {
             <div className="pointer-events-none absolute inset-0 z-10">
               {/* ================= WHITE BOARDS (BEHIND RIBBON & RING) ================= */}
               <div className="relative top-[100vh] left-[2vw] mt-[6vh] scale-[0.98]">
-
-              {/* LEFT BOARD */}
-              <div className="white-board white-left absolute left-[9vw] z-10 w-[29vw] opacity-0 -top-[1vw]">
-                <img
-                  src="/Gallery/whiteboard.svg"
-                  alt="White board"
-                  className="w-full h-auto"
-                />
+                {GALLERY_ITEMS.map((item, index) => {
+                  const pos = getPosition(index, currentIndex);
+                  return (
+                    <motion.div
+                      key={item.id}
+                      variants={laptopVariants}
+                      animate={pos}
+                      transition={{
+                        type: "spring",
+                        stiffness: 300,
+                        damping: 30,
+                      }}
+                      className="white-board absolute flex items-center justify-center"
+                    >
+                      <img
+                        src="/Gallery/whiteboard.svg"
+                        alt="White board"
+                        className="relative z-0 h-auto w-full"
+                      />
+                      {/* Content inside board */}
+                      <div className="absolute inset-0 z-10 flex items-center justify-center p-[4vw]">
+                        <img
+                          src={item.content}
+                          alt={`Gallery Item ${index}`}
+                          className="max-h-full max-w-full object-contain"
+                        />
+                      </div>
+                    </motion.div>
+                  );
+                })}
               </div>
-
-              {/* MIDDLE BOARD */}
-              <div className="white-board white-middle absolute left-[37vw] -top-[5vh] z-20 w-[35vw] opacity-0">
-                <img
-                  src="/Gallery/whiteboard.svg"
-                  alt="White board"
-                  className="w-full h-auto"
-                />
-              </div>
-
-              {/* RIGHT BOARD */}
-              <div className="white-board white-right absolute -bottom-[72vh] left-[68vw] z-10 w-[29vw] opacity-0">
-                <img
-                  src="/Gallery/whiteboard.svg"
-                  alt="White board"
-                  className="w-full h-auto"
-                />
-              </div>
-
-            </div>
 
 
               {/* ================= END RING (TOPMOST) ================= */}
@@ -299,85 +411,54 @@ export function Gallery() {
     </div>
 
     {/* ================= WHITE BANNERS ================= */}
-<div className="absolute inset-0 z-[1] pointer-events-none">
+    <div className="pointer-events-none absolute inset-0 z-[1]">
+      {GALLERY_ITEMS.map((item, index) => {
+        let pos = getPosition(index, currentIndex);
+        // Map laptop positions to mobile variant keys
+        if (pos === "center") pos = "middle";
+        else if (pos === "right") pos = "bottom";
+        else if (pos === "left") pos = "top";
+        else if (pos === "hiddenRight") pos = "hiddenBottom";
+        else pos = "hiddenTop"; // hiddenLeft
 
-  {/* TOP WHITE */}
-  <img
-    src="/Gallery/whitebannermobiletop.svg"
-    className="
-      absolute
-      left-[35vw]
-      w-[50vw]
-      opacity-0
-      white-banner
-      white-top
-    "
-    alt=""
-  />
-
-  {/* MIDDLE WHITE */}
-  <img
-    src="/Gallery/whitebannermobilemiddle.svg"
-    className="
-      absolute
-      left-[30vw] top-[15vh]
-      w-[55vw]
-      opacity-0
-      white-banner-middle
-    "
-    alt=""
-  />
-
-  {/* BOTTOM WHITE */}
-  <img
-    src="/Gallery/whitebannermobilebottom.svg"
-    className="
-      absolute
-      left-[37vw] top-[37vh]
-      w-[48vw]
-      opacity-0
-      white-banner
-      white-bottom
-    "
-    alt=""
-  />
-
-</div>
+        return (
+          <motion.div
+            key={item.id}
+            variants={ipadVariants}
+            animate={pos}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="white-banner absolute"
+          >
+            <img src={item.mobileSrc} className="h-auto w-full" alt="" />
+          </motion.div>
+        );
+      })}
+    </div>
 
 
     {/* ================= MIDDLE PHOTO / GALLERY BANNERS ================= */}
     <div className="ipad-banner-layer pointer-events-none absolute inset-0 z-[5] flex items-center justify-center">
-      <AnimatePresence initial={false} custom={direction}>
-        <motion.div
-          key={currentIndex}
-          custom={direction}
-          variants={variants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          className="ipad-banner-anim absolute left-0 w-full -top-[5vh] mt-[6vh] flex flex-col items-center gap-[4vh]"
-        >
-          {/* PHOTO BANNER */}
-          <Image
-            src="/Gallery/photobannermobile.svg"
-            alt="Photo Banner"
-            width={0}
-            height={0}
-            className="absolute -top-[60vh] z-10 h-auto w-[75vw] max-w-[75vw]"
-            priority
-          />
+      <div className="ipad-banner-anim relative -top-[5vh] mt-[6vh] flex flex-col items-center gap-[4vh]">
+        {/* PHOTO BANNER */}
+        <Image
+          src="/Gallery/photobannermobile.svg"
+          alt="Photo Banner"
+          width={0}
+          height={0}
+          className="absolute -top-[60vh] z-10 h-auto w-[75vw] max-w-[75vw]"
+          priority
+        />
 
-          {/* GALLERY BANNER */}
-          <Image
-            src="/Gallery/gallerybannermobile.svg"
-            alt="Gallery Banner"
-            width={0}
-            height={0}
-            className="absolute -right-[40vw] -top-[28vh] z-0 h-auto w-[72vw] max-w-[75vw]"
-            priority
-          />
-        </motion.div>
-      </AnimatePresence>
+        {/* GALLERY BANNER */}
+        <Image
+          src="/Gallery/gallerybannermobile.svg"
+          alt="Gallery Banner"
+          width={0}
+          height={0}
+          className="absolute -right-[40vw] -top-[28vh] z-0 h-auto w-[72vw] max-w-[75vw]"
+          priority
+        />
+      </div>
     </div>
 
     {/* ================= BOTTOM RIBBON ================= */}
@@ -462,76 +543,71 @@ export function Gallery() {
     </div>
 
     {/* ================= WHITE BANNERS (PHONE) ================= */}
-    <div className="absolute inset-0 z-[1] pointer-events-none">
+    <div className="pointer-events-none absolute inset-0 z-[1]">
+      {GALLERY_ITEMS.map((item, index) => {
+        let pos = getPosition(index, currentIndex);
+        // Map laptop positions to mobile variant keys
+        if (pos === "center") pos = "middle";
+        else if (pos === "right") pos = "bottom";
+        else if (pos === "left") pos = "top";
+        else if (pos === "hiddenRight") pos = "hiddenBottom";
+        else pos = "hiddenTop"; // hiddenLeft
 
-      <img
-        src="/Gallery/whitebannermobiletop.svg"
-        className="absolute left-[21vw] top-[0vh] w-[71vw] opacity-0 phone-white phone-white-top"
-        alt=""
-      />
-
-      <img
-        src="/Gallery/whitebannermobilemiddle.svg"
-        className="absolute left-[12vw] top-[15vh] w-[80vw] opacity-0 phone-white-middle"
-        alt=""
-      />
-
-      <img
-        src="/Gallery/whitebannermobilebottom.svg"
-        className="absolute left-[24vw] top-[38vh] w-[68vw] opacity-0 phone-white phone-white-bottom"
-        alt=""
-      />
-
+        return (
+          <motion.div
+            key={item.id}
+            variants={mobileVariants}
+            animate={pos}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className="white-banner absolute"
+          >
+            <img src={item.mobileSrc} className="h-auto w-full" alt="" />
+          </motion.div>
+        );
+      })}
     </div>
 
+    {/* ================= CENTER PHOTO / GALLERY (BELOW RIBBON) ================= */}
     {/* ================= CENTER PHOTO / GALLERY (BELOW RIBBON) ================= */}
     {/* ================= CENTER PHOTO / GALLERY (PHONE) ================= */}
     <div className="phone-banner-layer pointer-events-none relative z-[5] flex h-screen items-center justify-center">
       {/* MOVING ELEMENT */}
-      <AnimatePresence initial={false} custom={direction}>
-        <motion.div
-          key={currentIndex}
-          custom={direction}
-          variants={variants}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          className="
-        photo-gallery-group
-        phone-banner-anim
-        absolute
-        bottom-[40vh]
-        left-[28vw]
-        aspect-[3/2]
-        w-[95vw]
-        max-w-[1200px]
-      "
-        >
-          {/* PHOTO */}
-          <div className="absolute inset-0 z-30">
-            <Image
-              src="/Gallery/photobannermobile.svg"
-              alt="Photo Banner"
-              width={0}
-              height={0}
-              className="absolute right-[30%] top-[10%] h-auto w-[120%]"
-              priority
-            />
-          </div>
+      <div
+        className="
+      photo-gallery-group
+      relative
+      bottom-[40vh]
+      left-[28vw]
+      aspect-[3/2]
+      w-[95vw]
+      max-w-[1200px]
+      phone-banner-anim
+    "
+      >
+        {/* PHOTO */}
+        <div className="absolute inset-0 z-30">
+          <Image
+            src="/Gallery/photobannermobile.svg"
+            alt="Photo Banner"
+            width={0}
+            height={0}
+            className="absolute right-[30%] top-[10%] h-auto w-[120%]"
+            priority
+          />
+        </div>
 
-          {/* GALLERY */}
-          <div className="absolute inset-0 z-20">
-            <Image
-              src="/Gallery/gallerybannermobile.svg"
-              alt="Gallery Banner"
-              width={0}
-              height={0}
-              className="gallery-settle absolute right-[30%] top-[120%] h-auto w-[100%]"
-              priority
-            />
-          </div>
-        </motion.div>
-      </AnimatePresence>
+        {/* GALLERY */}
+        <div className="absolute inset-0 z-20">
+          <Image
+            src="/Gallery/gallerybannermobile.svg"
+            alt="Gallery Banner"
+            width={0}
+            height={0}
+            className="gallery-settle absolute right-[30%] top-[120%] h-auto w-[100%]"
+            priority
+          />
+        </div>
+      </div>
     </div>
 
 
@@ -568,6 +644,6 @@ export function Gallery() {
   </div>
 )}
 
-    </>
+    </div>
   );
 }
