@@ -2,7 +2,7 @@
 
 import { useLayoutEffect, useState } from "react";
 import Image from "next/image";
-import { motion, type Variants } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 
 const GALLERY_ITEMS = [
   { id: 0, content: "Item 1" },
@@ -33,134 +33,94 @@ export function Gallery() {
 
   const getPosition = (index: number) => {
     const len = GALLERY_ITEMS.length;
-    // Calculate distance from current index in the circular buffer
     let diff = (index - currentIndex + len) % len;
-    // Normalize diff to be closest distance (e.g., if len=5, diff=4 should be -1)
     if (diff > len / 2) diff -= len;
-
     return diff;
   };
 
-  // Laptop Variants
-  const laptopVariants: Variants = {
-    center: {
-      left: "37vw",
-      top: "-5vh",
-      bottom: "auto",
-      width: "35vw",
-      zIndex: 20,
-      opacity: 1,
-    },
-    right: {
-      left: "68vw",
-      bottom: "-72vh",
-      top: "auto",
-      width: "29vw",
-      zIndex: 10,
-      opacity: 1,
-    },
-    left: {
-      left: "9vw",
-      top: "-1vw",
-      bottom: "auto",
-      width: "29vw",
-      zIndex: 10,
-      opacity: 1,
-    },
-    hiddenLeft: {
-      left: "-30vw",
-      top: "-1vw",
-      bottom: "auto",
-      width: "29vw",
-      zIndex: 0,
-      opacity: 0,
-    },
-    hiddenRight: {
-      left: "100vw",
-      bottom: "-72vh",
-      top: "auto",
-      width: "29vw",
-      zIndex: 0,
-      opacity: 0,
-    },
-  };
+  // Helper to get classes based on state and device
+  const getItemClasses = (diff: number) => {
+    // Determine logical position
+    let pos = "hidden";
+    if (diff === 0) pos = "center";
+    else if (diff === 1) pos = "right"; // Next
+    else if (diff === -1) pos = "left"; // Prev
+    else if (diff > 1) pos = "hiddenRight";
+    else if (diff < -1) pos = "hiddenLeft";
 
-  // iPad Variants
-  const ipadVariants: Variants = {
-    middle: {
-      left: "30vw",
-      top: "15vh",
-      width: "55vw",
-      zIndex: 20,
-      opacity: 1,
-    },
-    bottom: {
-      left: "37vw",
-      top: "37vh",
-      width: "48vw",
-      zIndex: 10,
-      opacity: 1,
-    },
-    top: {
-      left: "35vw",
-      top: "0vh",
-      width: "50vw",
-      zIndex: 10,
-      opacity: 1,
-    },
-    hiddenTop: {
-      left: "35vw",
-      top: "-30vh",
-      width: "50vw",
-      zIndex: 0,
-      opacity: 0,
-    },
-    hiddenBottom: {
-      left: "37vw",
-      top: "80vh",
-      width: "48vw",
-      zIndex: 0,
-      opacity: 0,
-    },
-  };
+    const commonClasses = "absolute transition-all duration-700 ease-in-out";
 
-  // Phone Variants
-  const mobileVariants: Variants = {
-    middle: {
-      left: "12vw",
-      top: "15vh",
-      width: "80vw",
-      zIndex: 20,
-      opacity: 1,
-    },
-    bottom: {
-      left: "24vw",
-      top: "38vh",
-      width: "68vw",
-      zIndex: 10,
-      opacity: 1,
-    },
-    top: {
-      left: "21vw",
-      top: "0vh",
-      width: "71vw",
-      zIndex: 10,
-      opacity: 1,
-    },
-    hiddenTop: {
-      left: "21vw",
-      top: "-30vh",
-      width: "71vw",
-      zIndex: 0,
-      opacity: 0,
-    },
-    hiddenBottom: {
-      left: "24vw",
-      top: "80vh",
-      width: "68vw",
-      zIndex: 0,
-      opacity: 0,
-    },
+    // LAPTOP
+    if (isLap) {
+      const baseClass = "white-board " + commonClasses;
+      // Classes from user provided code:
+      // Left: left-[9vw] -top-[1vw] z-10 w-[29vw]
+      // Middle: left-[37vw] -top-[5vh] z-20 w-[35vw]
+      // Right: -bottom-[72vh] left-[68vw] z-10 w-[29vw]
+
+      switch (pos) {
+        case "center":
+          return `${baseClass} left-[37vw] -top-[5vh] z-20 w-[35vw] opacity-100`;
+        case "right":
+          return `${baseClass} -bottom-[72vh] left-[68vw] z-10 w-[29vw] opacity-100`;
+        case "left":
+          return `${baseClass} left-[9vw] -top-[1vw] z-10 w-[29vw] opacity-100`;
+        case "hiddenRight":
+          // Extrapolated entry point
+          return `${baseClass} -bottom-[72vh] left-[100vw] z-0 w-[29vw] opacity-0`;
+        case "hiddenLeft":
+          // Extrapolated exit point
+          return `${baseClass} -top-[1vw] left-[-20vw] z-0 w-[29vw] opacity-0`;
+        default:
+          return `${baseClass} opacity-0 pointer-events-none`;
+      }
+    }
+
+    const baseClassMobile = "white-banner " + commonClasses;
+
+    // IPAD
+    if (isIpad) {
+       // Top: left-[35vw] top-[0vh] w-[50vw]
+       // Middle: left-[30vw] top-[15vh] w-[55vw]
+       // Bottom: left-[37vw] top-[37vh] w-[48vw]
+       switch (pos) {
+        case "center": // Middle
+          return `${baseClassMobile} left-[30vw] top-[15vh] w-[55vw] z-20 opacity-100`;
+        case "right": // Bottom (Next)
+          return `${baseClassMobile} left-[37vw] top-[37vh] w-[48vw] z-10 opacity-100`;
+        case "left": // Top (Prev)
+          return `${baseClassMobile} left-[35vw] top-[0vh] w-[50vw] z-10 opacity-100`;
+        case "hiddenRight": // Hidden Bottom
+          return `${baseClassMobile} left-[37vw] top-[100vh] w-[48vw] z-0 opacity-0`;
+        case "hiddenLeft": // Hidden Top
+          return `${baseClassMobile} left-[35vw] top-[-50vh] w-[50vw] z-0 opacity-0`;
+        default:
+          return `${baseClassMobile} opacity-0 pointer-events-none`;
+      }
+    }
+
+    // PHONE
+    if (isPhone) {
+      // Top: left-[21vw] top-[0vh] w-[71vw]
+      // Middle: left-[12vw] top-[15vh] w-[80vw]
+      // Bottom: left-[24vw] top-[38vh] w-[68vw]
+      switch (pos) {
+        case "center": // Middle
+          return `${baseClassMobile} left-[12vw] top-[15vh] w-[80vw] z-20 opacity-100`;
+        case "right": // Bottom (Next)
+          return `${baseClassMobile} left-[24vw] top-[38vh] w-[68vw] z-10 opacity-100`;
+        case "left": // Top (Prev)
+          return `${baseClassMobile} left-[21vw] top-[0vh] w-[71vw] z-10 opacity-100`;
+        case "hiddenRight": // Hidden Bottom
+          return `${baseClassMobile} left-[24vw] top-[100vh] w-[68vw] z-0 opacity-0`;
+        case "hiddenLeft": // Hidden Top
+          return `${baseClassMobile} left-[21vw] top-[-50vh] w-[71vw] z-0 opacity-0`;
+        default:
+          return `${baseClassMobile} opacity-0 pointer-events-none`;
+      }
+    }
+
+    return "hidden";
   };
 
   useLayoutEffect(() => {
@@ -256,28 +216,19 @@ export function Gallery() {
 
               {/* ================= WHITE BOARDS (ANIMATED) ================= */}
               <div className="relative top-[100vh] left-[2vw] mt-[6vh] scale-[0.98]">
+                <AnimatePresence>
                 {GALLERY_ITEMS.map((item, index) => {
                   const diff = getPosition(index);
-                  let variantName = "hiddenRight"; // Default hidden
+                  const className = getItemClasses(diff);
 
-                  if (diff === 0) variantName = "center";
-                  else if (diff === 1) variantName = "right";
-                  else if (diff === -1) variantName = "left";
-                  else if (diff > 1) variantName = "hiddenRight";
-                  else if (diff < -1) variantName = "hiddenLeft";
-
-                  // Interactivity: Only clicking 'Right' triggers Next (Right->Center)
-                  // Optional: Clicking 'Left' triggers Prev
+                  // Interactivity
                   const isInteractive = diff === 1 || diff === -1;
 
                   return (
                     <motion.div
+                      layout
                       key={item.id}
-                      variants={laptopVariants}
-                      initial="hiddenRight"
-                      animate={variantName}
-                      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                      className={`white-board absolute flex items-center justify-center ${
+                      className={`${className} ${
                         isInteractive ? "pointer-events-auto cursor-pointer" : ""
                       }`}
                       onClick={() => {
@@ -286,6 +237,7 @@ export function Gallery() {
                       }}
                     >
                       <img
+                        // Placeholder comment: // /Gallery/whiteboard.svg
                         src="/Gallery/whiteboard.svg"
                         alt="White board"
                         className="w-full h-auto"
@@ -293,6 +245,7 @@ export function Gallery() {
                     </motion.div>
                   );
                 })}
+                </AnimatePresence>
               </div>
 
               {/* ================= END RING (TOPMOST) ================= */}
@@ -359,23 +312,14 @@ export function Gallery() {
           <div className="absolute inset-0 z-[1]">
              {GALLERY_ITEMS.map((item, index) => {
                 const diff = getPosition(index);
-                let variantName = "hiddenBottom";
-
-                if (diff === 0) variantName = "middle";
-                else if (diff === 1) variantName = "bottom"; // Next
-                else if (diff === -1) variantName = "top"; // Prev
-                else if (diff > 1) variantName = "hiddenBottom";
-                else if (diff < -1) variantName = "hiddenTop";
-
+                const className = getItemClasses(diff);
                 const isInteractive = diff === 1 || diff === -1;
 
                 return (
                   <motion.div
+                    layout
                     key={item.id}
-                    variants={ipadVariants}
-                    animate={variantName}
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    className={`white-banner absolute ${
+                    className={`${className} ${
                       isInteractive ? "pointer-events-auto cursor-pointer" : ""
                     }`}
                     onClick={() => {
@@ -384,7 +328,8 @@ export function Gallery() {
                     }}
                   >
                     <img
-                        src="/Gallery/whitebannermobilemiddle.svg"
+                        // Placeholder comment: // /Gallery/whiteboard.svg
+                        src="/Gallery/whiteboard.svg"
                         className="w-full h-auto"
                         alt=""
                     />
@@ -479,23 +424,14 @@ export function Gallery() {
           <div className="absolute inset-0 z-[1]">
              {GALLERY_ITEMS.map((item, index) => {
                 const diff = getPosition(index);
-                let variantName = "hiddenBottom";
-
-                if (diff === 0) variantName = "middle";
-                else if (diff === 1) variantName = "bottom"; // Next
-                else if (diff === -1) variantName = "top"; // Prev
-                else if (diff > 1) variantName = "hiddenBottom";
-                else if (diff < -1) variantName = "hiddenTop";
-
+                const className = getItemClasses(diff);
                 const isInteractive = diff === 1 || diff === -1;
 
                 return (
                   <motion.div
+                    layout
                     key={item.id}
-                    variants={mobileVariants}
-                    animate={variantName}
-                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
-                    className={`white-banner absolute ${
+                    className={`${className} ${
                       isInteractive ? "pointer-events-auto cursor-pointer" : ""
                     }`}
                     onClick={() => {
@@ -504,7 +440,8 @@ export function Gallery() {
                     }}
                   >
                      <img
-                        src="/Gallery/whitebannermobilemiddle.svg" // Consistent SVG
+                        // Placeholder comment: // /Gallery/whiteboard.svg
+                        src="/Gallery/whiteboard.svg"
                         className="w-full h-auto"
                         alt=""
                     />

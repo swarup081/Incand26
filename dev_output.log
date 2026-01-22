@@ -7,11 +7,29 @@
    - Network:      http://192.168.0.2:3000
 
  ✓ Starting...
- ✓ Ready in 3s
+ ✓ Ready in 3.3s
  ○ Compiling /gallery-test ...
- ✓ Compiled /gallery-test in 9.6s
- GET /gallery-test 200 in 10950ms
+ ✓ Compiled /gallery-test in 14.6s
+ GET /gallery-test 200 in 16303ms
  ○ Compiling /_not-found/page ...
- ✓ Compiled /_not-found/page in 896ms
- GET /gallery-test 200 in 249ms
+ ✓ Compiled /_not-found/page in 879ms
+ GET /Gallery/backgroundgallery.svg 404 in 1845ms
+ GET /Gallery/board2part2.svg 404 in 1812ms
+ GET /Gallery/ribbonupper.svg 404 in 1807ms
+ GET /Gallery/board1.svg 404 in 1805ms
+ GET /Gallery/board2part1.svg 404 in 1845ms
+ GET /Gallery/circulartopring.svg 404 in 1831ms
+ GET /Gallery/ribbonbottom.svg 404 in 385ms
+ GET /Gallery/circularbottomring.svg 404 in 480ms
+ GET /Gallery/whiteboard.svg 404 in 493ms
+ GET /gallery-test 200 in 414ms
+ GET /Gallery/backgroundgallery.svg 404 in 495ms
+ GET /Gallery/board2part1.svg 404 in 493ms
+ GET /Gallery/board2part2.svg 404 in 494ms
+ GET /Gallery/circulartopring.svg 404 in 685ms
+ GET /Gallery/ribbonupper.svg 404 in 696ms
+ GET /Gallery/board1.svg 404 in 698ms
+ GET /Gallery/ribbonbottom.svg 404 in 564ms
+ GET /Gallery/circularbottomring.svg 404 in 569ms
+ GET /Gallery/whiteboard.svg 404 in 569ms
 [?25h
