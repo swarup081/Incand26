@@ -387,8 +387,8 @@ body {
 /* Continuous rightward flow */
 .ribbon-flow-right {
   display: flex;
-  width: max-content;
-  height: 100%;
+  
+  
   animation: flowRight 35s linear infinite;
 }
 
@@ -397,7 +397,7 @@ body {
     transform: translateX(0);
   }
   to {
-    transform: translateX(-50%);
+    transform: translateX(-90%);
   }
 }
 
@@ -406,7 +406,7 @@ body {
     background-position-x: 0;
   }
   to {
-    background-position-x: -800px;
+    background-position-x: 800px;
   }
 }
 
@@ -570,7 +570,7 @@ body {
 
   /* ===== PHASE 2: SMOOTH UP + SCALE (3–5s) ===== */
   100% {
-    transform: translateY(-110px) scale(0.7);
+    transform: translateY(-95px) scale(0.7);
   }
 }
 
@@ -581,33 +581,329 @@ body {
 
 
 .white-board {
-
-  transform: translateY(40px);  /* start slightly BELOW ribbon */
-
+  transform: translateY(40px); /* start below ribbon */
   animation: whiteBoardRise 2s ease-out forwards;
-  animation-delay: 3s;     /* sync with top banners */
 }
+
 .white-left {
-  
+  animation: whiteBoardRiseLeft 2s ease-out forwards;
   animation-delay: 3.1s;
+  transform-origin: bottom right;
 }
+
+@keyframes whiteBoardRiseLeft {
+  from {
+    transform: translateY(40px) rotate(-6deg); /* 👈 left tilt */
+    opacity: 0;
+  }
+  to {
+    transform: translateY(-78vh) rotate(-12deg);
+    opacity: 1;
+  }
+}
+
 
 .white-middle {
- 
   animation-delay: 3.3s;
 }
 
 .white-right {
-  
+  animation: whiteBoardRiseRight 2s ease-out forwards;
   animation-delay: 3.5s;
+  transform-origin: bottom left;
 }
+
+@keyframes whiteBoardRiseRight {
+  from {
+    transform: translateY(40px) rotate(6deg);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(-78vh) rotate(20deg);
+    opacity: 1;
+  }
+}
+
+
 @keyframes whiteBoardRise {
   from {
     transform: translateY(40px);
     opacity: 0;
   }
   to {
-    transform: translateY(-78vh); /* 👈 MOVE UP */
+    transform: translateY(-78vh);
     opacity: 1;
   }
 }
+
+.white-left-active {
+  transform: translateY(-78vh) rotate(-12deg) translateX(-6vw) !important;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.white-right-active {
+  transform: translateY(-78vh) rotate(12deg) translateX(6vw) !important;
+  transition: transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+
+.white-locked {
+  animation: none !important;
+  transition:
+    transform 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+    width 0.9s ease,
+    opacity 0.5s ease,
+    z-index 0.3s;
+}
+
+
+
+
+
+
+
+
+@keyframes ipadBannerMove {
+  /* ===== FLOAT PHASE (0–3s) ===== */
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  20% {
+    transform: translate(0, -25px) scale(1) rotate(0deg);
+  }
+  40% {
+    transform: translate(0, 20px) scale(1) rotate(0deg);
+  }
+  60% {
+    transform: translate(0, -30px) scale(1) rotate(0deg);
+  }
+  80% {
+    transform: translate(0, 15px) scale(1) rotate(0deg);
+  }
+
+  /* ===== DIAGONAL + INCLINED EXIT (3–5s) ===== */
+  100% {
+    transform: 
+      translate(-16vw, -20vh)
+      scale(0.8)
+      rotate(-18deg); /* 👈 slight left incline */
+  }
+}
+
+.ipad-banner-z {
+  position: relative;
+  z-index: 5; /* BELOW top ribbon */
+}
+.ipad-banner-z {
+  animation: ipadBannerZJump 3s linear forwards;
+}
+
+.ipad-banner-anim {
+  animation: ipadBannerMove 3s ease-in-out forwards;
+  transform-origin: center center;
+}
+
+
+
+/* Controls stacking ABOVE ribbon & ring */
+@keyframes ipadBannerLayerJump {
+  0% {
+    z-index: 5;
+  }
+  70% {
+    z-index: 5;
+  }
+  95% {
+    z-index: 5; /* ABOVE ribbon (10) & ring (20) */
+  }
+  100% {
+    z-index: 40;
+  }
+}
+
+.ipad-banner-layer {
+  animation: ipadBannerLayerJump 3s linear forwards;
+}
+
+@layer utilities {
+
+  
+  .white-banner {
+    @apply transition-transform transition-opacity ease-out;
+
+
+    animation: whiteBannerSlideIn 3s ease-out forwards;
+    animation-fill-mode: both; /* 👈 THIS FIXES EARLY APPEARANCE */
+  }
+
+  /* Start almost immediately when board moves */
+  .white-top {
+    animation-delay: 0.9s;
+  }
+
+  .white-middle {
+    animation-delay: 0s;
+  }
+
+  .white-bottom {
+    animation-delay: 0.9s;
+  }
+
+  @keyframes whiteBannerSlideIn {
+    0% {
+      opacity: 1;
+      transform: translateX(80vw) scale(0.95);
+    }
+
+    40% {
+      opacity: 1;
+      transform: translateX(80vw) scale(1);
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateX(15vw) scale(1);
+    }
+  }
+
+}
+
+.white-banner-middle {
+  opacity: 0;
+  transform: translateX(80vw) translateY(10px) scale(0.96);
+
+  animation: whiteBannerMiddleSlide 3s ease-out forwards;
+  animation-delay: 0.9s;
+
+  will-change: transform, opacity;
+}
+@keyframes whiteBannerMiddleSlide {
+  0% {
+    opacity: 0;
+    transform: translateX(80vw) translateY(10px) scale(0.96);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateX(80vw) translateY(0) scale(1);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(15vw) translateY(-4px) scale(1);
+  }
+}
+
+
+
+@keyframes phoneBannerMove {
+  0% {
+    transform: translate(0, 0) scale(1) rotate(0deg);
+  }
+  20% {
+    transform: translate(0, -18px);
+  }
+  40% {
+    transform: translate(0, 14px);
+  }
+  60% {
+    transform: translate(0, -20px);
+  }
+  80% {
+    transform: translate(0, 10px);
+  }
+  100% {
+    transform: translate(-37vw, -20vh) scale(0.75) rotate(-14deg);
+  }
+}
+/* Gallery settles slightly closer to photo after animation */
+.gallery-settle {
+  animation: gallerySettleIn 0.05s ease-out forwards;
+  animation-delay: 2.75s; /* ⏱ after main animation ends */
+}
+
+@keyframes gallerySettleIn {
+  0% {
+    transform: translateY(0);
+  }
+  25%{
+    transform: translateY(-4%);
+  }
+  65%{
+    transform: translateY(-7%);
+  }
+  100% {
+    transform: translateY(-11%);
+  }
+}
+
+.phone-banner-anim {
+  animation: phoneBannerMove 3s ease-in-out forwards;
+  transform-origin: center center;
+}
+
+
+@keyframes phoneBannerLayerJump {
+  0%, 80% {
+    z-index: 5;
+  }
+  100% {
+    z-index: 40;
+  }
+} 
+
+ .phone-banner-layer {
+  animation: phoneBannerLayerJump 3s linear forwards;
+} 
+.phone-white {
+  animation: phoneWhiteSlide 3s ease-out forwards;
+  animation-delay: 0.9s;
+  animation-fill-mode: both;
+}
+
+.phone-white-top,
+.phone-white-bottom {
+  animation-delay: 0.9s;
+}
+
+@keyframes phoneWhiteSlide {
+  0% {
+    opacity: 0;
+    transform: translateX(90vw) scale(0.95);
+  }
+  40% {
+    opacity: 1;
+    transform: translateX(90vw) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(8vw) scale(1);
+  }
+}
+.phone-white-middle {
+  opacity: 0;
+  transform: translateX(90vw) translateY(8px) scale(0.95);
+
+  animation: phoneWhiteMiddleSlide 3s ease-out forwards;
+  animation-delay: 0.9s;
+}
+
+@keyframes phoneWhiteMiddleSlide {
+  0% {
+    opacity: 0;
+    transform: translateX(90vw) translateY(8px) scale(0.95);
+  }
+  50% {
+    opacity: 1;
+    transform: translateX(90vw) translateY(0) scale(1);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(9vw) translateY(-3px) scale(1);
+  }
+}
+
+
+
+
