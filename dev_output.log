@@ -1,0 +1,17 @@
+
+> incand2026@0.1.0 dev /app
+> next dev --turbo
+
+   ▲ Next.js 15.5.9 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.0.2:3000
+
+ ✓ Starting...
+ ✓ Ready in 3s
+ ○ Compiling /gallery-test ...
+ ✓ Compiled /gallery-test in 9.6s
+ GET /gallery-test 200 in 10950ms
+ ○ Compiling /_not-found/page ...
+ ✓ Compiled /_not-found/page in 896ms
+ GET /gallery-test 200 in 249ms
+[?25h
