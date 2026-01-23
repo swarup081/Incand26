@@ -398,10 +398,10 @@ body {
   height:80%;
   animation: ribbonFlowRight 30s linear infinite;
 
-  /* 🔥 CRITICAL FIX */
+  
   background-repeat: repeat-x;
 
-  /* 🔥 STRONG OVERLAP (key fix) */
+  
   background-size: calc(800px + 20px) 100%;
   background-position-y: center;
 
@@ -426,136 +426,7 @@ body {
 
 
 
-@keyframes floatOnce {
-  0% {
-    transform: translateY(0);
-  }
-  40% {
-    transform: translateY(-40px); /* 👈 zyada upar */
-  }
-  70% {
-    transform: translateY(20px);  /* 👈 thoda neeche */
-  }
-  100% {
-    transform: translateY(0);     /* 👈 final position pe stop */
-  }
-}
 
-.float-once {
-  animation: floatOnce 5s ease-in-out forwards;
-}
-
-@keyframes bannerFloatOnce {
-  0% {
-    transform: translateY(0);
-  }
-  35% {
-    transform: translateY(-45px); /* 👈 strong up */
-  }
-  65% {
-    transform: translateY(25px);  /* 👈 soft down */
-  }
-  100% {
-    transform: translateY(0);     /* 👈 final stop */
-  }
-}
-
-.banner-float-once {
-  animation: bannerFloatOnce 3s ease-in-out forwards;
-}
-.banner-float-once {
-  animation-delay: 0.4s;
-}
-@keyframes bannerFloatAndExit {
-  /* ===== FLOAT PHASE (0s–5s) ===== */
-  0% {
-    transform: translateY(0) scale(1);
-  }
-  20% {
-    transform: translateY(-25px) scale(1);
-  }
-  40% {
-    transform: translateY(20px) scale(1);
-  }
-  60% {
-    transform: translateY(-30px) scale(1);
-  }
-  80% {
-    transform: translateY(15px) scale(1);
-  }
-
-  /* ===== EXIT PHASE (5s–7s) ===== */
-  90% {
-    transform: translateY(-90px) scale(0.85);
-  }
-
-  /* ===== FINAL STOP ===== */
-  100% {
-    transform: translateY(-120px) scale(0.78);
-  }
-}
-
-.banner-float-exit {
-  animation: bannerFloatAndExit 7s ease-in-out forwards;
-  transform-origin: center center;
-}
-
-@keyframes bannerPathMove {
-  /* ===== FLOAT PHASE ===== */
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  15% {
-    transform: translate(0, -25px) scale(1);
-  }
-  30% {
-    transform: translate(0, 20px) scale(1);
-  }
-  45% {
-    transform: translate(0, -30px) scale(1);
-  }
-  60% {
-    transform: translate(0, 15px) scale(1);
-  }
-
-  /* ===== MOVE TO TARGET (blue box) ===== */
-  80% {
-    transform: translate(140px, -120px) scale(0.6);
-  }
-
-  /* ===== FINAL STOP ===== */
-  100% {
-    transform: translate(180px, -160px) scale(0.45);
-  }
-}
-
-.banner-path {
-  animation: bannerPathMove 7s ease-in-out forwards;
-  transform-origin: center center;
-}
-
-
-
-@keyframes boardSmoothTwoPhase {
-  /* ===== PHASE 1: FLOAT (0–3s) ===== */
-  0% {
-    transform: translate(0, 0) scale(1);
-  }
-  20% {
-    transform: translate(0, -30px) scale(1);
-  }
-  40% {
-    transform: translate(0, 25px) scale(1);
-  }
-  60% {
-    transform: translate(0, -20px) scale(1);
-  }
-
-  /* ===== PHASE 2: SMOOTH EXIT (3–5s) ===== */
-  100% {
-    transform: translate(-150px, -170px) scale(0.65);
-  }
-}
 
 .board-two-phase {
   animation: boardSmoothTwoPhase 5s ease-in-out forwards;
@@ -564,7 +435,7 @@ body {
 
 
 @keyframes bannerTwoPhaseVertical {
-  /* ===== PHASE 1: ALTERNATING UP-DOWN (0–3s) ===== */
+  
   0% {
     transform: translateY(0) scale(1);
   }
@@ -578,7 +449,7 @@ body {
     transform: translateY(-35px) scale(1);
   }
 
-  /* ===== PHASE 2: SMOOTH UP + SCALE (3–5s) ===== */
+  
   100% {
     transform: translateY(-95px) scale(0.7);
   }
@@ -621,7 +492,7 @@ body {
 
 
 .white-board {
-  transform: translateY(40px); /* start below ribbon */
+  transform: translateY(40px); 
   animation: whiteBoardRise 2s ease-out forwards;
 }
 
@@ -633,7 +504,7 @@ body {
 
 @keyframes whiteBoardRiseLeft {
   from {
-    transform: translateY(40px) rotate(-6deg); /* 👈 left tilt */
+    transform: translateY(40px) rotate(-6deg); 
     opacity: 0;
   }
   to {
@@ -705,7 +576,7 @@ body {
 
 
 @keyframes ipadBannerMove {
-  /* ===== FLOAT PHASE (0–3s) ===== */
+  
   0% {
     transform: translate(0, 0) scale(1) rotate(0deg);
   }
@@ -722,18 +593,18 @@ body {
     transform: translate(0, 15px) scale(1) rotate(0deg);
   }
 
-  /* ===== DIAGONAL + INCLINED EXIT (3–5s) ===== */
+  
   100% {
     transform: 
       translate(-16vw, -20vh)
       scale(0.8)
-      rotate(-18deg); /* 👈 slight left incline */
+      rotate(-18deg); 
   }
 }
 
 .ipad-banner-z {
   position: relative;
-  z-index: 5; /* BELOW top ribbon */
+  z-index: 5; 
 }
 .ipad-banner-z {
   animation: ipadBannerZJump 3s linear forwards;
@@ -755,7 +626,7 @@ body {
     z-index: 5;
   }
   95% {
-    z-index: 5; /* ABOVE ribbon (10) & ring (20) */
+    z-index: 5; 
   }
   100% {
     z-index: 40;
@@ -774,38 +645,41 @@ body {
 
 
     animation: whiteBannerSlideIn 3s ease-out forwards;
-    animation-fill-mode: both; /* 👈 THIS FIXES EARLY APPEARANCE */
+    animation-fill-mode: both; 
   }
 
-  /* Start almost immediately when board moves */
+  
   .white-top {
-    animation-delay: 0.9s;
+  animation-delay: 0.9s;
+  --r: 18deg;
+}
+
+.white-bottom {
+  animation-delay: 0.9s;
+  --r: -18deg;
+}
+
+.white-middle {
+  --r: 0deg;
+}
+
+ @keyframes whiteBannerSlideIn {
+  0% {
+    opacity: 1;
+    transform: translateX(80vw) scale(0.95) rotate(var(--r, 0deg));
   }
 
-  .white-middle {
-    animation-delay: 0s;
+  40% {
+    opacity: 1;
+    transform: translateX(80vw) scale(1) rotate(var(--r, 0deg));
   }
 
-  .white-bottom {
-    animation-delay: 0.9s;
+  100% {
+    opacity: 1;
+    transform: translateX(15vw) scale(1) rotate(var(--r, 0deg));
   }
+}
 
-  @keyframes whiteBannerSlideIn {
-    0% {
-      opacity: 1;
-      transform: translateX(80vw) scale(0.95);
-    }
-
-    40% {
-      opacity: 1;
-      transform: translateX(80vw) scale(1);
-    }
-
-    100% {
-      opacity: 1;
-      transform: translateX(15vw) scale(1);
-    }
-  }
 
 }
 
@@ -837,7 +711,7 @@ body {
 
 .gallery-settle-ipad {
   animation: gallerySettleInIpad 0.05s ease-out forwards;
-  animation-delay: 2.75s; /* ⏱ after main animation ends */
+  animation-delay: 2.75s; 
 }
 
 @keyframes gallerySettleInIpad {
@@ -873,13 +747,13 @@ body {
     transform: translate(0, 10px);
   }
   100% {
-    transform: translate(-37vw, -20vh) scale(0.75) rotate(-14deg);
+    transform: translate(-42vw, -20vh) scale(0.7) rotate(-14deg);
   }
 }
-/* Gallery settles slightly closer to photo after animation */
+
 .gallery-settle {
   animation: gallerySettleIn 0.05s ease-out forwards;
-  animation-delay: 2.75s; /* ⏱ after main animation ends */
+  animation-delay: 2.75s; 
 }
 
 @keyframes gallerySettleIn {
@@ -915,54 +789,97 @@ body {
  .phone-banner-layer {
   animation: phoneBannerLayerJump 3s linear forwards;
 } 
-.phone-white {
-  animation: phoneWhiteSlide 3s ease-out forwards;
-  animation-delay: 0.9s;
-  animation-fill-mode: both;
-}
+@layer utilities {
 
-.phone-white-top,
-.phone-white-bottom {
-  animation-delay: 0.9s;
-}
+  .m-white-banner {
+    animation: mWhiteBannerSlideIn 3s ease-out forwards;
+    animation-fill-mode: both;
+    will-change: transform, opacity;
+  }
 
-@keyframes phoneWhiteSlide {
-  0% {
-    opacity: 0;
-    transform: translateX(90vw) scale(0.95);
+  .m-white-top {
+    animation-delay: 1.3s;
+    --r: 18deg;
   }
-  40% {
-    opacity: 1;
-    transform: translateX(90vw) scale(1);
+
+  .m-white-bottom {
+    animation-delay: 1.3s;
+    --r: -18deg;
   }
-  100% {
-    opacity: 1;
-    transform: translateX(8vw) scale(1);
+
+  .m-white-middle {
+    --r: 0deg;
+  }
+
+  @keyframes mWhiteBannerSlideIn {
+    0% {
+      opacity: 1;
+      transform: translateX(80vw) scale(0.95) rotate(var(--r, 0deg));
+    }
+
+    40% {
+      opacity: 1;
+      transform: translateX(80vw) scale(1) rotate(var(--r, 0deg));
+    }
+
+    100% {
+      opacity: 1;
+      transform: translateX(15vw) scale(1) rotate(var(--r, 0deg));
+    }
   }
 }
-.phone-white-middle {
+.m-white-banner-middle {
   opacity: 0;
-  transform: translateX(90vw) translateY(8px) scale(0.95);
+  transform: translateX(80vw) translateY(10px) scale(0.96);
 
-  animation: phoneWhiteMiddleSlide 3s ease-out forwards;
-  animation-delay: 0.9s;
+  animation: mWhiteBannerMiddleSlide 3s ease-out forwards;
+  animation-delay: 1s;
+
+  will-change: transform, opacity;
 }
 
-@keyframes phoneWhiteMiddleSlide {
+@keyframes mWhiteBannerMiddleSlide {
   0% {
     opacity: 0;
-    transform: translateX(90vw) translateY(8px) scale(0.95);
+    transform: translateX(100vw) translateY(10px) scale(0.96);
   }
+
   50% {
     opacity: 1;
-    transform: translateX(90vw) translateY(0) scale(1);
+    transform: translateX(100vw) translateY(0) scale(1);
   }
+
   100% {
     opacity: 1;
-    transform: translateX(9vw) translateY(-3px) scale(1);
+    transform: translateX(15vw) translateY(-4px) scale(1);
+  }
+}
+@media (max-height: 700px) {
+  .m-white-banner,
+  .m-white-banner-middle {
+    transform: scale(0.8);
   }
 }
 
+@media (max-height: 700px) {
+  .m-white-top {
+    top: -12vh !important;
+    left: 35vw !important;;
+  }
 
+  .m-white-banner-middle {
+    top: 15vh !important;
+    left:17vw;
+  }
 
-
+  .m-white-bottom {
+    top: 52vh !important;
+    left:36vw;
+  }
+}
+@media (max-height: 700px) {
+  .m-white-banner,
+  .m-white-banner-middle {
+    zoom: 0.9;
+  }
+}

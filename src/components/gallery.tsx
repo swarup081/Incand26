@@ -9,7 +9,6 @@ export function Gallery() {
   const [isIpad, setIsIpad] = useState(false);
   const [isLap, setIsLap] = useState(false);
   const [mounted, setMounted] = useState(false);
-  
 
   useLayoutEffect(() => {
     setMounted(true);
@@ -44,7 +43,7 @@ export function Gallery() {
             />
           </div>
 
-          {/* ================= LEFT DECORATIONS (TOPMOST) ================= */}
+
           {/* ================= TOP DECORATIONS ================= */}
 
           {/* TOP RING — ALWAYS ABOVE */}
@@ -58,28 +57,24 @@ export function Gallery() {
 
           {/* TOP RIBBON — RIVER FLOW, STARTS AFTER RING */}
           <div className="pointer-events-none absolute inset-0 z-40">
-  <div className="absolute top-[0vh] left-[30vw] h-[20vh] w-[calc(100vw-30vw)] translate-y-[1px] overflow-hidden">
+            <div className="absolute top-[0vh] left-[30vw] h-[20vh] w-[calc(100vw-30vw)] translate-y-[1px] overflow-hidden">
+              <div
+                className="ribbon-flow-right absolute inset-0 bg-top bg-repeat-x"
+                style={{
+                  backgroundImage: "url('/Gallery/ribbonupper.svg')",
+                  backgroundSize: "auto 100%",
+                }}
+              />
 
-    <div
-      className="ribbon-flow-right absolute inset-0 bg-repeat-x bg-top"
-      style={{
-        backgroundImage: "url('/Gallery/ribbonupper.svg')",
-        backgroundSize: "auto 100%",
-      }}
-    />
-
-    <div
-      className="ribbon-flow-right ribbon-flow-right-2 absolute inset-0 bg-repeat-x bg-top"
-      style={{
-        backgroundImage: "url('/Gallery/ribbonupper.svg')",
-        backgroundSize: "auto 100%",
-      }}
-    />
-
-  </div>
-</div>
-
-
+              <div
+                className="ribbon-flow-right ribbon-flow-right-2 absolute inset-0 bg-top bg-repeat-x"
+                style={{
+                  backgroundImage: "url('/Gallery/ribbonupper.svg')",
+                  backgroundSize: "auto 100%",
+                }}
+              />
+            </div>
+          </div>
 
           {/* ================= LEFT BOARD (SEPARATE LAYER) ================= */}
           <div className="pointer-events-none absolute inset-0 z-60 flex items-center px-8">
@@ -119,8 +114,6 @@ export function Gallery() {
             </div>
           </div>
 
-          {/* ================= BOTTOM DECORATIONS ================= */}
-          <div className="pointer-events-none absolute inset-0 z-20">
             {/* ================= BOTTOM DECORATIONS ================= */}
             <div className="pointer-events-none absolute inset-0 z-10">
               {/* ================= WHITE BOARDS (BEHIND RIBBON & RING) ================= */}
@@ -154,20 +147,19 @@ export function Gallery() {
               </div>
 
               {/* ================= END RING (TOPMOST) ================= */}
-              <div className="relative top-[38vh] z-50 w-[50vw] h-auto">
+              <div className="relative top-[38vh] z-50 h-auto w-[50vw]">
                 <img
                   src="/Gallery/bottomring1.svg"
                   alt="Bottom Ring 1"
-                  className="absolute right-[37vw] w-[23vw] h-auto rotate-ccw"
+                  className="rotate-ccw absolute right-[37vw] h-auto w-[23vw]"
                 />
 
                 <img
                   src="/Gallery/bottomring2.svg"
                   alt="Bottom Ring 2"
-                  className="absolute top-[24vh] right-[30vw] w-[25vw] h-auto rotate-cw"
+                  className="rotate-cw absolute top-[24vh] right-[30vw] h-auto w-[25vw]"
                 />
               </div>
-
 
               {/* ================= BOTTOM RIBBON (COVERS WHITE BOARDS) ================= */}
               <div className="relative -bottom-[76vh] left-[8vw] z-40 h-[20vh] w-full overflow-hidden">
@@ -187,11 +179,9 @@ export function Gallery() {
                 />
               </div>
             </div>
-          </div>
         </div>
       )}
 
-      {/* ================= IPAD VIEW ================= */}
       {/* ================= IPAD VIEW ================= */}
       {isIpad && (
         <div className="relative h-screen w-full overflow-hidden bg-amber-50">
@@ -207,7 +197,7 @@ export function Gallery() {
           </div>
 
           {/* ================= TOP RIBBON ================= */}
-          {/* ================= TOP RIBBON (FLOWING) ================= */}
+
           <div className="pointer-events-none absolute -top-[2vh] left-0 z-10 h-[12vh] w-[110vw] overflow-hidden">
             <div className="ribbon-flow-right flex h-full">
               <img src="/Gallery/ribbonupper.svg" className="ribbon-img" />
@@ -229,27 +219,28 @@ export function Gallery() {
 
           {/* ================= WHITE BANNERS ================= */}
           <div className="pointer-events-none absolute inset-0 z-[1]">
-            {/* TOP WHITE */}
-            <img
-              src="/Gallery/whitebannermobiletop.svg"
-              className="white-banner white-top absolute left-[35vw] w-[50vw] opacity-0"
-              alt=""
-            />
+          {/* TOP WHITE */}
+          <img
+            src="/Gallery/whitebannermobilemiddle.svg"
+            className="white-banner white-top absolute left-[46vw] -top-[6vh] w-[42vw] opacity-0"
+            alt=""
+          />
 
-            {/* MIDDLE WHITE */}
-            <img
-              src="/Gallery/whitebannermobilemiddle.svg"
-              className="white-banner-middle absolute top-[15vh] left-[30vw] w-[55vw] opacity-0"
-              alt=""
-            />
+          {/* MIDDLE WHITE */}
+          <img
+            src="/Gallery/whitebannermobilemiddle.svg"
+            className="white-banner-middle absolute top-[14vh] left-[30vw] w-[56vw] opacity-0"
+            alt=""
+          />
 
-            {/* BOTTOM WHITE */}
-            <img
-              src="/Gallery/whitebannermobilebottom.svg"
-              className="white-banner white-bottom absolute top-[37vh] left-[37vw] w-[48vw] opacity-0"
-              alt=""
-            />
-          </div>
+          {/* BOTTOM WHITE */}
+          <img
+            src="/Gallery/whitebannermobilemiddle.svg"
+            className="white-banner white-bottom absolute top-[52vh] left-[49vw] w-[42vw] opacity-0"
+            alt=""
+          />
+        </div>
+
 
           {/* ================= MIDDLE PHOTO / GALLERY BANNERS ================= */}
           <div className="ipad-banner-layer pointer-events-none absolute inset-0 z-[5] flex items-center justify-center">
@@ -270,14 +261,14 @@ export function Gallery() {
                 alt="Gallery Banner"
                 width={0}
                 height={0}
-                className=" gallery-settle-ipad absolute -top-[22vh] -right-[40vw] z-0 h-auto w-[72vw] max-w-[75vw]"
+                className="gallery-settle-ipad absolute -top-[22vh] -right-[40vw] z-0 h-auto w-[72vw] max-w-[75vw]"
                 priority
               />
             </div>
           </div>
 
           {/* ================= BOTTOM RIBBON ================= */}
-          {/* ================= BOTTOM RIBBON (FLOWING) ================= */}
+
           <div className="pointer-events-none absolute top-[89vh] left-[2vw] z-10 h-[12vh] w-[100vw] overflow-hidden">
             <div
               className="ribbon-flow-bottom absolute inset-0 bg-bottom bg-repeat-x"
@@ -296,15 +287,14 @@ export function Gallery() {
           </div>
 
           {/* ================= BOTTOM RING ================= */}
-          <div className="absolute top-[64vh] z-20  max-w-[100vw] relative">
-
+          <div className="absolute relative top-[64vh] z-20 max-w-[100vw]">
             {/* Bottom Ring – clockwise */}
             <Image
               src="/Gallery/bottomring1.svg"
               alt="Bottom Ring"
               width={0}
               height={0}
-              className="absolute  -top-[2vh] right-[70vw] h-auto w-[50vw] rotate-ccw"
+              className="rotate-ccw absolute -top-[2vh] right-[70vw] h-auto w-[50vw]"
               priority
             />
 
@@ -314,16 +304,14 @@ export function Gallery() {
               alt="Bottom Ring 1"
               width={0}
               height={0}
-              className="absolute right-[59vw] top-[15vh] h-auto w-[53vw] rotate-cw"
+              className="rotate-cw absolute top-[15vh] right-[59vw] h-auto w-[53vw]"
               priority
             />
-
           </div>
-
         </div>
       )}
 
-      {/* ================= MOBILE VIEW ================= */}
+
       {/* ================= PHONE VIEW ================= */}
       {isPhone && (
         <div className="relative h-screen w-full overflow-hidden bg-amber-50">
@@ -357,27 +345,31 @@ export function Gallery() {
               priority
             />
           </div>
-
-          {/* ================= WHITE BANNERS (PHONE) ================= */}
+          {/* ================= WHITE BANNERS — MOBILE ================= */}
           <div className="pointer-events-none absolute inset-0 z-[1]">
-            <img
-              src="/Gallery/whitebannermobiletop.svg"
-              className="phone-white phone-white-top absolute top-[0vh] left-[21vw] w-[71vw] opacity-0"
-              alt=""
-            />
+            {/* TOP WHITE */}
+          <img
+            src="/Gallery/whitebannermobilemiddle.svg"
+            className="m-white-banner m-white-top absolute left-[24vw] top-[clamp(-10vh,-9vh,-2vh)] w-[68vw]  opacity-0"
+            alt=""
+          />
 
-            <img
-              src="/Gallery/whitebannermobilemiddle.svg"
-              className="phone-white-middle absolute top-[15vh] left-[12vw] w-[80vw] opacity-0"
-              alt=""
-            />
+          {/* MIDDLE WHITE */}
+          <img
+            src="/Gallery/whitebannermobilemiddle.svg"
+            className="m-white-banner-middle absolute left-[5vw] top-[clamp(10vh,13vh,26vh)] w-[80vw] opacity-0"
+            alt=""
+          />
 
-            <img
-              src="/Gallery/whitebannermobilebottom.svg"
-              className="phone-white phone-white-bottom absolute top-[38vh] left-[24vw] w-[68vw] opacity-0"
-              alt=""
-            />
+          {/* BOTTOM WHITE */}
+          <img
+            src="/Gallery/whitebannermobilemiddle.svg"
+            className="m-white-banner m-white-bottom absolute left-[28vw] top-[clamp(40vh,45vh,56vh)] w-[68vw] opacity-0"
+            alt=""
+          />
+
           </div>
+
 
           {/* ================= CENTER PHOTO / GALLERY (BELOW RIBBON) ================= */}
           {/* ================= CENTER PHOTO / GALLERY (PHONE) ================= */}
@@ -430,30 +422,27 @@ export function Gallery() {
 
           {/* BOTTOM RING */}
           {/* BOTTOM RING (MOBILE) */}
-<div className="pointer-events-none absolute  left-0 right-0 z-30 flex items-center justify-center relative">
+          <div className="pointer-events-none absolute relative right-0 left-0 z-30 flex items-center justify-center">
+            {/* Ring 1 – anti-clockwise */}
+            <Image
+              src="/Gallery/bottomring1.svg"
+              alt="Bottom Ring 1"
+              width={0}
+              height={0}
+              className="rotate-ccw absolute -top-[33vh] right-[70vw] h-auto w-[60vw]"
+              priority
+            />
 
-  {/* Ring 1 – anti-clockwise */}
-  <Image
-    src="/Gallery/bottomring1.svg"
-    alt="Bottom Ring 1"
-    width={0}
-    height={0}
-    className="absolute -top-[33vh] right-[70vw] h-auto w-[60vw] rotate-ccw"
-    priority
-  />
-
-  {/* Ring 2 – clockwise */}
-  <Image
-    src="/Gallery/bottomring2.svg"
-    alt="Bottom Ring 2"
-    width={0}
-    height={0}
-    className="absolute -top-[18vh] right-[50vw] h-auto w-[65vw] rotate-cw"
-    priority
-  />
-
-</div>
-
+            {/* Ring 2 – clockwise */}
+            <Image
+              src="/Gallery/bottomring2.svg"
+              alt="Bottom Ring 2"
+              width={0}
+              height={0}
+              className="rotate-cw absolute -top-[18vh] right-[50vw] h-auto w-[65vw]"
+              priority
+            />
+          </div>
         </div>
       )}
     </>
