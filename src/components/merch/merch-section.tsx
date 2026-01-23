@@ -11,7 +11,6 @@ import type { AppRouterInstance } from "next/dist/shared/lib/app-router-context.
 import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "~/utils/firebase";
 
-
 // --- TYPES ---
 export interface Theme {
   id: string;
@@ -182,17 +181,17 @@ export function MerchSection() {
   );
 }
 
-export async function OptOut(user: User,router:AppRouterInstance) {
+export async function OptOut(user: User, router: AppRouterInstance) {
   try {
     const token = await user?.getIdToken();
     const response = await axios.put(
       `${env.NEXT_PUBLIC_API_URL}/api/merch/opt-out`,
-      {}, 
+      {},
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
-      }
+      },
     );
     return response;
   } catch (err) {

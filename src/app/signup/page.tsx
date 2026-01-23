@@ -185,7 +185,7 @@ const CompleteProfile = () => {
       </div>
       <form
         onSubmit={handleSubmit}
-        className="flex w-full max-w-[90vw] flex-col lg:gap-15 md:gap-10 sm:gap-8 gap-6 sm:max-w-[80vw] md:max-w-[70vw] lg:max-w-[60vw]"
+        className="flex w-full max-w-[90vw] flex-col gap-6 sm:max-w-[80vw] sm:gap-8 md:max-w-[70vw] md:gap-10 lg:max-w-[60vw] lg:gap-15"
       >
         <div className="flex w-full flex-col items-center justify-center gap-[2vh] sm:gap-[2.5vh] md:gap-[3vh] lg:gap-[3.5vh]">
           {/* ...existing code for form fields... */}
