@@ -34,15 +34,8 @@ export function MerchMobile({
   const [showConfirm, setShowConfirm] = useState(false);
 
   const handleOptOutClick = () => {
-    if (!user) {
-      toast.error("You need to log in to opt out");
-      return;
-    }
-    if (!user.email?.endsWith("nits.ac.in")) {
-      toast.error("Opt out option only for NIT students");
-      return;
-    }
-    setShowConfirm(true);
+    toast.error("Opt-out is currently disabled.");
+    return;
   };
 
   const handleConfirmOptOut = async () => {
