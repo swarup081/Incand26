@@ -53,14 +53,12 @@ export function Gallery() {
     return () => window.removeEventListener("resize", setDevice);
   }, []);
 
-  // --- VARIANTS (Matching User's Static Coordinates) ---
+  // --- VARIANTS (Fully Integrated CSS Transforms & Widths) ---
 
   const getVariants = (isLap: boolean, isIpad: boolean, isPhone: boolean) => {
     if (isLap) {
-      // Laptop Static Coords & Rotations:
-      // Left: .white-left -> rotate(-12deg), left: 9vw, top: -1vw (approx -1vh for framer)
-      // Center: .white-middle -> rotate(0deg), left: 37vw, top: -5vh
-      // Right: .white-right -> rotate(20deg) (from user CSS: rotate(20deg)), left: 68vw, bottom: -72vh
+      // Laptop: Match HTML coordinates + CSS transforms exactly.
+      // Use 'layout' prop on motion.div to handle top vs bottom interpolation.
 
       const transitionArc = {
           duration: 0.8,
@@ -78,32 +76,37 @@ export function Gallery() {
       return {
         center: { // Middle
           left: "37vw", top: "-5vh", bottom: "auto",
+          width: "35vw",
+          y: "-78vh",
           zIndex: 20, opacity: 1, scale: 1, rotate: 0,
           transition: transitionArc,
         },
         left: { // Left
           left: "9vw", top: "-1vw", bottom: "auto",
+          width: "29vw",
+          y: "-78vh",
           zIndex: 10, opacity: 1, scale: 1, rotate: -12,
           transition: transitionDrop,
         },
         right: { // Right
-          // We normalized bottom:-72vh to top:172vh roughly to allow 'top' interpolation
-          // If we use bottom: -72vh, we must set top: auto.
-          // Mixing 'top' and 'bottom' usually breaks transitions (snapping).
-          // We will stick to the normalized 'top' approach for smoothness,
-          // as the user complained about "straight" movement (which implies they want the arc).
-          // The visual position of bottom: -72vh relative to a 100vh container is top: 172vh.
-          left: "68vw", top: "172vh", bottom: "auto",
+          // Using exact CSS 'bottom' position.
+          left: "68vw", top: "auto", bottom: "-72vh",
+          width: "29vw",
+          y: "-78vh",
           zIndex: 10, opacity: 1, scale: 1, rotate: 20,
           transition: { duration: 0.8, ease: "easeInOut" as const },
         },
         hiddenRight: { // Entering from right
-          left: "100vw", top: "172vh", bottom: "auto",
+          left: "100vw", top: "auto", bottom: "-72vh",
+          width: "29vw",
+          y: "-78vh",
           zIndex: 0, opacity: 0, scale: 1, rotate: 45,
           transition: { duration: 0.8, ease: "easeInOut" as const },
         },
         hiddenLeft: { // Exiting to left
           left: "-20vw", top: "-1vw", bottom: "auto",
+          width: "29vw",
+          y: "-78vh",
           zIndex: 0, opacity: 0, scale: 1, rotate: -45,
           transition: { duration: 0.8, ease: "easeInOut" as const },
         }
@@ -111,60 +114,66 @@ export function Gallery() {
     }
 
     if (isIpad) {
-      // iPad Static Coords:
-      // Top: left: 46vw, top: -6vh
-      // Middle: left: 30vw, top: 14vh
-      // Bottom: left: 49vw, top: 52vh
       return {
         left: { // Top
-           left: "46vw", top: "-6vh",
+           left: "46vw", top: "-6vh", x: "15vw", y: "0px",
+           width: "42vw", rotate: 18,
            zIndex: 10, opacity: 1, scale: 1,
            transition: { duration: 0.8, ease: "easeInOut" as const },
         },
         center: { // Middle
-           left: "30vw", top: "14vh",
+           left: "30vw", top: "14vh", x: "15vw", y: "-4px",
+           width: "56vw", rotate: 0,
            zIndex: 20, opacity: 1, scale: 1,
            transition: { duration: 0.8, ease: "easeInOut" as const },
         },
         right: { // Bottom (Upcoming)
-           left: "49vw", top: "52vh",
+           left: "49vw", top: "52vh", x: "15vw", y: "0px",
+           width: "42vw", rotate: -18,
            zIndex: 10, opacity: 1, scale: 1,
            transition: { duration: 0.8, ease: "easeInOut" as const },
         },
         hiddenRight: { // Below Bottom
-           left: "49vw", top: "100vh",
+           left: "49vw", top: "100vh", x: "15vw", y: "0px",
+           width: "42vw", rotate: -18,
            zIndex: 0, opacity: 0, scale: 0.8,
         },
         hiddenLeft: { // Above Top
-           left: "46vw", top: "-50vh",
+           left: "46vw", top: "-50vh", x: "15vw", y: "0px",
+           width: "42vw", rotate: 18,
            zIndex: 0, opacity: 0, scale: 0.8,
         }
       };
     }
 
-    // Phone Static Coords (using clamp directly):
+    // Phone
     return {
        left: { // Top
-          left: "24vw", top: "clamp(-10vh,-9vh,-2vh)",
+          left: "24vw", top: "clamp(-10vh,-9vh,-2vh)", x: "15vw", y: "0px",
+          width: "68vw", rotate: 18,
           zIndex: 10, opacity: 1, scale: 1,
           transition: { duration: 0.8, ease: "easeInOut" as const },
        },
        center: { // Middle
-          left: "5vw", top: "clamp(10vh,13vh,26vh)",
+          left: "5vw", top: "clamp(10vh,13vh,26vh)", x: "15vw", y: "-4px",
+          width: "80vw", rotate: 0,
           zIndex: 20, opacity: 1, scale: 1,
           transition: { duration: 0.8, ease: "easeInOut" as const },
        },
        right: { // Bottom
-          left: "28vw", top: "clamp(40vh,45vh,56vh)",
+          left: "28vw", top: "clamp(40vh,45vh,56vh)", x: "15vw", y: "0px",
+          width: "68vw", rotate: -18,
           zIndex: 10, opacity: 1, scale: 1,
           transition: { duration: 0.8, ease: "easeInOut" as const },
        },
        hiddenRight: {
-          left: "28vw", top: "100vh",
+          left: "28vw", top: "100vh", x: "15vw", y: "0px",
+          width: "68vw", rotate: -18,
           zIndex: 0, opacity: 0, scale: 0.8,
        },
        hiddenLeft: {
-          left: "24vw", top: "-50vh",
+          left: "24vw", top: "-50vh", x: "15vw", y: "0px",
+          width: "68vw", rotate: 18,
           zIndex: 0, opacity: 0, scale: 0.8,
        }
     };
@@ -173,6 +182,13 @@ export function Gallery() {
   const variants = getVariants(isLap, isIpad, isPhone);
 
   if (!mounted) return null;
+
+  // Helper to choose the correct image based on position
+  const getMobileImage = (state: string) => {
+    if (state === "left" || state === "hiddenLeft") return "/Gallery/whitebannermobiletop.svg";
+    if (state === "right" || state === "hiddenRight") return "/Gallery/whitebannermobilebottom.svg";
+    return "/Gallery/whitebannermobilemiddle.svg";
+  };
 
   return (
     <>
@@ -281,12 +297,10 @@ export function Gallery() {
                     return (
                       <motion.div
                         key={item.id}
+                        layout // Enables smooth transition between different layouts (top vs bottom)
                         variants={variants}
                         initial="hiddenRight"
                         animate={state}
-                        // Important: We add "white-board" class for basic styling (if any)
-                        // but we rely on variants for position/rotation.
-                        // We do NOT add white-left/white-right classes to avoid conflicting CSS animations.
                         className={`white-board absolute ${isInteractive ? "cursor-pointer pointer-events-auto" : ""}`}
                         onClick={clickHandler}
                       >
@@ -390,6 +404,7 @@ export function Gallery() {
                  return (
                   <motion.div
                     key={item.id}
+                    layout
                     variants={variants}
                     initial="hiddenRight"
                     animate={state}
@@ -397,12 +412,8 @@ export function Gallery() {
                     onClick={clickHandler}
                   >
                      <img
-                        src="/Gallery/whitebannermobilemiddle.svg"
-                        className={`
-                           /* Add classes for width but NOT for position/animation */
-                           w-[42vw]
-                           ${state === 'center' ? 'w-[56vw]' : ''}
-                        `}
+                        src={getMobileImage(state)}
+                        className="w-full h-auto"
                         alt=""
                      />
                   </motion.div>
@@ -533,6 +544,7 @@ export function Gallery() {
                  return (
                   <motion.div
                     key={item.id}
+                    layout
                     variants={variants}
                     initial="hiddenRight"
                     animate={state}
@@ -540,13 +552,8 @@ export function Gallery() {
                     onClick={clickHandler}
                   >
                      <img
-                        src="/Gallery/whitebannermobilemiddle.svg"
-                        // Widths from static code: Top/Right(68vw), Mid(80vw)
-                        className={`
-                           ${state==='left' ? 'w-[68vw]' : ''}
-                           ${state==='center' ? 'w-[80vw]' : ''}
-                           ${state==='right' ? 'w-[68vw]' : ''}
-                        `}
+                        src={getMobileImage(state)}
+                        className="w-full h-auto"
                         alt=""
                      />
                   </motion.div>
@@ -624,7 +631,7 @@ export function Gallery() {
               alt="Bottom Ring 2"
               width={0}
               height={0}
-              className="rotate-cw absolute -top-[18vh] right-[50vw] h-auto w-[65vw]"
+              className="rotate-ccw absolute -top-[18vh] right-[50vw] h-auto w-[65vw]"
               priority
             />
           </div>
