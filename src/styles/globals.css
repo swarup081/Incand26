@@ -432,7 +432,25 @@ body {
   animation: boardSmoothTwoPhase 5s ease-in-out forwards;
   transform-origin: center center;
 }
-
+@keyframes boardSmoothTwoPhase { 
+  /* ===== PHASE 1: FLOAT (0–3s) ===== */
+   0% { 
+    transform: translate(0, 0) scale(1); 
+  } 
+  20% { 
+    transform: translate(0, -30px) scale(1); 
+  } 
+  40% { 
+    transform: translate(0, 25px) scale(1); 
+  }
+   60% { 
+    transform: translate(0, -20px) scale(1); 
+  } 
+  /* ===== PHASE 2: SMOOTH EXIT (3–5s) ===== */ 
+  100% { 
+    transform: translate(-150px, -170px) scale(0.65); 
+  } 
+}
 
 @keyframes bannerTwoPhaseVertical {
   
@@ -454,9 +472,44 @@ body {
     transform: translateY(-95px) scale(0.7);
   }
 }
+.banner-stick {
+  animation: bannerTwoPhaseVertical 3s ease-out forwards;
+}
+
+.banner-board {
+  --board-offset: -140px; /* adjust once */
+  animation: bannerTwoPhaseVerticalBoard 3s ease-out forwards;
+}
+
+@keyframes bannerTwoPhaseVerticalBoard {
+  0% {
+    transform: translateY(calc(0px + var(--board-offset))) scale(1);
+  }
+
+  20% {
+    transform: translateY(calc(-30px + var(--board-offset))) scale(1);
+  }
+
+  40% {
+    transform: translateY(calc(25px + var(--board-offset))) scale(1);
+  }
+
+  60% {
+    transform: translateY(calc(-35px + var(--board-offset))) scale(1);
+  }
+
+  100% {
+    transform: translateY(calc(-95px + var(--board-offset))) scale(0.7);
+  }
+}
+
 
 .banner-two-phase-vertical {
   animation: bannerTwoPhaseVertical 5s ease-in-out forwards;
+  transform-origin: center center;
+}
+.banner-two-phase-vertical-board {
+  animation: bannerTwoPhaseVerticalBoard 5s ease-in-out forwards;
   transform-origin: center center;
 }
 
@@ -491,10 +544,58 @@ body {
 }
 
 
-.white-board {
+/* .white-board {
   transform: translateY(40px); 
   animation: whiteBoardRise 2s ease-out forwards;
+  animation-delay: 9s;
+} */
+ .white-board {
+  transform: rotateZ(var(--r, 0deg));
 }
+
+
+
+/* BASE BOARD */
+.white-board {
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* CENTER */
+.white-center {
+  transform: translateZ(0) rotateY(0deg) scale(1);
+}
+
+/* RIGHT */
+.white-right {
+  transform:
+    translateZ(-80px)
+    rotateY(-42deg)
+    rotateZ(8deg)
+    scale(0.92);
+}
+
+/* LEFT */
+.white-left {
+  transform:
+    translateZ(-80px)
+    rotateY(42deg)
+    rotateZ(-8deg)
+    scale(0.92);
+}
+
+/* HIDDEN */
+.white-hidden-right {
+  transform: translateX(120vw) rotateY(-60deg) scale(0.8);
+  opacity: 0;
+}
+
+.white-hidden-left {
+  transform: translateX(-200vw) rotateY(60deg) scale(0.8);
+  opacity: 0;
+}
+
 
 .white-left {
   animation: whiteBoardRiseLeft 2s ease-out forwards;
@@ -799,12 +900,12 @@ body {
 
   .m-white-top {
     animation-delay: 1.3s;
-    --r: 18deg;
+    
   }
 
   .m-white-bottom {
     animation-delay: 1.3s;
-    --r: -18deg;
+    
   }
 
   .m-white-middle {
@@ -823,9 +924,9 @@ body {
     }
 
     100% {
-      opacity: 1;
-      transform: translateX(15vw) scale(1) rotate(var(--r, 0deg));
-    }
+  transform: none;
+}
+
   }
 }
 .m-white-banner-middle {
@@ -850,9 +951,9 @@ body {
   }
 
   100% {
-    opacity: 1;
-    transform: translateX(15vw) translateY(-4px) scale(1);
-  }
+  transform: none;
+}
+
 }
 @media (max-height: 700px) {
   .m-white-banner,
@@ -882,4 +983,37 @@ body {
   .m-white-banner-middle {
     zoom: 0.9;
   }
+}
+
+/* ===== PHONE WHITE BANNER ENTRY ===== */
+
+.white-entry-hidden {
+  transform: translateX(80vw) scale(0.95);
+  opacity: 0;
+}
+
+.white-entry-active {
+  animation: whiteBannerEntry 1.4s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+/* CRITICAL: end at transform:none */
+@keyframes whiteBannerEntry {
+  0% {
+    transform: translateX(80vw) scale(0.95);
+    opacity: 0;
+  }
+
+  60% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: none;
+    opacity: 1;
+  }
+}
+
+/* phone white banners */
+.phone-white {
+  will-change: transform, left, top;
 }
