@@ -395,7 +395,7 @@ body {
 }
 
 .ribbon-flow-right {
-  height:80%;
+  height:70%;
   animation: ribbonFlowRight 30s linear infinite;
 
   
@@ -421,6 +421,7 @@ body {
 }
 
 .ribbon-flow-bottom {
+  height:90%;
   animation: ribbonFlowBottom 30s linear infinite;
 }
 
