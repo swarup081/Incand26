@@ -96,9 +96,9 @@ const getBoardImage = (diff: number) => {
 
     const setDevice = () => {
       const w = window.innerWidth;
-      setIsPhone(w < 1024);
-      setIsIpad(false);
-      setIsLap(w >= 1024);
+      setIsPhone(w >= 320 && w <= 758);
+      setIsIpad(w >= 759 && w <= 1024);
+      setIsLap(w >= 1025);
     };
 
     setDevice();
@@ -152,10 +152,13 @@ const getBoardImage = (diff: number) => {
       };
     }
 
-    // iPad - Vertical Stack (Added slight rotation for style)
+    // iPad - Vertical Stack (Updated to match Prompt HTML positions)
+    // Top: left-[35vw] (assume top 0)
+    // Middle: top-[15vh] left-[30vw]
+    // Bottom: top-[37vh] left-[37vw]
     if (isIpad) {
       return {
-        center: {
+        center: { // Middle
           left: "30vw",
           top: "15vh",
           width: "55vw",
@@ -163,7 +166,7 @@ const getBoardImage = (diff: number) => {
           zIndex: 20,
           rotate: 0,
         },
-        right: {
+        right: { // Bottom
           left: "37vw",
           top: "37vh",
           width: "48vw",
@@ -171,7 +174,7 @@ const getBoardImage = (diff: number) => {
           zIndex: 10,
           rotate: 5,
         },
-        left: {
+        left: { // Top
           left: "35vw",
           top: "0vh",
           width: "50vw",
@@ -244,6 +247,13 @@ const getBoardImage = (diff: number) => {
   };
 
   const variants = getVariants(isLap, isIpad, isPhone) as Variants;
+
+  // Helper to choose the correct image based on position
+  const getIpadImage = (state: string) => {
+    if (state === "left" || state === "hiddenLeft") return "/Gallery/whitebannermobiletop.svg";
+    if (state === "right" || state === "hiddenRight") return "/Gallery/whitebannermobilebottom.svg";
+    return "/Gallery/whitebannermobilemiddle.svg";
+  };
 
   return (
     <>
@@ -441,7 +451,7 @@ const boardImage = getBoardImage(diff)!;
                 <img
                   src="/Gallery/bottomring2.svg"
                   alt="Bottom Ring 2"
-                  className="rotate-cw absolute top-[24vh] right-[30vw] h-auto w-[25vw]"
+                  className="rotate-ccw absolute top-[24vh] right-[30vw] h-auto w-[25vw]"
                 />
               </div>
 
@@ -504,27 +514,41 @@ const boardImage = getBoardImage(diff)!;
           </div>
 
           {/* ================= WHITE BANNERS ================= */}
+          {/* DYNAMIC IPAD CAROUSEL - Replaces static images */}
           <div className="pointer-events-none absolute inset-0 z-[1]">
-            {/* TOP WHITE */}
-            <img
-              src="/Gallery/whitebannermobiletop.svg"
-              className="white-banner white-top absolute left-[35vw] w-[50vw] opacity-0"
-              alt=""
-            />
+            {GALLERY_ITEMS.map((item, index) => {
+              const diff = getPosition(index);
 
-            {/* MIDDLE WHITE */}
-            <img
-              src="/Gallery/whitebannermobilemiddle.svg"
-              className="white-banner-middle absolute top-[15vh] left-[30vw] w-[55vw] opacity-0"
-              alt=""
-            />
+              let state = "hiddenRight";
+              if (diff === 0) state = "center";
+              else if (diff === 1) state = "right";
+              else if (diff === -1) state = "left";
 
-            {/* BOTTOM WHITE */}
-            <img
-              src="/Gallery/whitebannermobilebottom.svg"
-              className="white-banner white-bottom absolute top-[37vh] left-[37vw] w-[48vw] opacity-0"
-              alt=""
-            />
+              const clickable = diff === 1 || diff === -1;
+              const clickHandler =
+                diff === 1 ? handleNext : diff === -1 ? handlePrev : undefined;
+
+              return (
+                <motion.div
+                  key={item.id}
+                  initial="hiddenRight"
+                  animate={showWhite ? state : "hiddenRight"}
+                  variants={variants}
+                  className={`absolute ${
+                    clickable
+                      ? "pointer-events-auto cursor-pointer"
+                      : "pointer-events-none"
+                  }`}
+                  onClick={clickHandler}
+                >
+                  <img
+                    src={getIpadImage(state)}
+                    alt=""
+                    className="h-auto w-full"
+                  />
+                </motion.div>
+              );
+            })}
           </div>
 
           {/* ================= MIDDLE PHOTO / GALLERY BANNERS ================= */}
@@ -729,7 +753,7 @@ const boardImage = getBoardImage(diff)!;
               alt="Bottom Ring 2"
               width={0}
               height={0}
-              className="rotate-cw absolute -top-[18vh] right-[50vw] h-auto w-[65vw]"
+              className="rotate-ccw absolute -top-[18vh] right-[50vw] h-auto w-[65vw]"
               priority
             />
           </div>
