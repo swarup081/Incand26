@@ -1,0 +1,25 @@
+
+> incand2026@0.1.0 dev /app
+> next dev --turbo
+
+   ▲ Next.js 15.5.9 (Turbopack)
+   - Local:        http://localhost:3000
+   - Network:      http://192.168.0.2:3000
+
+ ✓ Starting...
+ ✓ Ready in 2.2s
+ ○ Compiling /gallery-test ...
+ ✓ Compiled /gallery-test in 9.8s
+ GET /gallery-test 200 in 11064ms
+ ○ Compiling /_not-found/page ...
+ ✓ Compiled /_not-found/page in 827ms
+ GET /Gallery/ribbonupper.svg 404 in 1720ms
+ GET /Gallery/board2part1.svg 404 in 1775ms
+ GET /Gallery/board1.svg 404 in 1724ms
+ GET /Gallery/circulartopring.svg 404 in 1736ms
+ GET /Gallery/backgroundgallery.svg 404 in 1826ms
+ GET /Gallery/board2part2.svg 404 in 1778ms
+ GET /Gallery/ribbonbottom.svg 404 in 451ms
+ GET /Gallery/circularbottomring.svg 404 in 449ms
+ GET /Gallery/whiteboard.svg 404 in 446ms
+[?25h
