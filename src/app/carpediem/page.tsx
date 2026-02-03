@@ -65,7 +65,7 @@ export default function CarpeDiemPage() {
       {/* ---------------- HERO SECTION ---------------- */}
       <section className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden px-4 pt-20 pb-10">
         {/* CARPE DIEM Title - Layer 0 (Behind Figure) */}
-        <div className="pointer-events-none absolute top-1/2 left-1/2 z-10 flex w-full -translate-x-1/2 -translate-y-[60%] items-center justify-center text-center select-none">
+        <div className="pointer-events-none absolute top-1/4 mt-[1rem] left-1/2 z-10 flex w-full -translate-x-1/2 -translate-y-[60%] items-center justify-center text-center select-none">
           <span className="font-hitchcut text-[12vw] leading-none font-black tracking-widest text-[#1a1a1a] opacity-90">
             CARPE DIEM
           </span>
@@ -137,7 +137,7 @@ export default function CarpeDiemPage() {
       <section className="relative flex min-h-screen w-full flex-col items-center justify-center px-4 py-20 md:px-12">
         {/* WELCOME Title */}
         <div className="mb-12 w-full text-center md:mb-20">
-          <h2 className="font-sans text-4xl font-light tracking-[0.4em] uppercase md:text-6xl lg:text-7xl">
+          <h2 className="font-oxanium text-5xl font-light tracking-[0.9em] uppercase md:text-6xl lg:text-7xl">
             WELCOME
           </h2>
         </div>
@@ -149,7 +149,7 @@ export default function CarpeDiemPage() {
               <span className="font-hitchcut text-xl font-bold tracking-wide md:text-2xl">
                 One Unforgettable
               </span>
-              <span className="font-hitchcut mt-2 text-[4rem] leading-[0.85] font-black text-[#8B2323] uppercase md:text-[6rem] lg:text-[8rem]">
+              <span className="font-hitchcut mt-2 text-[4rem] tracking-[0.1rem] leading-[0.85] font-black text-[#8B2323] uppercase md:text-[6rem] lg:text-[8rem]">
                 NIGHT
               </span>
             </div>
@@ -169,7 +169,7 @@ export default function CarpeDiemPage() {
           <div className="relative flex h-[400px] w-full items-center justify-center md:h-[500px] lg:h-[600px]">
             {/* Heart - Left/Back */}
             <motion.div
-              className="absolute bottom-[10%] left-[5%] z-10 h-48 w-48 rotate-[-12deg] md:left-[10%] md:h-72 md:w-72 lg:h-80 lg:w-80"
+              className="absolute bottom-[10%] left-[5%] z-10 h-48 w-48 rotate-[-12deg] md:left-[10%] md:h-72 md:w-72 lg:top-[3rem] lg:-left-[5%] lg:h-[25rem] lg:w-[25rem]"
               initial="rest"
               whileHover="hover"
               variants={hoverAnimation}
@@ -207,7 +207,8 @@ export default function CarpeDiemPage() {
       >
         {/* Desktop / Large Tablet View (Horizontal Image Scroll) */}
         <div className="hidden h-full w-full flex-col items-center lg:flex">
-          <div className="mb-10 flex flex-col items-center text-center">
+          {/* Header Container with increased z-index for visibility */}
+          <div className="relative z-10 mb-10 flex flex-col items-center text-center">
              <h2 className="font-hitchcut text-7xl tracking-widest text-[#8B2323] uppercase xl:text-9xl">
               EVENTS
             </h2>
@@ -235,7 +236,8 @@ export default function CarpeDiemPage() {
                <motion.div
                  className="relative h-[600px] w-auto"
                  initial="rest"
-                 // No hover effect for timeline per feedback
+                 whileHover="hover"
+                 variants={hoverAnimation}
                >
                  {/* Height fixed to control the layout, width auto to maintain aspect ratio */}
                  <Image
@@ -266,7 +268,7 @@ export default function CarpeDiemPage() {
 
         {/* Mobile / Small Tablet View (Vertical Image) */}
         <div className="flex w-full flex-col items-center px-4 lg:hidden">
-          <h2 className="font-hitchcut mb-10 text-center text-5xl tracking-widest text-[#8B2323] uppercase md:text-6xl">
+          <h2 className="relative z-10 font-hitchcut mb-10 text-center text-5xl tracking-widest text-[#8B2323] uppercase md:text-6xl">
             EVENTS
           </h2>
           <motion.div
@@ -288,8 +290,8 @@ export default function CarpeDiemPage() {
 
       {/* ---------------- LAST SECTION (TABLA) ---------------- */}
       <section className="flex min-h-[50vh] w-full flex-col items-center justify-center px-4 py-20 pb-32">
-        <div className="mb-12 flex flex-col items-center text-center">
-          {/* Text Block */}
+        {/* Text Block with increased z-index for visibility */}
+        <div className="relative z-10 mb-12 flex flex-col items-center text-center">
           <div className="flex flex-row items-baseline justify-center gap-3 md:gap-4">
             <span className="font-hitchcut text-2xl font-bold tracking-wide text-black md:text-4xl">
               That&apos;s the
