@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 import Link from "next/link";
+import EventTimeline from "~/components/Carpediem/EventTimeline";
 
 export default function CarpeDiemPage() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -67,7 +68,7 @@ export default function CarpeDiemPage() {
         <motion.div
           className="relative z-20 h-[80vw] max-h-[80vh] w-[80vw] md:h-[50vw] md:w-[35vw]"
           initial={{ x: 0, scale: 1 }}
-          whileHover={{ x: -15, scale: 1.05 }}
+          whileHover={{ x: 15, scale: 1.05 }}
           transition={{ type: "tween", ease: "easeOut", duration: 0.3 }}
         >
           <Image
@@ -161,9 +162,9 @@ export default function CarpeDiemPage() {
           <div className="relative flex h-[400px] w-full items-center justify-center md:h-[500px] lg:h-[600px]">
             {/* Heart - Left/Back */}
             <motion.div
-              className="absolute bottom-[10%] left-[5%] z-10 h-48 w-48 md:left-[10%] md:h-72 md:w-72 lg:h-80 lg:w-80"
+              className="absolute bottom-[10%] left-[5%] z-10 h-48 w-48 rotate-[-12deg] md:left-[10%] md:h-72 md:w-72 lg:h-80 lg:w-80"
               initial={{ x: 0, scale: 1 }}
-              whileHover={{ x: -15, scale: 1.05 }}
+              whileHover={{ x: 15, scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               <Image
@@ -176,9 +177,9 @@ export default function CarpeDiemPage() {
 
             {/* Drum - Right/Front */}
             <motion.div
-              className="absolute top-[10%] right-[5%] z-0 h-56 w-56 md:right-[10%] md:h-80 md:w-80 lg:h-96 lg:w-96"
+              className="absolute top-[10%] right-[5%] z-0 h-56 w-56 rotate-[12deg] md:right-[10%] md:h-80 md:w-80 lg:h-96 lg:w-96"
               initial={{ x: 0, scale: 1 }}
-              whileHover={{ x: -15, scale: 1.05 }}
+              whileHover={{ x: 15, scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300, damping: 20 }}
             >
               <Image
@@ -212,16 +213,7 @@ export default function CarpeDiemPage() {
               msOverflowStyle: "none",
             }}
           >
-            {/* Container for the long horizontal image */}
-            <div className="h-[60vh] min-h-[500px] w-max">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src="/CARPEDIEM/123image.webp"
-                alt="Events Timeline"
-                className="h-full w-auto max-w-none object-contain"
-                draggable={false}
-              />
-            </div>
+            <EventTimeline />
           </div>
 
           {/* 3 Dots Indicator */}
@@ -229,7 +221,9 @@ export default function CarpeDiemPage() {
             {[0, 1, 2].map((i) => (
               <div
                 key={i}
-                className={`h-4 w-4 rounded-full border-2 border-black transition-all duration-300 ${activeDot === i ? "scale-125 bg-black" : "bg-transparent"}`}
+                className={`h-4 w-4 rounded-full border-2 border-black transition-all duration-300 ${
+                  activeDot === i ? "scale-125 bg-[#8B2323]" : "bg-transparent"
+                }`}
               />
             ))}
           </div>
@@ -254,10 +248,19 @@ export default function CarpeDiemPage() {
 
       {/* ---------------- LAST SECTION (TABLA) ---------------- */}
       <section className="flex min-h-[50vh] w-full flex-col items-center justify-center px-4 py-20 pb-32">
+        <div className="mb-12 flex flex-col items-center text-center">
+          <span className="font-hitchcut text-3xl font-bold tracking-wide md:text-5xl">
+            That&apos;s the
+          </span>
+          <span className="font-hitchcut mt-2 text-[5rem] leading-[0.85] font-black text-[#8B2323] uppercase md:text-[8rem]">
+            NIGHT
+          </span>
+        </div>
+
         <motion.div
           className="relative h-72 w-72 md:h-[32rem] md:w-[32rem]"
           initial={{ x: 0, scale: 1 }}
-          whileHover={{ x: -15, scale: 1.05 }}
+          whileHover={{ x: 15, scale: 1.05 }}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}
         >
           <Image

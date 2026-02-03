@@ -2,6 +2,7 @@ import "~/styles/globals.css";
 import "~/styles/landing.css";
 import { type Metadata } from "next";
 import localfont from "next/font/local";
+import { Oxanium } from "next/font/google";
 import MusicButton from "~/components/MusicButton";
 import GlobalNavbar from "~/components/GlobalNavbar";
 import { Toaster } from "sonner";
@@ -54,11 +55,17 @@ const hitchcut = localfont({
   display: "swap",
 });
 
+const oxanium = Oxanium({
+  subsets: ["latin"],
+  variable: "--font-oxanium",
+  display: "swap",
+});
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={hitchcut.variable}>
+    <html lang="en" className={`${hitchcut.variable} ${oxanium.variable}`}>
       <body className="relative">
         <MusicButton className="fixed right-8 bottom-4 z-[100]" />
         <Toaster />
