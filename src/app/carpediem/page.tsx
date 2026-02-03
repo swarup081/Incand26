@@ -4,7 +4,6 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { useRef, useState } from "react";
 import Link from "next/link";
-import EventTimeline from "~/components/Carpediem/EventTimeline";
 
 export default function CarpeDiemPage() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -56,8 +55,6 @@ export default function CarpeDiemPage() {
       {/* ---------------- HERO SECTION ---------------- */}
       <section className="relative flex min-h-screen w-full flex-col items-center justify-center overflow-hidden px-4 pt-20 pb-10">
         {/* CARPE DIEM Title - Layer 0 (Behind Figure) */}
-        {/* Using a very large text size to match the 'Massive' look.
-            The visual shows 'CARP' and 'DIEM' behind the figure. */}
         <div className="pointer-events-none absolute top-1/2 left-1/2 z-10 flex w-full -translate-x-1/2 -translate-y-[60%] items-center justify-center text-center select-none">
           <span className="font-hitchcut text-[12vw] leading-none font-black tracking-widest text-[#1a1a1a] opacity-90">
             CARPE DIEM
@@ -98,7 +95,7 @@ export default function CarpeDiemPage() {
 
         {/* Right Content (Desktop) */}
         <div className="absolute top-1/2 right-[8%] z-30 hidden max-w-xs -translate-y-1/2 flex-col text-right lg:flex">
-          <h3 className="font-serif text-2xl leading-tight font-bold">
+          <h3 className="font-oxanium text-2xl leading-tight font-bold">
             CARPE DIEM is the
             <br />
             most dazzling chapter
@@ -120,7 +117,7 @@ export default function CarpeDiemPage() {
           >
             Scroll down
           </button>
-          <h3 className="max-w-[80%] font-serif text-xl leading-tight font-bold">
+          <h3 className="max-w-[80%] font-oxanium text-xl leading-tight font-bold">
             CARPE DIEM is the most dazzling chapter of incandescence.
           </h3>
         </div>
@@ -207,13 +204,22 @@ export default function CarpeDiemPage() {
           <div
             ref={scrollContainerRef}
             onScroll={handleScroll}
-            className="hide-scrollbar w-full cursor-grab overflow-x-auto overflow-y-hidden active:cursor-grabbing"
+            className="hide-scrollbar w-full cursor-grab overflow-x-auto overflow-y-hidden px-20 active:cursor-grabbing"
             style={{
               scrollbarWidth: "none",
               msOverflowStyle: "none",
             }}
           >
-            <EventTimeline />
+             {/* Replaced coded component with Image as per strict visual requirement */}
+             <div className="relative h-[600px] w-[4900px]">
+              <Image
+                src="/CARPEDIEM/123image.webp"
+                alt="Events Timeline"
+                fill
+                className="object-contain object-left"
+                priority
+              />
+            </div>
           </div>
 
           {/* 3 Dots Indicator */}
