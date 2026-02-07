@@ -5,9 +5,18 @@ import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 
 const BACKGROUNDS = [
-  "/CARPEDIEM/1.png",
-  "/CARPEDIEM/2.png",
-  "/CARPEDIEM/3.png",
+  {
+    desktop: "/CARPEDIEM/1.png",
+    mobile: "/CARPEDIEM/mobile1.png",
+  },
+  {
+    desktop: "/CARPEDIEM/2.png",
+    mobile: "/CARPEDIEM/mobile1.png", // Placeholder using same image
+  },
+  {
+    desktop: "/CARPEDIEM/3.png",
+    mobile: "/CARPEDIEM/mobile1.png", // Placeholder using same image
+  },
 ];
 
 const ARTISTS = [
@@ -56,8 +65,9 @@ export default function CarpediemArtistPage() {
   }, []);
 
   const currentArtist = ARTISTS[currentIndex % ARTISTS.length];
+  const currentBg = BACKGROUNDS[currentIndex];
 
-  if (!currentArtist || !BACKGROUNDS[currentIndex]) return null;
+  if (!currentArtist || !currentBg) return null;
 
   return (
     <div className="relative w-full h-[100dvh] overflow-hidden bg-black font-hitchcut">
@@ -65,20 +75,33 @@ export default function CarpediemArtistPage() {
       <div className="absolute inset-0 z-0">
         <AnimatePresence mode="wait">
           <motion.div
-            key={currentIndex}
+            key={`bg-${currentIndex}`}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
             className="absolute inset-0"
           >
-             <Image
-              src={BACKGROUNDS[currentIndex]!}
-              alt="Background"
-              fill
-              className="object-cover"
-              priority
-            />
+             {/* Desktop Background */}
+             <div className="hidden lg:block absolute inset-0">
+                <Image
+                  src={currentBg.desktop}
+                  alt="Background"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+             </div>
+             {/* Mobile Background */}
+             <div className="block lg:hidden absolute inset-0">
+                <Image
+                  src={currentBg.mobile}
+                  alt="Background"
+                  fill
+                  className="object-cover"
+                  priority
+                />
+             </div>
           </motion.div>
         </AnimatePresence>
       </div>
@@ -87,16 +110,12 @@ export default function CarpediemArtistPage() {
       <div className="relative z-10 flex flex-col items-center justify-center h-full w-full p-4 md:p-8">
 
             {/* Desktop Layout: Main Container */}
-             <div className="hidden lg:flex w-full max-w-7xl h-[80vh] items-center justify-between relative px-4">
-                {/* Left Side: INCAND 26 Text (Vertical) */}
-                <div className="flex flex-col justify-center h-full absolute left-0 top-0 bottom-0 pointer-events-none z-10 pl-2">
-                     <h1 className="text-6xl tracking-[0.2em] text-[#E69D16] font-bold drop-shadow-lg" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}>
-                        INCAND 26
-                     </h1>
-                </div>
+             <div className="hidden lg:flex w-full max-w-7xl h-[85vh] items-center justify-between relative px-4">
+                {/* Left Side: Space for background text */}
+                <div className="w-[15%] h-full"></div>
 
                 {/* Center: DJ Card */}
-                <div className="relative w-[65%] h-[75%] mx-auto bg-black/40 border-4 border-[#E69D16] rounded-xl overflow-hidden flex items-center justify-center shadow-2xl backdrop-blur-sm">
+                <div className="relative w-[65%] h-[80%] mx-auto bg-black/40 border-4 border-[#E69D16] rounded-xl overflow-hidden flex items-center justify-center shadow-2xl backdrop-blur-sm">
 
                     {/* Visualizer (Song Bar) */}
                     <AnimatePresence>
@@ -107,7 +126,7 @@ export default function CarpediemArtistPage() {
                                 exit={{ opacity: 0 }}
                                 className="absolute top-[20%] left-0 right-0 flex justify-center items-end gap-1 h-32 z-0 pointer-events-none"
                              >
-                                {[...Array(25)].map((_, i) => (
+                                {Array.from({ length: 25 }).map((_, i) => (
                                     <motion.div
                                         key={i}
                                         className="w-2 bg-white/60 rounded-t-sm shadow-[0_0_10px_rgba(255,255,255,0.5)]"
@@ -160,31 +179,36 @@ export default function CarpediemArtistPage() {
                     </AnimatePresence>
                 </div>
 
-                  {/* Right Side: DJ NIGHT Text (Vertical) */}
-                <div className="flex flex-col justify-center h-full absolute right-0 top-0 bottom-0 pointer-events-none z-10 pr-2">
-                     <h1 className="text-6xl tracking-[0.2em] text-[#3e2d26] font-bold drop-shadow-lg" style={{ writingMode: 'vertical-rl', textOrientation: 'mixed' }}>
-                        DJ NIGHT
-                     </h1>
+                {/* Right Side: Space for background text */}
+                <div className="w-[15%] h-full"></div>
+
+                {/* Controls Container - Absolute Bottom */}
+                <div className="absolute bottom-0 w-full flex justify-center items-center gap-8 pb-4">
+
+                     {/* Previous Button */}
+                     <button
+                        onClick={handlePrevious}
+                        className="bg-[#E69D16] text-black px-10 py-3 rounded-sm font-bold hover:bg-[#ffb732] transition-colors shadow-lg active:scale-95 border-2 border-black"
+                     >
+                        PREVIOUS
+                    </button>
+
+                    {/* Play Button */}
+                    <div className="w-16 h-16 rounded-full border-4 border-[#E69D16] bg-black/50 flex items-center justify-center cursor-pointer hover:scale-105 transition-transform backdrop-blur-sm shadow-[0_0_15px_rgba(230,157,22,0.5)]">
+                         <div className="w-0 h-0 border-l-[20px] border-l-[#E69D16] border-y-[12px] border-y-transparent ml-2"></div>
+                    </div>
+
+                    {/* Next Button */}
+                     <button
+                        onClick={handleNext}
+                        className="bg-[#E69D16] text-black px-14 py-3 rounded-sm font-bold hover:bg-[#ffb732] transition-colors shadow-lg active:scale-95 border-2 border-black"
+                     >
+                        NEXT
+                    </button>
                 </div>
 
-                {/* Navigation Buttons */}
-                 <button
-                    onClick={handlePrevious}
-                    className="absolute bottom-6 left-[20%] bg-[#E69D16] text-black px-10 py-3 rounded-sm font-bold hover:bg-[#ffb732] transition-colors shadow-lg active:scale-95"
-                    style={{ clipPath: "polygon(10% 0, 100% 0, 90% 100%, 0% 100%)" }}
-                 >
-                    PREVIOUS
-                </button>
-                 <button
-                    onClick={handleNext}
-                    className="absolute bottom-6 right-[20%] bg-[#E69D16] text-black px-14 py-3 rounded-sm font-bold hover:bg-[#ffb732] transition-colors shadow-lg active:scale-95"
-                     style={{ clipPath: "polygon(10% 0, 100% 0, 90% 100%, 0% 100%)" }}
-                 >
-                    NEXT
-                </button>
-
-                 {/* Center Bottom Label */}
-                 <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-[#E69D16] px-12 py-3 rounded-sm text-black font-bold border-2 border-black shadow-lg">
+                 {/* Day Label - Positioned above controls */}
+                 <div className="absolute bottom-24 left-1/2 -translate-x-1/2 bg-[#E69D16] px-12 py-3 rounded-sm text-black font-bold border-2 border-black shadow-lg z-20">
                      CARPE DIEM DAY {currentIndex + 1}
                  </div>
 
@@ -192,14 +216,13 @@ export default function CarpediemArtistPage() {
 
 
             {/* Mobile/Tablet Layout (Anything smaller than lg) */}
-            <div className="flex lg:hidden flex-col w-full h-full justify-between py-6 px-4 pb-12">
+            <div className="flex lg:hidden flex-col w-full h-full justify-between py-6 px-4 pb-12 relative">
 
-                 {/* INCAND 26 (Top Title) */}
-                  <h1 className="text-5xl text-center text-[#3e2d26] font-extrabold mb-2 mt-4 tracking-wide drop-shadow-sm">INCAND 26</h1>
-
+                 {/* Top Spacer for background text */}
+                 <div className="h-16 w-full"></div>
 
                 {/* DJ Card Mobile */}
-                 <div className="relative w-full flex-grow max-h-[55vh] bg-black/30 border-2 border-[#E69D16] rounded-lg overflow-hidden mb-4 shadow-lg">
+                 <div className="relative w-full flex-grow max-h-[55vh] bg-black/30 border-2 border-[#E69D16] rounded-lg overflow-hidden mb-4 shadow-lg backdrop-blur-sm">
                       {/* Visualizer (Mobile) */}
                        <AnimatePresence>
                         {showVisualizer && (
@@ -209,7 +232,7 @@ export default function CarpediemArtistPage() {
                                 exit={{ opacity: 0 }}
                                 className="absolute top-[20%] left-0 right-0 flex justify-center items-end gap-1 h-20 z-0 pointer-events-none"
                              >
-                                {[...Array(18)].map((_, i) => (
+                                {Array.from({ length: 18 }).map((_, i) => (
                                     <motion.div
                                         key={i}
                                         className="w-1.5 bg-white/70 rounded-t-sm shadow-[0_0_8px_rgba(255,255,255,0.4)]"
@@ -261,32 +284,31 @@ export default function CarpediemArtistPage() {
                  </div>
 
                   {/* Center Label Mobile */}
-                  <div className="bg-[#E69D16] w-full max-w-[280px] py-3 mx-auto rounded-sm text-black font-bold border-2 border-black mb-2 text-center shadow-md text-lg">
+                  <div className="bg-[#E69D16] w-full max-w-[280px] py-3 mx-auto rounded-sm text-black font-bold border-2 border-black mb-4 text-center shadow-md text-lg">
                      CARPE DIEM DAY {currentIndex + 1}
                  </div>
 
-                  <h1 className="text-5xl text-center text-[#3e2d26] font-extrabold mb-6 tracking-wide drop-shadow-sm">DJ NIGHT</h1>
+                  {/* Bottom Spacer for background text */}
+                  <div className="h-16 w-full"></div>
 
 
                  {/* Navigation Mobile */}
-                 <div className="flex justify-between items-center w-full">
+                 <div className="flex justify-between items-center w-full mt-auto">
                      <button
                         onClick={handlePrevious}
-                        className="bg-[#E69D16] text-black px-6 py-2 rounded-sm font-bold text-sm"
-                        style={{ clipPath: "polygon(10% 0, 100% 0, 90% 100%, 0% 100%)" }}
+                        className="bg-[#E69D16] text-black px-6 py-2 rounded-sm font-bold text-sm border-2 border-black shadow-md active:scale-95"
                      >
                         PREVIOUS
                     </button>
 
-                     {/* Play Button Placeholder */}
-                    <div className="w-12 h-12 rounded-full border-2 border-[#3e2d26] flex items-center justify-center">
-                         <div className="w-0 h-0 border-l-[10px] border-l-[#3e2d26] border-y-[6px] border-y-transparent ml-1"></div>
+                     {/* Play Button */}
+                    <div className="w-14 h-14 rounded-full border-2 border-[#E69D16] bg-black/50 flex items-center justify-center shadow-[0_0_10px_rgba(230,157,22,0.4)] backdrop-blur-sm">
+                         <div className="w-0 h-0 border-l-[14px] border-l-[#E69D16] border-y-[8px] border-y-transparent ml-1"></div>
                     </div>
 
                      <button
                         onClick={handleNext}
-                        className="bg-[#E69D16] text-black px-6 py-2 rounded-sm font-bold text-sm"
-                        style={{ clipPath: "polygon(10% 0, 100% 0, 90% 100%, 0% 100%)" }}
+                        className="bg-[#E69D16] text-black px-6 py-2 rounded-sm font-bold text-sm border-2 border-black shadow-md active:scale-95"
                      >
                         NEXT
                     </button>
